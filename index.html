@@ -1,22 +1,41 @@
 <html>
     <body>
         <canvas id="canvas" width="320" height="200" style="background-color: cornflowerblue;" />
-        <script src="imageLoader.js"></script>
-        <script src="sprite.js"></script>
+        <script src="Tools/imageLoader.js"></script>
+        <script src="Tools/keyListener.js"></script>
+        <script src="Tools/Vec2.js"></script>
+        <script src="Tools/easing.js"></script>
+        <script src="Tools/tools.js"></script>
+        <script src="Tools/manager.js"></script>
 
+        <script src="MovePatterns/BaseMovePattern.js"></script>
+        <script src="MovePatterns/UniformMovePattern.js"></script>
+        <script src="MovePatterns/PlayerControlledMovePattern.js"></script>
+        <script src="MovePatterns/HorizontalLoopingMovePattern.js"></script>
+
+        <script src="Sprites/sprite.js"></script>
+        <script src="Sprites/PlaceHolders/RectangleSprite.js"></script>
+
+        <script src="Sprites/animation.js"></script>
+
+        <script src="Backgrounds/BaseBackgroundLayer.js"></script>
         <script src="Backgrounds/PermanentRollingBackgroundLayer.js"></script>
         <script src="Backgrounds/StaticBackgroundLayer.js"></script>
         <script src="Backgrounds/BackgroundManager.js"></script>
 
+        <script src="Waves/BaseItemWave.js"></script>
         <script src="Waves/SingleItemWave.js"></script>
         <script src="Waves/SequenceItemWave.js"></script>
         <script src="Waves/WaveManager.js"></script>
 
-        <script src="animation.js"></script>
-        <script src="enemy.js"></script>
-        <script src="player.js"></script>
-        <script src="keyListener.js"></script>
-        <script src="scene.js"></script>
-        <script src="game.js"></script>
-        <script src="main.js"></script>
+        <script src="Entities/Ship.js"></script>
+        <script src="Entities/ShipFactory.js"></script>
+
+        <script src="Scenes/BaseScene.js"></script>
+        <script src="Scenes/PlayScene.js"></script>
+        <script src="Scenes/SamplePlayScene.js"></script>
+        <script src="Scenes/SceneManager.js"></script>
+
+        <script src="Games/game.js"></script>
+        <script src="Games/main.js"></script>
 </html>

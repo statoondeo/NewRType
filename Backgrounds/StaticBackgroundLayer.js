@@ -1,13 +1,13 @@
-class StaticBackgroundLayer {
+class StaticBackgroundLayer extends BaseBackgroundLayer {
     constructor(sprite) {
-        this.sprite = sprite;
-        this.sprite.position = { x : 0, y : 0 };
+        super(sprite);
     }
 
     update(dt) {
+        super.update(dt);
     }
 
     draw(context) {
-        this.sprite.draw(context);
+        super.draw(context);
     }
 }

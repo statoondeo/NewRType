@@ -1,15 +1,15 @@
 class Sprite {
-    constructor(image, initialPosition = { x : 0, y : 0 }) {
+    constructor(image, initialPosition = new Vec2()) {
         this.image = image;
         this.position = initialPosition;
 
         // Pour la gestion des spriteSheet
         this.currentFrame = 0;
         this.spriteSheet = false;
-        this.size = { x : this.image.width, y : this.image.height };
+        this.size = new Vec2(this.image.width, this.image.height);
 
         // Gestion du zoom
-        this.scale = { x : 1, y : 1 };
+        this.scale = new Vec2(1, 1);
 
         // Gestion des animations
         this.animations = [];
@@ -20,8 +20,8 @@ class Sprite {
         let newSprite = new Sprite(this.image, this.position);
         newSprite.currentFrame = this.currentFrame;
         newSprite.spriteSheet = this.spriteSheet;
-        newSprite.size = this.size;
-        newSprite.scale = this.scale;
+        newSprite.size = this.size.getClone();
+        newSprite.scale = this.scale.getClone();
         newSprite.animations = [];
         this.animations.forEach(animation => {
             newSprite.animations.push(animation.getClone());
@@ -36,11 +36,11 @@ class Sprite {
     }
 
     getPosition() {
-        return this.position;
+        return this.position.getClone();
     }
 
     getSize() {
-        return this.size;
+        return this.size.getClone();
     }
 
     addAnimation(animation) {
@@ -65,7 +65,7 @@ class Sprite {
         this.size = size;
     }
 
-    setScale(scale = { x : 0, y : 0 }) {
+    setScale(scale = new Vec2(1, 1)) {
         this.scale = scale;
     }
 

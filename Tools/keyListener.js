@@ -1,6 +1,6 @@
 class KeyListener {
-    constructor() {
-        this.keyStates = []
+    constructor(document) {
+        this.keyStates = [];
     }
 
     getKeyStatus(key) {

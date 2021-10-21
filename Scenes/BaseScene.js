@@ -1,14 +1,28 @@
-class Scene {
+class BaseScene {
     constructor(backgroundManager, waveManager, sceneStart, player) {
         this.backgroundManager = backgroundManager;
         this.waveManager = waveManager;
         this.player = player;
         this.currentStep = sceneStart;
         this.baseSpeed = 60;
+        this.nextScene = null;
+        this.isEnded = false;
     }
 
     start() {
         this.suscribe(this.backgroundManager);
+    }
+
+    isEnded() {
+        return this.isEnded;
+    }
+
+    setNext(nextScene) {
+        this.nextScene = nextScene;
+    }
+
+    getNext() {
+        return this.nextScene;
     }
 
     update(dt) {

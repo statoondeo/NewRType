@@ -1,12 +1,12 @@
-class PermanentRollingBackgroundLayer {
+class PermanentRollingBackgroundLayer extends BaseBackgroundLayer {
     constructor(sprite, speed) {
-        this.sprite = sprite;
-        this.sprite.position = { x : 0, y : 0 };
+        super(sprite);
         this.speed = speed;
         this.currentX = 0;
     }
 
     update(dt) {
+        super.update(dt);
         this.currentX -= this.speed * dt;
         if (this.currentX <= (-this.sprite.scale.x * this.sprite.size.x)) {
             this.currentX = 0;

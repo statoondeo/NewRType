@@ -1,21 +1,16 @@
 class WaveManager {
     constructor() {
-        this.waves = [];
+        this.waves = new Manager();
     }
 
     addWave(wave) {
-        this.waves.push(wave);
-    }
-
-    deleteWave(wave) {
-        let index = this.waves.indexOf(wave);
-        this.waves.splice(index, 1);        
+        this.waves.addItem(wave);
     }
 
     update(dt, currentStep) {
         // On fait avancer chaque vague ennemie, et on enregistre les vagues terminées pour les supprimer ensuite
         let wavesToKill = []
-        this.waves.forEach(wave => {
+        this.waves.items.forEach(wave => {
             wave.update(dt, currentStep);
             if (wave.ended) {
                 wavesToKill.push(wave);
@@ -24,13 +19,12 @@ class WaveManager {
 
         // Suppression des vagues terminées
         wavesToKill.forEach(wave => {
-            this.deleteWave(wave);
+            this.waves.deleteItem(wave);
         });
-
     }
 
     draw(context) {
-        this.waves.forEach(wave => {
+        this.waves.items.forEach(wave => {
             wave.draw(context);
         });
     }
