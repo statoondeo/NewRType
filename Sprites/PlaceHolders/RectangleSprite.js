@@ -1,5 +1,6 @@
-class RectangleSprite {
+class RectangleSprite extends Sprite {
     constructor(color, position = new Vec2(), size = new Vec2(20, 20)) {
+        super(null, position)
         this.color = color;
         this.position = position;
 
@@ -14,35 +15,6 @@ class RectangleSprite {
 
     getClone() {
         return new RectangleSprite(this.color, this.position.getClone(), this.size.getClone());
-    }
-
-    setPosition(position) {
-        this.position = position;
-    }
-
-    getPosition() {
-        return this.position.getClone();
-    }
-
-    getSize() {
-        return this.size.getClone();
-    }
-
-    addAnimation(animation) {
-    }
-
-    startAnimation(name) {
-    }
-
-    setTileSheet(size) {
-        this.size = size;
-    }
-
-    setScale(scale = new Vec2(1, 1)) {
-        this.scale = scale;
-    }
-
-    update(dt) {
     }
 
     draw(context) {

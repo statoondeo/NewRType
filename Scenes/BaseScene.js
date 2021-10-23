@@ -1,10 +1,14 @@
 class BaseScene {
-    constructor(backgroundManager, waveManager, sceneStart, player) {
+    constructor(foregroundManager, backgroundManager, waveManager, sceneStart, player) {
+        this.foregroundManager = foregroundManager;
         this.backgroundManager = backgroundManager;
         this.waveManager = waveManager;
-        this.player = player;
+        this.player = player;     
         this.currentStep = sceneStart;
-        this.baseSpeed = 60;
+        this.waveManager.currentStep = this.currentStep;
+        this.foregroundManager.currentStep = this.currentStep;
+        this.backgroundManager.currentStep = this.currentStep;
+        this.baseSpeed = LayerManager.BASE_LAYER_SPEED;
         this.nextScene = null;
         this.isEnded = false;
     }
@@ -30,10 +34,13 @@ class BaseScene {
         this.currentStep += this.baseSpeed * dt;
 
         // On fait avancer le background
-        this.backgroundManager.update(dt, this.currentStep);
+        this.backgroundManager.update(dt);
+
+        // On fait avancer le background
+        this.foregroundManager.update(dt);
 
         // On fait avancer les vagues d'ennemis
-        this.waveManager.update(dt, this.currentStep);
+        this.waveManager.update(dt);
 
         // On met à jour le vaisseau du joueur
         this.player.update(dt);
@@ -48,5 +55,8 @@ class BaseScene {
 
         // On dessine le vaisseau du joueur
         this.player.draw(context);
+
+        // On dessine le backgroundManager
+        this.foregroundManager.draw(context);
     }
 }

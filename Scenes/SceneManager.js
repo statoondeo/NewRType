@@ -1,15 +1,15 @@
-class SceneManager {
+class SceneManager extends Manager {
     constructor() {
-        this.scenes = new Manager();
+        super();
         this.currentScene = null;
     }
 
     addScene(Scene) {
-        this.scenes.addItem(Scene);
+        this.addItem(Scene);
     }
 
     setCurrent(scene) {
-        let index = this.scenes.items.indexOf(scene);
+        let index = this.items.indexOf(scene);
         if (index != -1) {
             this.currentScene = scene;
         }

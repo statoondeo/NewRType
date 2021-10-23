@@ -6,7 +6,7 @@ class Sprite {
         // Pour la gestion des spriteSheet
         this.currentFrame = 0;
         this.spriteSheet = false;
-        this.size = new Vec2(this.image.width, this.image.height);
+        this.size = this.image == null ? new Vec2() : new Vec2(this.image.width, this.image.height);
 
         // Gestion du zoom
         this.scale = new Vec2(1, 1);
@@ -17,7 +17,7 @@ class Sprite {
     }
 
     getClone() {
-        let newSprite = new Sprite(this.image, this.position);
+        let newSprite = new Sprite(this.image, this.position.getClone());
         newSprite.currentFrame = this.currentFrame;
         newSprite.spriteSheet = this.spriteSheet;
         newSprite.size = this.size.getClone();

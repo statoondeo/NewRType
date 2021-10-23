@@ -1,11 +1,11 @@
-class baseMovePattern {
+class BaseMovePattern {
     constructor(initialVector) {
         this.initialVector = initialVector;
         this.vector = new Vec2();
     }
 
     getClone() {
-        return (new baseMovePattern(this.initialVector));
+        return (new BaseMovePattern(this.initialVector));
     }
 
     update(dt) {

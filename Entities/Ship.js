@@ -1,22 +1,27 @@
 class Ship {
-    constructor(sprite, movePattern) {
+    constructor(sprite) {
         this.sprite = sprite;
-        this.movePattern = movePattern;
+        this.movePattern = null;
     }
 
     getClone() {
-        return (new Ship(this.sprite.getClone(), this.movePattern.getClone()));
+        return (new Ship(this.sprite.getClone()));
+    }
+
+    setMovepattern(movePattern) {
+        this.movePattern = movePattern;
     }
 
     update(dt) {
         this.sprite.update(dt);
-        this.movePattern.update(dt);
-
-        let position = this.sprite.getPosition();
-        let vector = this.movePattern.getVector();
-        position.x += vector.x;
-        position.y += vector.y;
-        this.setPosition(position);
+        if (null != this.movePattern) {
+            this.movePattern.update(dt);
+            let position = this.sprite.getPosition();
+            let vector = this.movePattern.getVector();
+            position.x += vector.x;
+            position.y += vector.y;
+            this.setPosition(position);
+        }
     }
 
     draw(context) {

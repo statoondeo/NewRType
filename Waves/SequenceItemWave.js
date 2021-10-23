@@ -1,5 +1,5 @@
 class SequenceItemWave extends BaseItemWave {
-    constructor(screen, sprite, startAt, appearPoint, spawnSpeed, spawnNumber) {
-        super(screen, sprite, startAt, appearPoint, spawnNumber, spawnSpeed);
+    constructor(sprite, movePattern, startAt, appearPoint, spawnSpeed, spawnNumber) {
+        super(sprite, movePattern, startAt, appearPoint, spawnNumber, spawnSpeed);
     }
 }

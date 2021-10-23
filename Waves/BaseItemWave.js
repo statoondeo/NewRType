@@ -1,8 +1,8 @@
-class BaseItemWave {
-    constructor(screen, sprite, startAt, appearPoint, spawnNumber, spawnSpeed) {
-        this.screen = screen;
-        this.sprite = sprite;
-        this.sprites = new Manager();
+class BaseItemWave extends Manager {
+    constructor(ship, movePattern, startAt, appearPoint, spawnNumber, spawnSpeed) {
+        super();
+        this.ship = ship;
+        this.movePattern = movePattern;
         this.startAt = startAt;
         this.appearPoint = appearPoint;
         this.spawnNumber = spawnNumber;
@@ -10,12 +10,14 @@ class BaseItemWave {
         this.spawnTime = this.spawnSpeed;
         this.started = false;
         this.ended = false;
+        this.currentStep = 0;
     }
 
     spawn() {
-        let newSprite = this.sprite.getClone();
-        newSprite.setPosition(this.appearPoint.getClone());
-        this.sprites.addItem(newSprite);
+        let newShip = this.ship.getClone();
+        newShip.movePattern = this.movePattern.getClone();
+        newShip.setPosition(this.appearPoint.getClone());
+        this.addItem(newShip);
         this.spawnNumber--;
         this.spawnTime = this.spawnSpeed;
     }
@@ -28,8 +30,8 @@ class BaseItemWave {
         return this.ended;
     }
 
-    update(dt, currentStep) {
-        if (!this.started && currentStep >= this.startAt) {
+    update(dt) {
+        if (!this.started && this.currentStep >= this.startAt) {
             this.started = true;
             this.spawn();
         }
@@ -46,27 +48,27 @@ class BaseItemWave {
 
         // Update des sprites, et si des sprites sont sortis de l'écran, on les supprime
         let spritesToKill = [];
-        this.sprites.items.forEach(sprite => {
+        this.items.forEach(sprite => {
             sprite.update(dt);
             let position = sprite.getPosition();
             let size = sprite.getSize();
-            if (isOutOfScreen(this.screen, position, size)) {
+            if (isOutOfScreen(position, size)) {
                 spritesToKill.push(sprite);
             }                
         });
 
         // Suppression des sprites
         spritesToKill.forEach(sprite => {
-            this.sprites.deleteItem(sprite);
+            this.deleteItem(sprite);
         });
 
         // Si il n'y a plus de sprites en vie, alors la vague est terminée
-        this.ended = this.spawnNumber == 0 && this.sprites.length == 0;
+        this.ended = this.spawnNumber == 0 && this.getLength() == 0;
     }
 
     draw(context) {
         if (this.started && !this.ended) {
-            this.sprites.items.forEach(sprite => {
+            this.items.forEach(sprite => {
                 sprite.draw(context);                
             });
         }

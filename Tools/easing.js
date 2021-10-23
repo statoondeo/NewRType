@@ -1,6 +1,6 @@
 
 function easeInCubic(number) {
-    return number * number * number;
+    return 4 * number * number * number;
 }
 
 function easeOutCubic(number) {
@@ -8,8 +8,12 @@ function easeOutCubic(number) {
 }
 
 function easeInOutCubic(number) {
-    return number < 0.5 ? 4 * number * number * number : 1 - Math.pow(-2 * number + 2, 3) / 2;
+    return number < 0.5 ? easeInCubic(number) : easeOutCubic(number);
 }
+
+// function easeInOutCubic(number) {
+//     return number < 0.5 ? 4 * number * number * number : ;//1 - Math.pow(-2 * number + 2, 3) / 2;
+// }
 
 function easeInCirc(number) {
     return 1 - Math.sqrt(1 - Math.pow(number, 2));

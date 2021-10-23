@@ -1,26 +1,26 @@
-class PlayerControlledMovePattern extends baseMovePattern {
-    constructor(keyListener, baseSpeed) {
+class PlayerControlledMovePattern extends BaseMovePattern {
+    constructor(baseSpeed) {
         super(new Vec2());
-        this.keyListener = keyListener;
         this.baseSpeed = baseSpeed;
     }
 
     getClone() {
-        return (new PlayerControlledMovePattern(this.keyListener, this.baseSpeed));
+        return (new PlayerControlledMovePattern(this.baseSpeed));
     }
 
     update(dt) {
+        let keyListener = ServiceLocator.getService(ServiceLocator.KEYBOARD);
         this.vector.x = this.vector.y = 0;
-        if (this.keyListener.getKeyStatus("ArrowUp") || this.keyListener.getKeyStatus("KeyW")) {
+        if (keyListener.getKeyStatus("ArrowUp") || keyListener.getKeyStatus("KeyW")) {
             this.vector.y = -this.baseSpeed;
         }
-        if (this.keyListener.getKeyStatus("ArrowDown") || this.keyListener.getKeyStatus("KeyS")) {
+        if (keyListener.getKeyStatus("ArrowDown") || keyListener.getKeyStatus("KeyS")) {
             this.vector.y = this.baseSpeed;
         }
-        if (this.keyListener.getKeyStatus("ArrowLeft") || this.keyListener.getKeyStatus("KeyA")) {
+        if (keyListener.getKeyStatus("ArrowLeft") || keyListener.getKeyStatus("KeyA")) {
             this.vector.x = -this.baseSpeed;
         }
-        if (this.keyListener.getKeyStatus("ArrowRight") || this.keyListener.getKeyStatus("KeyD")) {
+        if (keyListener.getKeyStatus("ArrowRight") || keyListener.getKeyStatus("KeyD")) {
             this.vector.x = this.baseSpeed;
         }
     

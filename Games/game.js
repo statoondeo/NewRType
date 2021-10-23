@@ -1,32 +1,30 @@
-let imageLoader = null;
 let gameReady = false;
 let scene = null;
-let mainScreen = null;
-
-// Gestion du clavier
-let keyListener = null;
 
 let sceneManager = null;
 
 function keyDownEventListener(key) {
     key.preventDefault();
-    keyListener.switchOn(key.code);
+    ServiceLocator.getService(ServiceLocator.KEYBOARD).switchOn(key.code);
 }
 
 function keyUpEventListener(key) {
     key.preventDefault();
-    keyListener.switchOff(key.code);
+    ServiceLocator.getService(ServiceLocator.KEYBOARD).switchOff(key.code);
 }
 
 function load(screen) {
-    keyListener = new KeyListener();
+    let keyListener = new KeyListener();
     document.addEventListener("keydown", keyDownEventListener, false);
     document.addEventListener("keyup", keyUpEventListener, false);
 
-    mainScreen = screen
     // this.canvas.scale(4, 4);
 
-    imageLoader = new ImageLoader();
+    let imageLoader = new ImageLoader();
+    ServiceLocator.registerService(ServiceLocator.SCREEN, screen);
+    ServiceLocator.registerService(ServiceLocator.RESOURCE, imageLoader);
+    ServiceLocator.registerService(ServiceLocator.KEYBOARD, keyListener);
+    
     imageLoader.add("images/player.png");
     imageLoader.add("images/enemyred.png");
     imageLoader.add("images/background.png");
@@ -36,7 +34,7 @@ function load(screen) {
 
 function startGame() {
     sceneManager = new SceneManager();
-    let currentScene = SamplePlayScene.createInstance(imageLoader, mainScreen)
+    let currentScene = SamplePlayScene.createInstance()
     sceneManager.addScene(currentScene);
     sceneManager.setCurrent(currentScene);
 
@@ -54,7 +52,7 @@ function draw(context) {
         context.fillStyle = "rgb(255, 255, 255)";
         context.fillRect(1, 1, 400, 100);
         context.fillStyle = "rgb(0, 255, 0)";
-        context.fillRect(1, 1, 400 * imageLoader.getLoadedRatio(), 100);
+        context.fillRect(1, 1, 400 * ServiceLocator.getService(ServiceLocator.RESOURCE).getLoadedRatio(), 100);
         return;
     }
 

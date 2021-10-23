@@ -1,4 +1,4 @@
-class UniformMovePattern extends baseMovePattern {
+class UniformMovePattern extends BaseMovePattern {
     constructor(initialVector) {
         super(initialVector);
     }
