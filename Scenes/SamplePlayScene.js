@@ -1,34 +1,94 @@
 class SamplePlayScene extends BaseScene {
-    constructor(foregroundManager, backgroundManager, waveManager, sceneStart, player) {
-        super(foregroundManager, backgroundManager, waveManager, sceneStart, player)
+    constructor(scheduler) {
+        super(scheduler)
     }
 
     static createInstance() {
-        let imageLoader = ServiceLocator.getService(ServiceLocator.RESOURCE);
-        let mainScreen = ServiceLocator.getService(ServiceLocator.SCREEN);
+        let resources = ServiceLocator.getService(ServiceLocator.RESOURCE);
+        let screen = ServiceLocator.getService(ServiceLocator.SCREEN);
 
-        // Gestion du background
-        let backgroundManager = new LayerManager();
-        backgroundManager.addLayer(new RollingLayer(0.25, new Sprite(imageLoader.getImage("images/background.png"))));
-        backgroundManager.addLayer(new RollingLayer(0.5, new Sprite(imageLoader.getImage("images/background2.png"))));
-        let obstacleLayer = new ObstaclesLayer(1);
-        obstacleLayer.addObstacle(new Obstacle(new RectangleSprite("Gray", new Vec2(), new Vec2(320, 30)), 320, new Vec2(320, 0)));
-        obstacleLayer.addObstacle(new Obstacle(new RectangleSprite("Gray", new Vec2(), new Vec2(60, 60)), 450, new Vec2(320, 0)));
-        backgroundManager.addLayer(obstacleLayer);
+        // Métronome de la scène en cours de construction
+        // Ici, le temps sera linéaire (toujours le même) et son avancement sera de 60 pixel par seconde environ
+        let baseSceneSpeed = 60;
+        let scheduler = new LinearScheduler(baseSceneSpeed, screen.width);
+
+        // Scene de jeu proprement dite
+        let scene = new SamplePlayScene(scheduler);
+
+        // Gestion des backgrounds
+        // Le fond est représenté par un rectangle noir qui fait la taille du canvas et il est constant
+        let shape = new RectShape("Black");
+        shape.position = new Vec2(0, 0);
+        shape.size = new Vec2(screen.width, screen.height);
+        scene.addGameObject(new StaticLayer(0, shape));
+        scene.addGameObject(new RollingLayer(0.1, baseSceneSpeed, resources.getImage("images/background.png"), new Vec2(-1, 0)));
+        let layer = new OnceLayer(0.3, baseSceneSpeed, resources.getImage("images/background2.png"), 2000, new Vec2(-1, 0));
+        scheduler.register(layer);
+        scene.addGameObject(layer);
+        layer = new OnceLayer(0.5, baseSceneSpeed, resources.getImage("images/background3.png"), 4000, new Vec2(-1, 0));
+        scheduler.register(layer);
+        scene.addGameObject(layer);
+
+        // Ajout d'obstacles
+        let obstacle = new DecorsGameObject(resources.getImage("images/rock7.png"), 0.7, baseSceneSpeed, 1280, new Vec2(screen.width, 484));
+        scheduler.register(obstacle);
+        scene.addGameObject(obstacle);
+
+        obstacle = new DecorsGameObject(resources.getImage("images/rock11.png"), 0.7, baseSceneSpeed, 2210, new Vec2(screen.width, 393));
+        scheduler.register(obstacle);
+        scene.addGameObject(obstacle);
+        
+        obstacle = new DecorsGameObject(resources.getImage("images/rock8.png"), 0.7, baseSceneSpeed, 2840, new Vec2(screen.width, 456));
+        scheduler.register(obstacle);
+        scene.addGameObject(obstacle);
+        
+        obstacle = new DecorsGameObject(resources.getImage("images/rock10.png"), 0.7, baseSceneSpeed, 3380, new Vec2(screen.width, 403));
+        scheduler.register(obstacle);
+        scene.addGameObject(obstacle);
+                
+        obstacle = new DecorsGameObject(resources.getImage("images/rock9.png"), 0.7, baseSceneSpeed, 3750, new Vec2(screen.width, 628));
+        scheduler.register(obstacle);
+        scene.addGameObject(obstacle);
+
+        // Gestion du terrain du niveau proprement dit
+        let terrain = new DecorsGameObject(resources.getImage("images/tech_bottom_single.png"), 1, baseSceneSpeed, 1600, new Vec2(screen.width, 672));
+        scheduler.register(terrain);
+        scene.addGameObject(terrain);
+
+        terrain = new DecorsGameObject(resources.getImage("images/tech_bottom_end_left.png"), 1, baseSceneSpeed, 1856, new Vec2(screen.width, 672));
+        scheduler.register(terrain);
+        scene.addGameObject(terrain);
+
+        terrain = new DecorsGameObject(resources.getImage("images/tech_bottom_tile.png"), 1, baseSceneSpeed, 1984, new Vec2(screen.width, 672));
+        scheduler.register(terrain);
+        scene.addGameObject(terrain);
+
+        terrain = new DecorsGameObject(resources.getImage("images/tech_bottom_tile2.png"), 1, baseSceneSpeed, 2240, new Vec2(screen.width, 672));
+        scheduler.register(terrain);
+        scene.addGameObject(terrain);
+
+        terrain = new DecorsGameObject(resources.getImage("images/tech_bottom_tile.png"), 1, baseSceneSpeed, 2496, new Vec2(screen.width, 672));
+        scheduler.register(terrain);
+        scene.addGameObject(terrain);
+
+        terrain = new DecorsGameObject(resources.getImage("images/tech_bottom_end_right.png"), 1, baseSceneSpeed, 2752, new Vec2(screen.width, 672));
+        scheduler.register(terrain);
+        scene.addGameObject(terrain);
 
         // Gestion des ennemis
-        let redEnemyShip = ShipFactory.createRedEnemyShip(new Vec2(-1, -1));
+        let starknifeShip = GameObjectFactory.createStarknifeShip();
+        // let reverseStarknifeShip = EntityFactory.createStarknifeShip(new Vec2(-1, -1), true);
 
-        // Gestion des vagues d'ennemis
-        let waveManager = new WaveManager();
-        // waveManager.addWave(new SequenceItemWave(greenEnemyShip, 320, new Vec2(320, -12), 1, 8));
-        // waveManager.addWave(new SingleItemWave(redEnemyShip, new HorizontalLoopingMovePattern(10, new Vec2(-1, -1), 40, 2, redEnemyShip.getSize()), 160, new Vec2(320, 188)));
-        waveManager.addWave(new SequenceItemWave(redEnemyShip, new HorizontalLoopingMovePattern(10, new Vec2(-1, -1), 40, 2, redEnemyShip.getSize()), 320, new Vec2(320, 188), 0.8, 12));
+        // // Gestion des vagues d'ennemis
+        let wave = new TimeSequenceSpawnerGameObject(starknifeShip, new HorizontalLoopingMoveCommand(starknifeShip, new Vec2(-1, 1), 300, 1), 1280, new Vec2(1280, 36), 1, 16);
+        scheduler.register(wave);
+        scene.addGameObject(wave);
+        // waveManager.addWave(new SequenceItemWave(reverseStarknifeShip, new HorizontalLoopingMoveCommand(reverseStarknifeShip, new Vec2(1, -1), 300, 1), 1280, new Vec2(-64, 700), 1, 16));
 
         // Gestion du joueur
-        let playerShip = ShipFactory.createPlayerShip();
-        playerShip.setMovepattern(new PlayerControlledMovePattern(100));
+        scene.addGameObject(GameObjectFactory.createPlayerShip());
 
-        return new SamplePlayScene(new LayerManager(), backgroundManager, waveManager, mainScreen.width, playerShip);
+        // Scene retournée
+        return scene;
     }
 }

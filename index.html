@@ -1,43 +1,52 @@
 <html>
     <body>
-        <canvas id="canvas" width="320" height="200" style="background-color: cornflowerblue;" />
+        <canvas id="canvas" width="1280" height="800" style="background-color: coral;" />
+        <script src="Tools/easing.js"></script>
         <script src="Tools/imageLoader.js"></script>
         <script src="Tools/keyListener.js"></script>
-        <script src="Tools/Vec2.js"></script>
-        <script src="Tools/easing.js"></script>
-        <script src="Tools/tools.js"></script>
+        <script src="Tools/LinearScheduler.js"></script>
         <script src="Tools/manager.js"></script>
+        <script src="Tools/Parameter.js"></script>
+        <script src="Tools/ServiceLocator.js"></script>
+        <script src="Tools/tools.js"></script>
+        <script src="Tools/Vec2.js"></script>
 
-        <script src="Services/ServiceLocator.js"></script>
+        <script src="Colliders/BaseCollideBox.js"></script>
 
-        <script src="MovePatterns/BaseMovePattern.js"></script>
-        <script src="MovePatterns/UniformMovePattern.js"></script>
-        <script src="MovePatterns/PlayerControlledMovePattern.js"></script>
-        <script src="MovePatterns/HorizontalLoopingMovePattern.js"></script>
+        <script src="GameObjects/GameObject.js"></script>
+        <script src="GameObjects/GameObjectFactory.js"></script>
 
-        <script src="Sprites/sprite.js"></script>
-        <script src="Sprites/PlaceHolders/RectangleSprite.js"></script>
+        <script src="GameObjects/Sprites/Animation.js"></script>
+        <script src="GameObjects/Sprites/Sprite.js"></script>
+        <script src="GameObjects/Sprites/AnimatedSprite.js"></script>
 
-        <script src="Sprites/animation.js"></script>
+        <script src="GameObjects/Shapes/BaseShape.js"></script>
+        <script src="GameObjects/Shapes/CircleShape.js"></script>
+        <script src="GameObjects/Shapes/RectShape.js"></script>
 
-        <script src="Layers/BaseLayer.js"></script>
-        <script src="Layers/ObstaclesLayer.js"></script>
-        <script src="Layers/RollingLayer.js"></script>
-        <script src="Layers/StaticLayer.js"></script>
-        <script src="Layers/LayerManager.js"></script>
+        <script src="GameObjects/Layers/OnceLayer.js"></script>
+        <script src="GameObjects/Layers/RollingLayer.js"></script>
+        <script src="GameObjects/Layers/StaticLayer.js"></script>
 
-        <script src="Waves/BaseItemWave.js"></script>
-        <script src="Waves/SingleItemWave.js"></script>
-        <script src="Waves/SequenceItemWave.js"></script>
-        <script src="Waves/WaveManager.js"></script>
+        <script src="GameObjects/Misc/DecorsGameObject.js"></script>
+        <script src="GameObjects/Spawners/TimeSequenceSpawnerGameObject.js"></script>
 
-        <script src="Entities/Ship.js"></script>
-        <script src="Entities/Obstacle.js"></script>
-        <script src="Entities/ShipFactory.js"></script>
+        <script src="Commands/BaseFireCommand.js"></script>
+        <script src="Commands/BaseMoveCommand.js"></script>
+        <script src="Commands/DummyCommand.js"></script>
+        <script src="Commands/GoToSceneCommand.js"></script>
+        <script src="Commands/TestCommand.js"></script>
+        <script src="Commands/HorizontalLoopingMoveCommand.js"></script>
+        <script src="Commands/PlayerControlledMoveCommand.js"></script>
+        <script src="Commands/SampleFireCommand.js"></script>
+        <script src="Commands/UniformMoveCommand.js"></script>
+
+        <script src="Gui/BaseGuiElement.js"></script>
 
         <script src="Scenes/BaseScene.js"></script>
         <script src="Scenes/PlayScene.js"></script>
         <script src="Scenes/SamplePlayScene.js"></script>
+        <script src="Scenes/SampleMenuScene.js"></script>
         <script src="Scenes/SceneManager.js"></script>
 
         <script src="Games/game.js"></script>

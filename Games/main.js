@@ -1,5 +1,5 @@
-let myCanvas = document.getElementById("canvas");
-let context = myCanvas.getContext("2d")
+let canvasInPage = document.getElementById("canvas");
+let drawContext = canvasInPage.getContext("2d")
 let interval;
 let lastTick = 0;
 let fps = 0;
@@ -21,23 +21,23 @@ function run(tick) {
     fps = 1 / dt;
     lastTick = tick;
     update(dt);
-    context.clearRect(0, 0, myCanvas.width, myCanvas.height);
-    draw(context);
+    drawContext.clearRect(0, 0, canvasInPage.width, canvasInPage.height);
+    draw(drawContext);
     showFps();
 }
 
 function showFps() {
-    context.fillStyle = "White";
-    context.font = "normal 12pt Arial";
-    context.fillText(Math.floor(fps) + " fps", 10, 20);
+    drawContext.fillStyle = "White";
+    drawContext.font = "normal 12pt Arial";
+    drawContext.fillText(Math.floor(fps) + " fps", 10, 20);
 }
 
 function init() {
-    context.imageSmoothingEnabled = false;
-    context.msImageSmoothingEnabled = false;
-    context.webkitImageSmoothingEnabled = false;
-    context.mozImageSmoothingEnabled = false;
-    load({ width : myCanvas.width, height : myCanvas.height });
+    drawContext.imageSmoothingEnabled = false;
+    drawContext.msImageSmoothingEnabled = false;
+    drawContext.webkitImageSmoothingEnabled = false;
+    drawContext.mozImageSmoothingEnabled = false;
+    load(canvasInPage);
     requestAnimationFrame(run);
 }
 
