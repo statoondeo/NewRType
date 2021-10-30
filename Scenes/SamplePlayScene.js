@@ -30,60 +30,58 @@ class SamplePlayScene extends BaseScene {
         scene.addGameObject(layer);
 
         // Ajout d'obstacles
-        let obstacle = new DecorsGameObject(resources.getImage("images/rock7.png"), 0.7, baseSceneSpeed, 1280, new Vec2(screen.width, 484));
+        let obstacle = new DecorsGameObject(resources.getImage("images/rock7.png"), 0.7, baseSceneSpeed, 1280, new Vec2(screen.width, 484), false);
         scheduler.register(obstacle);
         scene.addGameObject(obstacle);
 
-        obstacle = new DecorsGameObject(resources.getImage("images/rock11.png"), 0.7, baseSceneSpeed, 2210, new Vec2(screen.width, 393));
+        obstacle = new DecorsGameObject(resources.getImage("images/rock11.png"), 0.7, baseSceneSpeed, 2210, new Vec2(screen.width, 393), false);
         scheduler.register(obstacle);
         scene.addGameObject(obstacle);
         
-        obstacle = new DecorsGameObject(resources.getImage("images/rock8.png"), 0.7, baseSceneSpeed, 2840, new Vec2(screen.width, 456));
+        obstacle = new DecorsGameObject(resources.getImage("images/rock8.png"), 0.7, baseSceneSpeed, 2840, new Vec2(screen.width, 456), false);
         scheduler.register(obstacle);
         scene.addGameObject(obstacle);
         
-        obstacle = new DecorsGameObject(resources.getImage("images/rock10.png"), 0.7, baseSceneSpeed, 3380, new Vec2(screen.width, 403));
+        obstacle = new DecorsGameObject(resources.getImage("images/rock10.png"), 0.7, baseSceneSpeed, 3380, new Vec2(screen.width, 403), false);
         scheduler.register(obstacle);
         scene.addGameObject(obstacle);
                 
-        obstacle = new DecorsGameObject(resources.getImage("images/rock9.png"), 0.7, baseSceneSpeed, 3750, new Vec2(screen.width, 628));
+        obstacle = new DecorsGameObject(resources.getImage("images/rock9.png"), 0.7, baseSceneSpeed, 3750, new Vec2(screen.width, 628), false);
         scheduler.register(obstacle);
         scene.addGameObject(obstacle);
 
         // Gestion du terrain du niveau proprement dit
-        let terrain = new DecorsGameObject(resources.getImage("images/tech_bottom_single.png"), 1, baseSceneSpeed, 1600, new Vec2(screen.width, 672));
+        let terrain = new DecorsGameObject(resources.getImage("images/tech_bottom_single.png"), 1, baseSceneSpeed, 1600, new Vec2(screen.width, 672), true);
         scheduler.register(terrain);
         scene.addGameObject(terrain);
 
-        terrain = new DecorsGameObject(resources.getImage("images/tech_bottom_end_left.png"), 1, baseSceneSpeed, 1856, new Vec2(screen.width, 672));
+        terrain = new DecorsGameObject(resources.getImage("images/tech_bottom_end_left.png"), 1, baseSceneSpeed, 1856, new Vec2(screen.width, 672), true);
         scheduler.register(terrain);
         scene.addGameObject(terrain);
 
-        terrain = new DecorsGameObject(resources.getImage("images/tech_bottom_tile.png"), 1, baseSceneSpeed, 1984, new Vec2(screen.width, 672));
+        terrain = new DecorsGameObject(resources.getImage("images/tech_bottom_tile.png"), 1, baseSceneSpeed, 1984, new Vec2(screen.width, 672), true);
         scheduler.register(terrain);
         scene.addGameObject(terrain);
 
-        terrain = new DecorsGameObject(resources.getImage("images/tech_bottom_tile2.png"), 1, baseSceneSpeed, 2240, new Vec2(screen.width, 672));
+        terrain = new DecorsGameObject(resources.getImage("images/tech_bottom_tile2.png"), 1, baseSceneSpeed, 2240, new Vec2(screen.width, 672), true);
         scheduler.register(terrain);
         scene.addGameObject(terrain);
 
-        terrain = new DecorsGameObject(resources.getImage("images/tech_bottom_tile.png"), 1, baseSceneSpeed, 2496, new Vec2(screen.width, 672));
+        terrain = new DecorsGameObject(resources.getImage("images/tech_bottom_tile.png"), 1, baseSceneSpeed, 2496, new Vec2(screen.width, 672), true);
         scheduler.register(terrain);
         scene.addGameObject(terrain);
 
-        terrain = new DecorsGameObject(resources.getImage("images/tech_bottom_end_right.png"), 1, baseSceneSpeed, 2752, new Vec2(screen.width, 672));
+        terrain = new DecorsGameObject(resources.getImage("images/tech_bottom_end_right.png"), 1, baseSceneSpeed, 2752, new Vec2(screen.width, 672), true);
         scheduler.register(terrain);
         scene.addGameObject(terrain);
 
         // Gestion des ennemis
         let starknifeShip = GameObjectFactory.createStarknifeShip();
-        // let reverseStarknifeShip = EntityFactory.createStarknifeShip(new Vec2(-1, -1), true);
 
         // // Gestion des vagues d'ennemis
         let wave = new TimeSequenceSpawnerGameObject(starknifeShip, new HorizontalLoopingMoveCommand(starknifeShip, new Vec2(-1, 1), 300, 1), 1280, new Vec2(1280, 36), 1, 16);
         scheduler.register(wave);
         scene.addGameObject(wave);
-        // waveManager.addWave(new SequenceItemWave(reverseStarknifeShip, new HorizontalLoopingMoveCommand(reverseStarknifeShip, new Vec2(1, -1), 300, 1), 1280, new Vec2(-64, 700), 1, 16));
 
         // Gestion du joueur
         scene.addGameObject(GameObjectFactory.createPlayerShip());

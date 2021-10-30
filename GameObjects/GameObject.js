@@ -11,7 +11,57 @@ class GameObject {
         this.status = GameObject.ACTIVE;
         this.layer = 1;
         this.id = GameObject.getNewObjectId();
+        this.partition = BaseScene.GAME_PARTITION;
+
     }
+
+    // // Accesseurs de la position (avec mise à jour de la position de la collideBox)
+    // get positionX() {
+    //     return this.position.x;
+    // }
+    // set positionX(x) {
+    //     this.position.x = x;
+    //     this.collideBox.position.x = x;
+    // }
+    // get positionY() {
+    //     return this.position.y;
+    // }
+    // set positionY(y) {
+    //     this.position.y = y;
+    //     this.collideBox.position.y = y;
+    // }
+
+    // // Accesseurs de l'echelle (avec mise à jour de la taille de la collideBox)
+    // get scaleX() {
+    //     return this.scale.x;
+    // }
+    // set scaleX(x) {
+    //     this.scale.x = x;
+    //     this.collideBox.size.x = x * this.originalSize.x;
+    // }
+    // get scaleY() {
+    //     return this.scale.y;
+    // }
+    // set scaleY(y) {
+    //     this.scale.y = y;
+    //     this.collideBox.size.y = y * this.originalSize.y;
+    // }
+    
+    // // Accesseurs de la taille (avec mise à jour de la taille de la collideBox)
+    // get sizeX() {
+    //     return this.size.x;
+    // }
+    // set sizeX(x) {
+    //     this.size.x = x;
+    //     this.collideBox.size.x = x * this.scale.x;
+    // }
+    // get sizeY() {
+    //     return this.size.y;
+    // }k
+    // set sizeY(y) {
+    //     this.size.y = y;
+    //     this.collideBox.size.y = y * this.scale.y;
+    // }
 
     // Gestion d'un identifiant pour reconnaitre les objets lors du debug
     // TODO : A supprimer lors de la RC
@@ -27,6 +77,7 @@ class GameObject {
 
     getClone() {
         let clone = new GameObject();
+        clone.partition = this.partition;
         clone.position = this.position.getClone();
         clone.originalSize = this.originalSize.getClone();
         clone.scale = this.scale.getClone();
@@ -39,12 +90,15 @@ class GameObject {
     }
     
     // Tous les gameObjets sont des observers
-    subjectChanged(subject) {
+    subjectChanged(subject, property) {
     }
 
-    // Mise à jour du gammeObject
-    // Les comportements sont modélisés ddans des commandes
+    // Mise à jour du gameObject
+    // Les comportements sont modélisés dans des commandes
     update(dt) {
+        // Mise à jour de la boite de collision
+        this.collideBox.update(dt);
+
         // Gestion du mouvement
         this.moveCommand.update(dt);
         this.moveCommand.execute();
@@ -56,5 +110,8 @@ class GameObject {
 
     // Affichage du gameObject
     draw(context) {
+        if (ServiceLocator.getService(ServiceLocator.PARAMETER).colliderDisplay) {
+            this.collideBox.draw(context);
+        }
     }
 }

@@ -28,7 +28,7 @@ function run(tick) {
 
 function showFps() {
     drawContext.fillStyle = "White";
-    drawContext.font = "normal 12pt Arial";
+    drawContext.font = "normal 10pt Arial";
     drawContext.fillText(Math.floor(fps) + " fps", 10, 20);
 }
 

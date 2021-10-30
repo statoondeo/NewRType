@@ -11,7 +11,6 @@ class SceneManager extends Manager {
 
     setCurrent(scene) {
         let index = this.items.indexOf(scene);
-        console.log("setCurrent", index, scene, this.items);
         if (index != -1) {
             this.currentScene = scene;
         }

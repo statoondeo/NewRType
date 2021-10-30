@@ -84,7 +84,7 @@ function update(dt) {
     // Est-ce que l'on passe en affichage collideBox?
     if (ServiceLocator.getService(ServiceLocator.KEYBOARD).isPressed("KeyC")) {
         let parameters = ServiceLocator.getService(ServiceLocator.PARAMETER);
-        parameters.colliderDisplay = !parameters.colliderDisplay;
+        parameters.setColliderDisplay(!parameters.colliderDisplay);
     }
 
     // Mise à jour des contrôles (surtout pour le click de souris);

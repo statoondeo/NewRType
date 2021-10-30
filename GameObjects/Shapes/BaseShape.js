@@ -6,6 +6,7 @@ class BaseShape extends GameObject {
 
     getClone() {
         let clone = super.getClone();
+        clone.partition = this.partition;
         clone.color = this.color;
         return clone;
     }

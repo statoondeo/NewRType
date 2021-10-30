@@ -28,7 +28,20 @@ class SampleMenuScene extends BaseScene {
         let sprite = new Sprite(resources.getImage("images/gui/button.png"));
         let position = new Vec2(screen.width - 1.5 * sprite.size.x, screen.height - 1.5 * sprite.size.y);
         let text = new TextGuiElement("Jouer", "bold 24pt Arial", "Black");
-        group.addElement(new ButtonGuiElement(sprite, new GoToSceneCommand(firstScene), position, text));
+        scene.addGameObject(new ButtonGuiElement(sprite, new GoToSceneCommand(firstScene), position, text));
+
+        // let gameObject1 = new GameObject();
+        // gameObject1.size.x = 60;
+        // gameObject1.size.y = 60;
+        // gameObject1.position.x = (screen.width - gameObject1.size.x) / 2;
+        // gameObject1.position.y = (screen.height - gameObject1.size.y) / 2;
+        // gameObject1.collideBox = new CircleCollideBox(gameObject1.position, 30);
+        // scene.addGameObject(gameObject1);
+
+        // let gameObject2 = new GameObject();
+        // gameObject2.collideBox = new CircleCollideBox(gameObject2.position, 30);
+        // gameObject2.moveCommand = new MouseControlledMoveCommand(gameObject2, gameObject1);
+        // scene.addGameObject(gameObject2);
 
         // Scene retournée
         return scene;

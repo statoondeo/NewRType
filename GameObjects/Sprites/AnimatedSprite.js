@@ -16,6 +16,7 @@ class AnimatedSprite extends GameObject {
 
     getClone() {
         let clone = new AnimatedSprite(this.image, this.size.getClone());
+        clone.partition = this.partition;
         clone.position = this.position.getClone();
         clone.originalSize = this.originalSize.getClone();
         clone.scale = this.scale.getClone();

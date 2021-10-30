@@ -27,6 +27,7 @@ class GameObjectFactory {
 
         // Avec une tilesheet d'animation
         let playerShip = new AnimatedSprite(resourceService.getImage("images/player1.png"), new Vec2(64, 64));
+        playerShip.partition = BaseScene.PLAYER_PARTITION;
         playerShip.position = new Vec2((mainScreen.width - playerShip.size.x) / 2, (mainScreen.height - playerShip.size.y) / 2);
         playerShip.collideBox = new CircleCollideBox(playerShip.position, playerShip.size.x / 2)
         playerShip.speed = 200;
@@ -39,7 +40,7 @@ class GameObjectFactory {
         playerShip.layer = 1;
 
         // Tir de base
-        playerShip.fireCommand = new SampleFireCommand(playerShip, 0.05);
+        playerShip.fireCommand = new SampleFireCommand(playerShip, 0.1);
 
         // retour de la game entity ainsi créée
         return playerShip;  
