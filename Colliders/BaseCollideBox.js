@@ -5,10 +5,11 @@ class BaseCollideBox {
         this.color = BaseCollideBox.NOT_COLLIDED_COLOR;
     }
 
-    static NONE = 0;
-    static CIRCLE = 1;
-    static RECT = 2;
+    static NONE = "NONE";
+    static CIRCLE = "CIRCLE";
+    static RECT = "RECT";
 
+    static NEUTRAL_COLOR = "gray";
     static COLLIDED_COLOR = "red";
     static NOT_COLLIDED_COLOR = "green";
 

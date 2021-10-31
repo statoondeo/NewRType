@@ -46,6 +46,8 @@ class TimeSequenceSpawnerGameObject extends GameObject {
         moveCommand.gameObject = newShip;
         newShip.moveCommand = moveCommand;
 
+        newShip.fireCommand.gameObject = newShip;
+
         // On l'ajoute à la liste des gameObjects de la scene
         ServiceLocator.getService(ServiceLocator.SCENE).currentScene.addGameObject(newShip);
 

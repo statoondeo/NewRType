@@ -5,7 +5,8 @@ class AnimatedSprite extends GameObject {
         // Pour la gestion des spriteSheet
         this.image = image;
         this.currentFrame = 0;
-        this.size = tileSheet;
+        this.originalSize = tileSheet;
+        this.size = tileSheet.getClone();
         this.tile = new Vec2();
         this.getNewFrame();
 

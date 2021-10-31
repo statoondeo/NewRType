@@ -1,4 +1,10 @@
 <html>
+    <style>
+    @font-face {
+        font-family: 'neuropol';
+        src: url('fonts/neuropol.otf');
+    }
+    </style>
     <body>
         <canvas id="canvas" width="1280" height="800" style="background-color: coral;" />
         <script src="Tools/easing.js"></script>
@@ -15,6 +21,7 @@
         <script src="Colliders/CircleCollideBox.js"></script>
         <script src="Colliders/RectCollideBox.js"></script>
         <script src="Colliders/Collider.js"></script>
+        <script src="Colliders/QuadTree.js"></script>
 
         <script src="GameObjects/GameObject.js"></script>
         <script src="GameObjects/GameObjectFactory.js"></script>
@@ -42,7 +49,9 @@
         <script src="Commands/HorizontalLoopingMoveCommand.js"></script>
         <script src="Commands/MouseControlledMoveCommand.js"></script>
         <script src="Commands/PlayerControlledMoveCommand.js"></script>
+        <script src="Commands/SampleTripleFireCommand.js"></script>
         <script src="Commands/SampleFireCommand.js"></script>
+        <script src="Commands/SampleEnemyFireCommand.js"></script>
         <script src="Commands/UniformMoveCommand.js"></script>
 
         <script src="Gui/BaseGuiElement.js"></script>

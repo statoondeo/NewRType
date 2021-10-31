@@ -1,0 +1,100 @@
+// Classe permettant de découper l'espace
+// pour y placer tous les gameObjects intervenants dans les collisions
+// afin de limiter le nombre de test à chaque frame
+class QuadTree extends RectCollideBox {
+    constructor(position, size) {
+        super(position, size);
+        this.color = BaseCollideBox.NEUTRAL_COLOR;
+
+        // Liste des items gérés dans le cas d'une leaf
+        // Par défaut on démarre dans cet état
+        this.items = [];
+        
+        // Liste des surfaces gérées dans le cas d'un node
+        this.children = null;
+    }
+    
+    // Limite d'objets dans un quadrant (10?)
+    static LenghtLimit = 10;
+
+    getCandidates(collideBox) {
+        let candidates = [];
+        if (Collider.isCollision(this, collideBox)) {
+            if (this.items == null) {
+                this.children.forEach(child => {
+                    Array.prototype.push.apply(candidates, child.getCandidates(collideBox));
+                });
+                return candidates;
+            }
+            else {
+                return this.items;
+            }
+        }
+        return candidates;
+    }
+
+    setPartition() {
+        // On découpe le quadrant en sous-quadrants
+        let newSizeX1 = Math.floor(this.size.x / 2);
+        let newSizeX2 = this.size.x - newSizeX1;
+        let newSizeY1 = Math.floor(this.size.y / 2);
+        let newSizeY2 = this.size.y - newSizeY1;
+
+        // Création des sous-quadrants
+        let upperLeft = new QuadTree(this.position.getClone(), new Vec2(newSizeX1, newSizeY1))
+        let upperRight = new QuadTree(new Vec2(this.position.x + newSizeX1, this.position.y), new Vec2(newSizeX2, newSizeY1))
+        let lowerLeft = new QuadTree(new Vec2(this.position.x, this.position.y + newSizeY1), new Vec2(newSizeX1, newSizeY2))
+        let lowerRight = new QuadTree(new Vec2(this.position.x + newSizeX1, this.position.y + newSizeY2), new Vec2(newSizeX2, newSizeY2))
+
+        // On les stocke
+        this.children = [];
+        this.children.push(upperLeft, upperRight, lowerLeft, lowerRight);
+    }
+
+    addItem(gameOject) {
+        if (this.children == null) {
+            // On ajoute l'objet au quadrant
+            this.items.push(gameOject);
+
+            // Est-ce qu'il faut partitionner le quadrant?
+            if (this.items.length > QuadTree.LenghtLimit) {
+
+                // Découpage en sous-quadrants
+                this.setPartition();
+
+                // Chacun des objets est dispatché dans les nouveaux quadrants
+                this.items.forEach(item => {
+                    this.addItem(item);
+                });            
+
+                // On purge le tableau d'éléments
+                this.items = null;
+            }
+        }
+        else {
+            // On est sur un node, donc on ajoute le gameObject aux sous-quadrants
+            this.children.forEach(subQuadrant => {
+                if (Collider.isCollision(gameOject.collideBox, subQuadrant)) {
+                    subQuadrant.addItem(gameOject);
+                }
+            });
+        }
+
+    }
+
+    draw(context) {
+        if (this.children == null) {
+            super.draw(context);
+            context.save();
+            context.fillStyle = this.color;
+            context.font = "normal 10pt Arial";
+            context.fillText("Items : " + this.items.length, this.position.x + 5 , this.position.y + 15);
+            context.restore();
+        }
+        else {
+            this.children.forEach(child => {
+                child.draw(context);
+            });
+        }
+    }
+}

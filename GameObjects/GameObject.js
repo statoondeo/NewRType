@@ -12,56 +12,16 @@ class GameObject {
         this.layer = 1;
         this.id = GameObject.getNewObjectId();
         this.partition = BaseScene.GAME_PARTITION;
-
     }
 
-    // // Accesseurs de la position (avec mise à jour de la position de la collideBox)
-    // get positionX() {
-    //     return this.position.x;
-    // }
-    // set positionX(x) {
-    //     this.position.x = x;
-    //     this.collideBox.position.x = x;
-    // }
-    // get positionY() {
-    //     return this.position.y;
-    // }
-    // set positionY(y) {
-    //     this.position.y = y;
-    //     this.collideBox.position.y = y;
-    // }
+    setScale(newScale) {
+        this.scale.x = newScale.x;
+        this.scale.y = newScale.y;
 
-    // // Accesseurs de l'echelle (avec mise à jour de la taille de la collideBox)
-    // get scaleX() {
-    //     return this.scale.x;
-    // }
-    // set scaleX(x) {
-    //     this.scale.x = x;
-    //     this.collideBox.size.x = x * this.originalSize.x;
-    // }
-    // get scaleY() {
-    //     return this.scale.y;
-    // }
-    // set scaleY(y) {
-    //     this.scale.y = y;
-    //     this.collideBox.size.y = y * this.originalSize.y;
-    // }
-    
-    // // Accesseurs de la taille (avec mise à jour de la taille de la collideBox)
-    // get sizeX() {
-    //     return this.size.x;
-    // }
-    // set sizeX(x) {
-    //     this.size.x = x;
-    //     this.collideBox.size.x = x * this.scale.x;
-    // }
-    // get sizeY() {
-    //     return this.size.y;
-    // }k
-    // set sizeY(y) {
-    //     this.size.y = y;
-    //     this.collideBox.size.y = y * this.scale.y;
-    // }
+        // Mise à jour de la taille réélle
+        this.size.x = this.originalSize.x * this.scale.x;
+        this.size.y = this.originalSize.y * this.scale.y;
+    }
 
     // Gestion d'un identifiant pour reconnaitre les objets lors du debug
     // TODO : A supprimer lors de la RC
@@ -71,9 +31,9 @@ class GameObject {
     }
 
     // Différentes états que peut prendre un gameObject
-    static IDLE = 0;
-    static ACTIVE = 1;
-    static OUTDATED = 2;
+    static IDLE = "IDLE";
+    static ACTIVE = "ACTIVE";
+    static OUTDATED = "OUTDATED";
 
     getClone() {
         let clone = new GameObject();

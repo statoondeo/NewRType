@@ -1,15 +1,16 @@
 class GameObjectFactory {
-    static createStarknifeShip() {
+    static createStarknifeShip(enemySprite) {
         // Services nécessaires
         let mainScreen = ServiceLocator.getService(ServiceLocator.SCREEN);
         let resourceService = ServiceLocator.getService(ServiceLocator.RESOURCE);
 
         let sprite = new AnimatedSprite(resourceService.getImage("images/starknife.png"), new Vec2(64, 64));
         sprite.collideBox = new CircleCollideBox(sprite.position, sprite.size.x / 2)
-        sprite.speed = 200;
+        sprite.speed = 100;
         sprite.layer = 1;
         sprite.addAnimation(new Animation("IDLE", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], 60 / 1000, true));
         sprite.startAnimation("IDLE", 0);
+        sprite.fireCommand = new SampleEnemyFireCommand(sprite, enemySprite, 1);
         
         return sprite;       
     }
@@ -40,7 +41,7 @@ class GameObjectFactory {
         playerShip.layer = 1;
 
         // Tir de base
-        playerShip.fireCommand = new SampleFireCommand(playerShip, 0.1);
+        playerShip.fireCommand = new SampleTripleFireCommand(playerShip, 0.2);
 
         // retour de la game entity ainsi créée
         return playerShip;  

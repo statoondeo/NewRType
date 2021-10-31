@@ -3,6 +3,9 @@ class BaseScene {
     constructor(scheduler) {
         this.scheduler = scheduler;
 
+        // Partition spatiale recréée à chaque update
+        this.quadTree = null;
+
         // Collection de gameObjects à traiter
         this.gameObjectsCollection = [];
 
@@ -12,8 +15,8 @@ class BaseScene {
         this.gameObjectsPartitions[BaseScene.GAME_PARTITION] = [];
     }
 
-    static PLAYER_PARTITION = 1;
-    static GAME_PARTITION = 2;
+    static PLAYER_PARTITION = "PLAYER";
+    static GAME_PARTITION = "GAME";
 
     // Tous les gameObjects sont gérés dans une liste triée
     // sur la couche sur laquelle il doivent apparaitre
@@ -65,11 +68,20 @@ class BaseScene {
         }
     }
 
-    update(dt) {
-        // On avance dans la scène
-        this.scheduler.update(dt);
+    manageCollision() {
+        // On remplit notre quadTree pour la partition spatiale des gameObjects
+        // (Seuls les gameObjects intervenants dans les collisions sont retenus)
+        let screen = ServiceLocator.getService(ServiceLocator.SCREEN);
+        this.quadTree = new QuadTree(new Vec2(), new Vec2(screen.width, screen.height), 0);
+        let count = 0;
+        this.gameObjectsCollection.forEach(gameObject => {
+            if (gameObject.status == GameObject.ACTIVE && gameObject.collideBox.type != BaseCollideBox.NONE) {
+                count++;
+                this.quadTree.addItem(gameObject);
+            }
+        });
 
-        // // Gestion des collisions
+        // // Gestion des collisions TODO1 Découper le tableau en 2 partitions
         // // Aménagement des boucles pour ne pas traiter les collisions en double
         // // On ne teste que les cases avec O 
         // // (les X représente le test d'un objet avec lui-même)
@@ -98,20 +110,44 @@ class BaseScene {
         //     }                
         // }
 
+        // Gestion des collisions par partition : TODO2 Prévoir une partition spatiale supplémentaire pour limiter
+        // le nombre d'objet testé
         this.gameObjectsPartitions[BaseScene.GAME_PARTITION].forEach(gameGameObject => {
             gameGameObject.collideBox.isCollided = false;            
         });
 
+        let collision = false;
         this.gameObjectsPartitions[BaseScene.PLAYER_PARTITION].forEach(playerGameObject => {
             playerGameObject.collideBox.isCollided = false;
-            this.gameObjectsPartitions[BaseScene.GAME_PARTITION].forEach(gameGameObject => {
-                if (gameGameObject.status == GameObject.ACTIVE && gameGameObject.collideBox.type != BaseCollideBox.NONE) {
-                    let collision = Collider.isCollision(playerGameObject.collideBox, gameGameObject.collideBox);
+
+            // On ne traite que les candidats à la collision avec notre playerGameObject
+            this.quadTree.getCandidates(playerGameObject.collideBox).forEach(gameGameObject => {
+
+                // Les éléments doivent être dans des partitions différentes, être active et avoir une collideBox
+                if (playerGameObject.partition != gameGameObject.partition && 
+                    gameGameObject.status == GameObject.ACTIVE && 
+                    gameGameObject.collideBox.type != BaseCollideBox.NONE &&
+                    (collision = Collider.isCollision(playerGameObject.collideBox, gameGameObject.collideBox))) {
+
                     playerGameObject.collideBox.isCollided ||= collision;
                     gameGameObject.collideBox.isCollided ||= collision;            
                 }
             });
+
+            // this.gameObjectsPartitions[BaseScene.GAME_PARTITION].forEach(gameGameObject => {
+            //     if (gameGameObject.status == GameObject.ACTIVE && gameGameObject.collideBox.type != BaseCollideBox.NONE) {
+            //         // On récupère les
+            //         let collision = Collider.isCollision(playerGameObject.collideBox, gameGameObject.collideBox);
+            //         playerGameObject.collideBox.isCollided ||= collision;
+            //         gameGameObject.collideBox.isCollided ||= collision;            
+            //     }
+            // });
         });
+    }
+
+    update(dt) {
+        // On avance dans la scène
+        this.scheduler.update(dt);
 
         // TODO : Comment gérer ces 3 états sans devoir parcourir la liste complète à chaque fois!
 
@@ -130,7 +166,7 @@ class BaseScene {
                 }
             }
         });
-
+        
         // On supprime tous les gameObjects obsolètes
         gameObjectsToKillCollection.forEach(gameObject => {
             let index = this.gameObjectsCollection.indexOf(gameObject);
@@ -144,6 +180,8 @@ class BaseScene {
                 }    
             }            
         });       
+
+        this.manageCollision();
     }
 
     draw(context) {        
@@ -155,14 +193,10 @@ class BaseScene {
         });
 
         if (ServiceLocator.getService(ServiceLocator.PARAMETER).colliderDisplay) {
-            // On affiche des informations de debug
-            context.save();
-            context.fillStyle = "White";
-            context.font = "normal 10pt Arial";
-            context.fillText("GameObjects       : " + this.gameObjectsCollection.length, 10, 50);
-            context.fillText("PlayerPartition   : " + this.gameObjectsPartitions[BaseScene.PLAYER_PARTITION].length, 10, 80);
-            context.fillText("GamePartition     : " + this.gameObjectsPartitions[BaseScene.GAME_PARTITION].length, 10, 110);
-            context.restore();
+            // Affichage du quadTree
+            if (null != this.quadTree) {
+                this.quadTree.draw(context);
+            }
         }
     }
 }

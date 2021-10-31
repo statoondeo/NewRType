@@ -3,6 +3,10 @@ class SamplePlayScene extends BaseScene {
         super(scheduler)
     }
 
+    update(dt) {
+        super.update(dt);
+    }
+
     static createInstance() {
         let resources = ServiceLocator.getService(ServiceLocator.RESOURCE);
         let screen = ServiceLocator.getService(ServiceLocator.SCREEN);
@@ -50,6 +54,36 @@ class SamplePlayScene extends BaseScene {
         scheduler.register(obstacle);
         scene.addGameObject(obstacle);
 
+        // // Remplacement des obstacles par un canvas hors champ
+        // let offscreenCanvas = document.createElement("canvas");
+        // offscreenCanvas.width = 1771;
+        // offscreenCanvas.height = 800;
+        // let offscreenContext = offscreenCanvas.getContext("2d");
+
+        // let previousX = 0;
+        // let image = resources.getImage("images/rock7.png");
+        // offscreenContext.drawImage(image, previousX, screen.height - image.height, image.width, image.height);
+
+        // previousX += image.width;
+        // image = resources.getImage("images/rock11.png");
+        // offscreenContext.drawImage(image, previousX, screen.height - image.height, image.width, image.height);
+
+        // // previousX += image.width;
+        // // image = resources.getImage("images/rock8.png");
+        // // offscreenContext.drawImage(image, previousX, screen.height - image.height, image.width, image.height);
+
+        // // previousX += image.width;
+        // // image = resources.getImage("images/rock10.png");
+        // // offscreenContext.drawImage(image, previousX, screen.height - image.height, image.width, image.height);
+
+        // // previousX += image.width;
+        // // image = resources.getImage("images/rock9.png");
+        // // offscreenContext.drawImage(image, previousX, screen.height - image.height, image.width, image.height);
+        // // offscreenCanvas.width = previousX;
+
+        // let obstacle = new DecorsGameObject(offscreenCanvas, 0.7, baseSceneSpeed, 1280, new Vec2(screen.width, 0), false);
+        // scene.addGameObject(obstacle);
+
         // Gestion du terrain du niveau proprement dit
         let terrain = new DecorsGameObject(resources.getImage("images/tech_bottom_single.png"), 1, baseSceneSpeed, 1600, new Vec2(screen.width, 672), true);
         scheduler.register(terrain);
@@ -75,16 +109,17 @@ class SamplePlayScene extends BaseScene {
         scheduler.register(terrain);
         scene.addGameObject(terrain);
 
+        // Gestion du joueur
+        let playerShip = GameObjectFactory.createPlayerShip();
+        scene.addGameObject(playerShip);
+
         // Gestion des ennemis
-        let starknifeShip = GameObjectFactory.createStarknifeShip();
+        let starknifeShip = GameObjectFactory.createStarknifeShip(playerShip);
 
         // // Gestion des vagues d'ennemis
         let wave = new TimeSequenceSpawnerGameObject(starknifeShip, new HorizontalLoopingMoveCommand(starknifeShip, new Vec2(-1, 1), 300, 1), 1280, new Vec2(1280, 36), 1, 16);
         scheduler.register(wave);
         scene.addGameObject(wave);
-
-        // Gestion du joueur
-        scene.addGameObject(GameObjectFactory.createPlayerShip());
 
         // Scene retournée
         return scene;
