@@ -1,6 +1,4 @@
 let gameReady = false;
-let scene = null;
-
 let sceneManager = null;
 
 function keyDownEventListener(key) {
@@ -13,65 +11,55 @@ function keyUpEventListener(key) {
     ServiceLocator.getService(ServiceLocator.KEYBOARD).switchOff(key.code);
 }
 
-function mousemoveEventListener(event) {
-    let inputHandler = ServiceLocator.getService(ServiceLocator.KEYBOARD);
-    inputHandler.mouse.x = event.clientX - canvasInPage.offsetLeft;
-    inputHandler.mouse.y = event.clientY - canvasInPage.offsetTop;
-}
-
-function clickEventListener(event) {
-    let inputHandler = ServiceLocator.getService(ServiceLocator.KEYBOARD);
-    inputHandler.click.x = inputHandler.mouse.x;
-    inputHandler.click.y = inputHandler.mouse.y;
-}
-
 function load(canvas) {
-    let keyListener = new KeyListener();
+    let inputListener = new InputListener();
     document.addEventListener("keydown", keyDownEventListener, false);
     document.addEventListener("keyup", keyUpEventListener, false);
 
-    // this.canvas.scale(4, 4);
-    canvas.addEventListener("mousemove", mousemoveEventListener, false);
-    canvas.addEventListener("click", clickEventListener, false);
-
-    let imageLoader = new ImageLoader();
+    let assetLoader = new AssetLoader();
     ServiceLocator.registerService(ServiceLocator.SCREEN, { width : canvas.width, height : canvas.height });
-    ServiceLocator.registerService(ServiceLocator.RESOURCE, imageLoader);
-    ServiceLocator.registerService(ServiceLocator.KEYBOARD, keyListener);
+    ServiceLocator.registerService(ServiceLocator.KEYBOARD, inputListener);
+    ServiceLocator.registerService(ServiceLocator.RESOURCE, assetLoader);
     ServiceLocator.registerService(ServiceLocator.PARAMETER, new Parameter());
     
-    imageLoader.add("images/player1.png");
-    imageLoader.add("images/player2.png");
-    imageLoader.add("images/starknife.png");
-    imageLoader.add("images/starknifeReversed.png");
-    imageLoader.add("images/redbullet.png");
-    imageLoader.add("images/background.png");
-    imageLoader.add("images/background2.png");
-    imageLoader.add("images/background3.png");
-    imageLoader.add("images/gas2.png");
-    imageLoader.add("images/rock7.png");
-    imageLoader.add("images/rock8.png");
-    imageLoader.add("images/rock9.png");
-    imageLoader.add("images/rock10.png");
-    imageLoader.add("images/rock11.png");
-    imageLoader.add("images/tech_bottom_end_left.png");
-    imageLoader.add("images/tech_bottom_end_right.png");
-    imageLoader.add("images/tech_bottom_single.png");
-    imageLoader.add("images/tech_bottom_tile.png");
-    imageLoader.add("images/tech_bottom_tile2.png");
-    imageLoader.add("images/gui/bigPanel.png");
-    imageLoader.add("images/gui/button.png");
-    imageLoader.start(startGame);
+    assetLoader.add("images/player1.png");
+    assetLoader.add("images/starknife.png");
+    assetLoader.add("images/sphere.png");
+    assetLoader.add("images/wobbler.png");
+    assetLoader.add("images/background1.png");
+    assetLoader.add("images/background2.png");
+    assetLoader.add("images/background3.png");
+    assetLoader.add("images/rock7.png");
+    assetLoader.add("images/rock8.png");
+    assetLoader.add("images/rock9.png");
+    assetLoader.add("images/rock10.png");
+    assetLoader.add("images/rock11.png");
+    assetLoader.add("images/speedup.png");
+    assetLoader.add("images/bluespark.png");
+    assetLoader.add("images/serpentbody.png");
+    assetLoader.add("images/serpenthead.png");
+    assetLoader.add("images/serpentrear.png");
+    assetLoader.add("images/redbullet.png");
+    assetLoader.add("images/bluebullet.png");
+    assetLoader.add("images/greenbullet.png");
+
+    assetLoader.start(startGame);
 }
 
 function startGame() {
     sceneManager = new SceneManager();
-    let level1 = SamplePlayScene.createInstance()
-    let menu = SampleMenuScene.createInstance(level1);
-    sceneManager.addScene(level1);
-    sceneManager.addScene(menu);
-    sceneManager.setCurrent(menu);
+    let currentScene = Level1Scene.createInstance()
+    sceneManager.addScene(currentScene);
+    sceneManager.setCurrent(currentScene);
     ServiceLocator.registerService(ServiceLocator.SCENE, sceneManager);
+
+    // On enregistre les controles à utiliser
+    let inputListener = ServiceLocator.getService(ServiceLocator.KEYBOARD);
+    inputListener.registerCommand("ArrowUp", new MoveCommand(currentScene.playerShip, new Vec2(0, -1)));
+    inputListener.registerCommand("ArrowDown", new MoveCommand(currentScene.playerShip, new Vec2(0, 1)));
+    inputListener.registerCommand("ArrowLeft", new MoveCommand(currentScene.playerShip, new Vec2(-1, 0)));
+    inputListener.registerCommand("ArrowRight", new MoveCommand(currentScene.playerShip, new Vec2(1, 0)));
+    inputListener.registerCommand("KeyZ", new FireActionCommand(currentScene.playerShip));
 
     gameReady = true;
 }
@@ -86,23 +74,10 @@ function update(dt) {
         let parameters = ServiceLocator.getService(ServiceLocator.PARAMETER);
         parameters.setColliderDisplay(!parameters.colliderDisplay);
     }
-
-    // Mise à jour des contrôles (surtout pour le click de souris);
-    ServiceLocator.getService(ServiceLocator.KEYBOARD).update(dt);
 }
 
 function draw(context) {
-    if (!gameReady) {
-        context.fillStyle = "rgb(255, 255, 255)";
-        context.fillRect(1, 1, 400, 100);
-        context.fillStyle = "rgb(0, 255, 0)";
-        context.fillRect(1, 1, 400 * ServiceLocator.getService(ServiceLocator.RESOURCE).getLoadedRatio(), 100);
-        return;
-    }
+    if (!gameReady) return;
 
     sceneManager.draw(context);
-}
-
-function random(min, max) {
-    return Math.floor(Math.random() * (max - min)) + min;
 }

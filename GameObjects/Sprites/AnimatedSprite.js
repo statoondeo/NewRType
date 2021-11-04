@@ -8,6 +8,7 @@ class AnimatedSprite extends GameObject {
         this.originalSize = tileSheet;
         this.size = tileSheet.getClone();
         this.tile = new Vec2();
+        this.scale = new Vec2(1);
         this.getNewFrame();
 
         // Gestion des animations
@@ -21,8 +22,7 @@ class AnimatedSprite extends GameObject {
         clone.position = this.position.getClone();
         clone.originalSize = this.originalSize.getClone();
         clone.scale = this.scale.getClone();
-        clone.moveCommand = this.moveCommand.getClone();
-        clone.fireCommand = this.fireCommand.getClone();
+        clone.behaveStrategy = this.behaveStrategy.getClone(clone);
         clone.speed = this.speed;
         clone.collideBox = this.collideBox.getClone();
         clone.collideBox.position = clone.position;
@@ -71,10 +71,6 @@ class AnimatedSprite extends GameObject {
 
             // On récupère la nouvelle frame de l'animation
             this.getNewFrame();
-        }
-
-        if (Tools.isOutOfScreen(this.position, this.size)) {
-            this.status = GameObject.OUTDATED;
         }
     }
 

@@ -15,7 +15,7 @@ class QuadTree extends RectCollideBox {
     }
     
     // Limite d'objets dans un quadrant (10?)
-    static LenghtLimit = 10;
+    static LengthLimit = 10;
 
     getCandidates(collideBox) {
         let candidates = [];
@@ -57,7 +57,7 @@ class QuadTree extends RectCollideBox {
             this.items.push(gameOject);
 
             // Est-ce qu'il faut partitionner le quadrant?
-            if (this.items.length > QuadTree.LenghtLimit) {
+            if (this.items.length > QuadTree.LengthLimit) {
 
                 // Découpage en sous-quadrants
                 this.setPartition();

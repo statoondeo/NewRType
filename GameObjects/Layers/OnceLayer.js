@@ -7,16 +7,16 @@ class OnceLayer extends GameObject {
 
         this.layer = layer;
         this.startAt = startAt;
-        this.status = GameObject.IDLE;
+        this.status = GameObjectState.IDLE;
 
         this.sprite = new Sprite(image);
         this.sprite.speed = layer * sceneSpeed;
-        this.sprite.moveCommand = new UniformMoveCommand(this.sprite, direction);       
+        this.sprite.behaveStrategy = new BaseBehaveStrategy(this.sprite, new UniformMoveStrategy(this.sprite, direction.getClone()), new BaseFireStrategy(this.sprite));
     }
     
     subjectChanged(scheduler) {
         if (scheduler.currentStep >= this.startAt) {
-            this.status = GameObject.ACTIVE;
+            this.status = GameObjectState.ACTIVE;
             this.sprite.position.x = ServiceLocator.getService(ServiceLocator.SCREEN).width;
             this.sprite.position.y = 0;
             scheduler.unregister(this);
@@ -24,9 +24,10 @@ class OnceLayer extends GameObject {
     }
 
     update(dt) {
+        super.update(dt);
         this.sprite.update(dt);
         if (Tools.isOutOfScreen(this.sprite.position, this.sprite.size)) {
-            this.status = GameObject.OUTDATED;
+            this.status = GameObjectState.OUTDATED;
         }
     }
 

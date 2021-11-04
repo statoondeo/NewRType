@@ -1,17 +1,15 @@
 class GameObject {
     constructor() {
+        this.type = GameObjectType.NONE;
         this.position = new Vec2();
-        this.originalSize = new Vec2();
-        this.scale = new Vec2(1, 1);
         this.size = new Vec2();
-        this.moveCommand = new DummyCommand();
-        this.fireCommand = new DummyCommand();
+        this.vector = new Vec2();
         this.speed = 0;
         this.collideBox = new BaseCollideBox();
-        this.status = GameObject.ACTIVE;
+        this.status = GameObjectState.ACTIVE;
         this.layer = 1;
-        this.id = GameObject.getNewObjectId();
-        this.partition = BaseScene.GAME_PARTITION;
+        this.partition = GameObjectPartition.GAME_PARTITION;
+        this.behaveStrategy = new DummyBehaveStrategy();
     }
 
     setScale(newScale) {
@@ -23,55 +21,30 @@ class GameObject {
         this.size.y = this.originalSize.y * this.scale.y;
     }
 
-    // Gestion d'un identifiant pour reconnaitre les objets lors du debug
-    // TODO : A supprimer lors de la RC
-    static newGameObjectId = 1;
-    static getNewObjectId() {
-        return GameObject.newGameObjectId++;
-    }
-
-    // Différentes états que peut prendre un gameObject
-    static IDLE = "IDLE";
-    static ACTIVE = "ACTIVE";
-    static OUTDATED = "OUTDATED";
-
-    getClone() {
-        let clone = new GameObject();
-        clone.partition = this.partition;
-        clone.position = this.position.getClone();
-        clone.originalSize = this.originalSize.getClone();
-        clone.scale = this.scale.getClone();
-        clone.size = this.size.getClone();
-        clone.moveCommand = this.moveCommand.getClone();
-        clone.fireCommand = this.fireCommand.getClone();
-        clone.speed = this.speed;
-        clone.collideBox = this.collideBox.getClone();
-        return clone;
-    }
-    
-    // Tous les gameObjets sont des observers
-    subjectChanged(subject, property) {
+    collideWith(otherGameObject) {
+        this.collideBox.isCollided = true;
+        this.status = GameObjectState.OUTDATED;
     }
 
     // Mise à jour du gameObject
     // Les comportements sont modélisés dans des commandes
     update(dt) {
+        // Initialisation du mouvement
+        this.vector.x = this.vector.y = 0;
+
+        // Mise à jour et application du comportement ) adopter
+        this.behaveStrategy.update(dt);
+        this.behaveStrategy.behave();
+
         // Mise à jour de la boite de collision
         this.collideBox.update(dt);
 
-        // Gestion du mouvement
-        this.moveCommand.update(dt);
-        this.moveCommand.execute();
-
-        // Gestion du tir
-        this.fireCommand.update(dt);
-        this.fireCommand.execute();
+        // En général un gameobject en dehors de l'écran devient obsolète
+        this.status = Tools.isOutOfScreen(this.position, this.size) ? GameObjectState.OUTDATED : this.status;
     }
 
     // Affichage du gameObject
     draw(context) {
-        if (ServiceLocator.getService(ServiceLocator.PARAMETER).colliderDisplay) {
-            this.collideBox.draw(context);
-        }
+        this.collideBox.draw(context);
     }
 }

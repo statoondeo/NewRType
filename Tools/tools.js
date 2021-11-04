@@ -6,7 +6,7 @@ class Tools {
     }
 
     static distance(pointA, pointB) {
-        return Math.sqrt(Math.pow(pointB.x - pointA.x, 2) + Math.pow(pointB.y - pointA.y, 2));
+        return ((pointB.x - pointA.x) ** 2 + (pointB.y - pointA.y) ** 2) ** 0.5;
     }
 
     static normalize(vector) {

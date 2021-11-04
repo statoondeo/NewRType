@@ -2,7 +2,9 @@ class Sprite extends GameObject {
     constructor(image) {
         super();
         this.image = image;
+        this.originalSize = new Vec2(this.image.width, this.image.height);
         this.size = new Vec2(this.image.width, this.image.height);
+        this.scale = new Vec2(1);
         this.alpha = 1;
     }
 
@@ -13,9 +15,6 @@ class Sprite extends GameObject {
         clone.originalSize = this.originalSize.getClone();
         clone.scale = this.scale.getClone();
         clone.size = this.size.getClone();
-        clone.moveCommand = this.moveCommand.getClone();
-        clone.fireCommand = this.fireCommand.getClone();
-        clone.speed = this.speed;
         clone.collideBox = this.collideBox.getClone();
         clone.image = this.image;
         return clone;

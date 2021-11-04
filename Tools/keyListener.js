@@ -1,7 +1,7 @@
 // Classe permettant de conserver l'état des touches d'une frame à l'autre
 // dans un tableau associatif pour eviter de déclarer des variables en serie!
 // TODO : Gérer un masque pour se limiter à certaines touches?
-class KeyListener {
+class InputListener {
     constructor() {
         // On conserve les états des touches du clavier
         // Etat courant
@@ -10,22 +10,32 @@ class KeyListener {
         // Etat précédent
         this.keyOldStates = [];
 
-        // Coordonnées de la souris
-        this.mouse = new Vec2();
+        // Commandes du joueur
+        this.boundedCommands = [];
+    }
+
+    registerCommand(control, command) {
+        this.boundedCommands[control] = command;
+    }
+
+    unregisterCommand(command) {
+        let index = this.boundedCommands.indexOf(command);
+        if (index >= 0) {
+            this.boundedCommands.splice(index, 1);
+        }
+    }
+
+    // Gestion des contrôles utilisés par le joueur pour cette frame
+    handleInput() {
+        let commandsList = [];
+
+        for (let item in this.boundedCommands) {
+            if (this.isDown(item)) {
+                commandsList.push(this.boundedCommands[item]);
+            }
+        }
         
-        // Coordonnées du dernier click
-        this.click = new Vec2();
-    }
-
-    // Si un contrôle d'interface intercepte le click, il peut se réinitialiser
-    // pour éviter que d'autres contrôles ne l'intercepte également.
-    initCLick() {
-        this.click.x = this.click.y = -1;
-    }
-
-    // Mise à jour du contrôleur d'entrée
-    update(dt) {
-        this.initCLick();
+        return commandsList;
     }
 
     // Est-ce que la touche était enfoncée lors de la frame précédente
@@ -55,11 +65,6 @@ class KeyListener {
     // Est-ce que la touche vient d'être enfoncée?
     isPressed(key) {
         return this.isDown(key) && !this.isPreviouslyDown(key);
-    }
-
-    // Est-ce que la souris a été clickée? 'sans distinction du bouton)
-    isClicked() {
-        return(-1 != this.click.x && -1 != this.click.y);
     }
 }
 
