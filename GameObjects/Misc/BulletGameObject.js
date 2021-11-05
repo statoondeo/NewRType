@@ -1,14 +1,28 @@
 class BulletGameObject extends AnimatedSprite {
-    constructor(image, size, partition) {
+    constructor(image, size, partition, direction, speed, damageAmount) {
         super(image, size)
+        this.type = GameObjectType.MISSILE;
         this.partition = partition;
         this.status = GameObjectState.ACTIVE;
-        this.speed = 400;
-        this.collideBox = new CircleCollideBox(this.position, 0.8 * this.size.x / 2);
+        this.speed = speed;
+        this.damageAmount = damageAmount;
+        this.direction = direction;
+        this.collideBox = new CircleCollideBox(this.position, 0.6 * this.size.x / 2);
         this.layer = 1;
-        this.behaveStrategy = new BaseBehaveStrategy(this, new UniformMoveStrategy(this, new Vec2(1, 0)), new BaseFireStrategy(this));
+        this.behaveStrategy = new BaseBehaveStrategy(this, new UniformMoveStrategy(this, direction), new BaseFireStrategy(this));
         this.addAnimation(new Animation("IDLE", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], 10 / 1000, true));
         this.startAnimation("IDLE", 0);
+        this.collideCommand = new MissileCollideCommand(this);
+        this.dealDamageCommand = new DealDamageCommand(this, damageAmount);
+        this.dieCommand = new DieCommand(this);
+    }
+
+    getClone() {
+        let clone = new BulletGameObject(this.image, this.size.getClone(), this.partition, this.direction.getClone(), this.speed, this.damageAmount);
+        clone.collideCommand = this.collideCommand.getClone(clone);
+        clone.dealDamageCommand = this.dealDamageCommand.getClone(clone);
+        clone.dieCommand = this.dieCommand.getClone(clone);
+        return clone;
     }
 }
 

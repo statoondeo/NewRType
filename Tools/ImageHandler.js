@@ -1,4 +1,4 @@
-class ImageAssembler {
+class ImageHandler {
     constructor(maxSize, drawingDirection = new Vec2(1)) {
         // Liste des images à assembler
         this.images = [];
@@ -35,8 +35,8 @@ class ImageAssembler {
                 imageItem.imageSource, 
                 imageItem.imagePosition.x, 
                 imageItem.imagePosition.y, 
-                imageItem.imageSource.width, 
-                imageItem.imageSource.height);
+                imageItem.imageSource.width * this.drawingDirection.x, 
+                imageItem.imageSource.height * this.drawingDirection.y);
         });
         this.canvasContext.restore();
     }

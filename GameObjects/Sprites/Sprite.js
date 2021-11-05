@@ -25,19 +25,17 @@ class Sprite extends GameObject {
     }
 
     draw(context) {
+        context.save();
+        context.globalAlpha = this.alpha;
+        context.drawImage(
+            this.image, 
+            Math.floor(this.position.x), 
+            Math.floor(this.position.y), 
+            this.size.x, 
+            this.size.y);
+        context.restore();
         if (ServiceLocator.getService(ServiceLocator.PARAMETER).colliderDisplay) {
             this.collideBox.draw(context);
-        }
-        else {
-            context.save();
-            context.globalAlpha = this.alpha;
-            context.drawImage(
-                this.image, 
-                Math.floor(this.position.x), 
-                Math.floor(this.position.y), 
-                this.size.x, 
-                this.size.y);
-            context.restore();
         }
     }
 }

@@ -5,6 +5,8 @@ let lastTick = 0;
 let fps = 0;
 let fpsTolerance = 1 / 1000;
 let wantedFps = 60;
+let fpsList = [ 0, 0, 0, 0, 0];
+let fpsIndex = 0;
 
 function run(tick) {
     requestAnimationFrame(run);
@@ -17,8 +19,12 @@ function run(tick) {
         return;
     }
 
-    // GameLoop
+    // Calcul des fps, moyenne sur les 5 dernières
     fps = 1 / dt;
+    fpsList[fpsIndex++] = fps;
+    fpsIndex %= 5;
+
+    // GameLoop
     lastTick = tick;
     update(dt);
     drawContext.clearRect(0, 0, canvasInPage.width, canvasInPage.height);
@@ -27,9 +33,13 @@ function run(tick) {
 }
 
 function showFps() {
+    let avgFps = 0;
+    for (let index = 0; index < 5; index++) {
+        avgFps += fpsList[index];
+    }
     drawContext.fillStyle = "White";
-    drawContext.font = "normal 10pt Arial";
-    drawContext.fillText(Math.floor(fps) + " fps", 10, 20);
+    drawContext.font = "normal 10pt neuropol";
+    drawContext.fillText(Math.floor(avgFps / 5) + " fps", 10, 20);
 }
 
 function init() {

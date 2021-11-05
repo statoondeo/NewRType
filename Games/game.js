@@ -23,6 +23,7 @@ function load(canvas) {
     ServiceLocator.registerService(ServiceLocator.PARAMETER, new Parameter());
     
     assetLoader.add("images/player1.png");
+    assetLoader.add("images/player2.png");
     assetLoader.add("images/starknife.png");
     assetLoader.add("images/sphere.png");
     assetLoader.add("images/wobbler.png");
@@ -34,8 +35,12 @@ function load(canvas) {
     assetLoader.add("images/rock9.png");
     assetLoader.add("images/rock10.png");
     assetLoader.add("images/rock11.png");
-    assetLoader.add("images/speedup.png");
+    assetLoader.add("images/speedpowerup.png");
+    assetLoader.add("images/powerup.png");
     assetLoader.add("images/bluespark.png");
+    assetLoader.add("images/redspark.png");
+    assetLoader.add("images/greenspark.png");
+    assetLoader.add("images/purplespark.png");
     assetLoader.add("images/serpentbody.png");
     assetLoader.add("images/serpenthead.png");
     assetLoader.add("images/serpentrear.png");

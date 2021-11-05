@@ -2,7 +2,7 @@
 // pour y placer tous les gameObjects intervenants dans les collisions
 // afin de limiter le nombre de test à chaque frame
 class QuadTree extends RectCollideBox {
-    constructor(position, size) {
+    constructor(position, size, level = 0) {
         super(position, size);
         this.color = BaseCollideBox.NEUTRAL_COLOR;
 
@@ -12,10 +12,16 @@ class QuadTree extends RectCollideBox {
         
         // Liste des surfaces gérées dans le cas d'un node
         this.children = null;
+
+        // Niveau de profondeur atteint
+        this.level = level;
     }
     
-    // Limite d'objets dans un quadrant (10?)
-    static LengthLimit = 10;
+    // Limite d'objets dans un quadrant (limite avant de découper)
+    static LengthLimit = 8;
+
+    // Limite de profondeur du QuadTree
+    static MaxLevel = 4;
 
     getCandidates(collideBox) {
         let candidates = [];
@@ -40,15 +46,13 @@ class QuadTree extends RectCollideBox {
         let newSizeY1 = Math.floor(this.size.y / 2);
         let newSizeY2 = this.size.y - newSizeY1;
 
-        // Création des sous-quadrants
-        let upperLeft = new QuadTree(this.position.getClone(), new Vec2(newSizeX1, newSizeY1))
-        let upperRight = new QuadTree(new Vec2(this.position.x + newSizeX1, this.position.y), new Vec2(newSizeX2, newSizeY1))
-        let lowerLeft = new QuadTree(new Vec2(this.position.x, this.position.y + newSizeY1), new Vec2(newSizeX1, newSizeY2))
-        let lowerRight = new QuadTree(new Vec2(this.position.x + newSizeX1, this.position.y + newSizeY2), new Vec2(newSizeX2, newSizeY2))
-
-        // On les stocke
+        // Création et stockage des sous-quadrants
         this.children = [];
-        this.children.push(upperLeft, upperRight, lowerLeft, lowerRight);
+        this.children.push(
+            new QuadTree(this.position.getClone(), new Vec2(newSizeX1, newSizeY1), this.level + 1), 
+            new QuadTree(new Vec2(this.position.x + newSizeX1, this.position.y), new Vec2(newSizeX2, newSizeY1), this.level + 1), 
+            new QuadTree(new Vec2(this.position.x, this.position.y + newSizeY1), new Vec2(newSizeX1, newSizeY2), this.level + 1), 
+            new QuadTree(new Vec2(this.position.x + newSizeX1, this.position.y + newSizeY2), new Vec2(newSizeX2, newSizeY2), this.level + 1));
     }
 
     addItem(gameOject) {
@@ -56,8 +60,9 @@ class QuadTree extends RectCollideBox {
             // On ajoute l'objet au quadrant
             this.items.push(gameOject);
 
-            // Est-ce qu'il faut partitionner le quadrant?
-            if (this.items.length > QuadTree.LengthLimit) {
+            // Est-ce qu'il faut partitionner le quadrant? et est-ce que c'est encore faisable?
+            // Sinon cette se remplira sans se diviser
+            if (this.items.length > QuadTree.LengthLimit && this.level < QuadTree.MaxLevel) {
 
                 // Découpage en sous-quadrants
                 this.setPartition();

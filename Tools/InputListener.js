@@ -25,6 +25,10 @@ class InputListener {
         }
     }
 
+    clearCommands() {
+        this.boundedCommands = [];
+    }
+
     // Gestion des contrôles utilisés par le joueur pour cette frame
     handleInput() {
         let commandsList = [];

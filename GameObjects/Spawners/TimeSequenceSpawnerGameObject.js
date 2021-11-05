@@ -6,6 +6,7 @@ class TimeSequenceSpawnerGameObject extends BaseSpawner {
         this.spawnSpeed = spawnSpeed;
         this.spawnTime = this.spawnSpeed;
         this.status = GameObjectState.IDLE;
+        this.initialSpawnNumber = this.spawnNumber;
     }
       
     // Est-ce que le spawner rentre en action?
@@ -33,10 +34,16 @@ class TimeSequenceSpawnerGameObject extends BaseSpawner {
     spawn() {
         // Duplication du prototype
         // On l'ajoute à la liste des gameObjects de la scene
-        ServiceLocator.getService(ServiceLocator.SCENE).currentScene.addGameObject(this.gameObjectPrototype.getClone());
+        let newShip = this.gameObjectPrototype.getClone();
+        ServiceLocator.getService(ServiceLocator.SCENE).currentScene.addGameObject(newShip);
 
         // On passe au suivant
         this.spawnNumber--;
         this.spawnTime = this.spawnSpeed;
+
+        // On ajoute un bonus si c'était le dernier
+        if (this.spawnNumber == 0 && this.initialSpawnNumber > 1) {
+            newShip.dieCommand = new PopAndDieCommand(newShip, new WeaponPowerUpGameObject(ServiceLocator.getService(ServiceLocator.SCENE).currentScene.playerShip));
+        }
     }
 }

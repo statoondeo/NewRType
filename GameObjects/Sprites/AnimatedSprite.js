@@ -75,23 +75,25 @@ class AnimatedSprite extends GameObject {
     }
 
     draw(context) {
+        context.save();
+        context.translate(-this.size.x * this.scale.x / 2, -this.size.y * this.scale.y / 2);
+        context.globalAlpha = this.alpha;
+        context.drawImage(
+            this.image, 
+            Math.floor(this.tile.x), 
+            Math.floor(this.tile.y), 
+            Math.floor(this.size.x), 
+            Math.floor(this.size.y), 
+            Math.floor(this.position.x), 
+            Math.floor(this.position.y), 
+            Math.floor(this.size.x * this.scale.x), 
+            Math.floor(this.size.y * this.scale.y));
+        context.restore();
+        if (this.size.x == 200) {
+            console.log("Size=",this.size, this.scale, this.tile);
+        }
         if (ServiceLocator.getService(ServiceLocator.PARAMETER).colliderDisplay) {
             this.collideBox.draw(context);
-        }
-        else {
-            context.save();
-            context.globalAlpha = this.alpha;
-            context.drawImage(
-                this.image, 
-                this.tile.x, 
-                this.tile.y, 
-                this.size.x, 
-                this.size.y, 
-                Math.floor(this.position.x), 
-                Math.floor(this.position.y), 
-                this.size.x * this.scale.x, 
-                this.size.y * this.scale.y);
-            context.restore();
-        }
+        }    
     }
 }

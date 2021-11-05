@@ -29,7 +29,7 @@ class BaseBehaveStrategy extends BaseStrategy {
         this.gameObject.position.x += this.gameObject.vector.x * this.gameObject.speed * this.lastDt;
         this.gameObject.position.y += this.gameObject.vector.y * this.gameObject.speed * this.lastDt;
 
-        // On exécute toutes les commandes de tir
-        this.fireCommand.execute();
+        // // On exécute toutes les commandes de tir
+        // this.fireCommand.execute();
     }
 }

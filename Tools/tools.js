@@ -11,11 +11,15 @@ class Tools {
 
     static normalize(vector) {
         // Normalisation du vecteur
-        let normalization = Math.sqrt(Math.pow(vector.x, 2) + Math.pow(vector.y, 2));
+        let normalization = (vector.x ** 2 + vector.y ** 2) ** 0.5;
         if (normalization != 0) {
             vector.x = vector.x / normalization;
             vector.y = vector.y / normalization;
         }
         return vector;
     }
+
+    static getClone(item) {
+        return Object.assign(Object.create(Object.getPrototypeOf(item)), item)
+    }    
 }

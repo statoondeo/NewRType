@@ -3,7 +3,7 @@ class PlayerControlledBehaveStrategy extends BaseStrategy {
         super(gameObject);
         this.lastDt = 0;
         
-        let bullet = new BlueBulletGameObject(gameObject.partition);
+        let bullet = new BlueBulletGameObject(gameObject.partition, new Vec2(1, 0));
         bullet.behaveStrategy = new BaseBehaveStrategy(bullet, new UniformMoveStrategy(bullet, new Vec2(1, 0)), new BaseFireStrategy(bullet));
 
         this.fireCommand = new DoubleFireCommand(this.gameObject, bullet, 0.4);

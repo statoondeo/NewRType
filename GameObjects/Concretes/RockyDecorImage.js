@@ -13,7 +13,7 @@ class RockyDecorImage {
         let imageX = 0;
 
         // Constitution d'une image intermédiaire pour une manipulation unique de l'ensemble
-        let imageAssembler = new ImageAssembler(new Vec2(totalWidth, maxHeight), new Vec2(1, 1));
+        let imageAssembler = new ImageHandler(new Vec2(totalWidth, maxHeight), new Vec2(1, 1));
         imageAssembler.addImage(image1, new Vec2(imageX, maxHeight - image1.height));
         imageX += image1.width;
         imageAssembler.addImage(image2, new Vec2(imageX, maxHeight - image2.height));

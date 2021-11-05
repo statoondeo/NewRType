@@ -1,11 +1,10 @@
 // Toues les éléments apparaissent en même temps du même points et partent dans toutes les directions
 class AllInCircleSpawnerGameObject extends BaseSpawner {
-    constructor(gameObjectPrototype, spawnNumber, startAt) {
-        super(gameObjectPrototype, spawnNumber);
+    constructor(gameObjectPrototype, appearPoint, spawnNumber, startAt) {
+        super(gameObjectPrototype, spawnNumber, appearPoint);
         this.startAt = startAt;
         this.spawns = [];
         this.status = GameObjectState.IDLE;
-        this.spawnTime = 0.1;
     }
      
     // Est-ce que le spawner rentre en action?
@@ -16,39 +15,22 @@ class AllInCircleSpawnerGameObject extends BaseSpawner {
             this.spawn();
         }
     }
-    
-    update(dt) {
-        // Les éléments spawnés deviennent actifs après 1 seconde
-        this.spawnTime -= dt;
-        if (this.spawnTime <= 0) {
-            this.spawns.forEach(spawn => {
-                spawn.status = GameObjectState.ACTIVE;
-            });
-            this.status = GameObjectState.OUTDATED;        
-        }
-        else {
-            this.spawns.forEach(spawn => {
-                spawn.update(dt);
-            });
-        }
-    }
 
     spawn() {
         let angle = 0;
         let deltaAngle = 2 * Math.PI / this.spawnNumber;
+
+        // On spawne tous les exemplaires demandés
         for (let index = 0; index < this.spawnNumber; index++) {
+            
             // Duplication du prototype
             let newShip = this.gameObjectPrototype.getClone();
 
-            // Il apparait sur le point prévu
-            newShip.position = this.appearPoint.getClone();
-            newShip.collideBox.position = newShip.position;
-
-            // On lui associe le mouvement demandé
-            newShip.moveStrategy = new UniformMoveStrategy(newShip, new Vec2(Math.cos(angle + deltaAngle * index), Math.sin(angle + deltaAngle * index)));
+            // On lui donne une direction qui s'éloigne du point d'apparition
+            newShip.behaveStrategy.moveStrategy = new UniformMoveStrategy(newShip, new Vec2(Math.cos(angle + deltaAngle * index), Math.sin(angle + deltaAngle * index)));
+            newShip.speed = 75;
 
             // On l'ajoute à la liste des gameObjects de la scene
-            this.spawns.push(newShip);
             ServiceLocator.getService(ServiceLocator.SCENE).currentScene.addGameObject(newShip);            
         }
     }

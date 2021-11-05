@@ -7,7 +7,7 @@ class DoubleSprite extends GameObject {
         this.size.y = Math.max(this.firstSprite.size.y, this.secondSprite.size.y);
         this.firstSpriteOffset = (this.size.x - this.firstSprite.size.x) / 2;
         this.secondSpriteOffset = (this.size.x - this.secondSprite.size.x) / 2;
-        this.collideBox = new CircleCollideBox(this.position, Math.max(this.firstSprite.size.x, this.secondSprite.size.x) / 2)
+        this.collideBox = new CircleCollideBox(this.position, Math.min(this.firstSprite.size.x, this.secondSprite.size.x) / 2)
         this.firstSprite.collideBox.type = this.secondSprite.collideBox.type = BaseCollideBox.NONE;
         this.alpha = 1;
         this.speed = speed;
@@ -30,21 +30,19 @@ class DoubleSprite extends GameObject {
         super.update(dt);
 
         this.firstSprite.update(dt);
-        this.firstSprite.position.x = this.position.x + this.firstSpriteOffset;
-        this.firstSprite.position.y = this.position.y + this.firstSpriteOffset;
+        this.firstSprite.position.x = this.position.x;
+        this.firstSprite.position.y = this.position.y;
 
         this.secondSprite.update(dt);
-        this.secondSprite.position.x = this.position.x + this.secondSpriteOffset;
-        this.secondSprite.position.y = this.position.y + this.secondSpriteOffset;
+        this.secondSprite.position.x = this.position.x;
+        this.secondSprite.position.y = this.position.y;
     }
 
     draw(context) {
+        this.firstSprite.draw(context);
+        this.secondSprite.draw(context);
         if (ServiceLocator.getService(ServiceLocator.PARAMETER).colliderDisplay) {
             this.collideBox.draw(context);
-        }
-        else {
-            this.firstSprite.draw(context);
-            this.secondSprite.draw(context);
         }
     }
 }

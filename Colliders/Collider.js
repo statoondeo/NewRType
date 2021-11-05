@@ -42,8 +42,8 @@ class Collider {
     static isCircleInCircle(circleCollideBox1, circleCollideBox2) {
         return (
             Tools.distance(
-                new Vec2(circleCollideBox1.position.x + circleCollideBox1.radius, circleCollideBox1.position.y + circleCollideBox1.radius), 
-                new Vec2(circleCollideBox2.position.x + circleCollideBox2.radius, circleCollideBox2.position.y + circleCollideBox2.radius)) 
+                new Vec2(circleCollideBox1.position.x, circleCollideBox1.position.y), 
+                new Vec2(circleCollideBox2.position.x, circleCollideBox2.position.y)) 
                 < (circleCollideBox1.radius + circleCollideBox2.radius));
     }
 
@@ -58,8 +58,8 @@ class Collider {
 
     // Y a t'il collision entre notre cerle et le rectangle
     static isCircleInRectangle(circleCollideBox, rectCollideBox) {
-        let distX = Math.abs(circleCollideBox.position.x + circleCollideBox.radius - rectCollideBox.position.x - rectCollideBox.size.x / 2);
-        let distY = Math.abs(circleCollideBox.position.y + circleCollideBox.radius  - rectCollideBox.position.y - rectCollideBox.size.y / 2);
+        let distX = Math.abs(circleCollideBox.position.x - rectCollideBox.position.x - rectCollideBox.size.x / 2);
+        let distY = Math.abs(circleCollideBox.position.y  - rectCollideBox.position.y - rectCollideBox.size.y / 2);
 
         if (distX > (rectCollideBox.size.x /2 + circleCollideBox.radius)) return false;
         if (distY > (rectCollideBox.size.y /2 + circleCollideBox.radius)) return false;

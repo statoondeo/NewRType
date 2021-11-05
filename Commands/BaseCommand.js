@@ -5,10 +5,8 @@ class BaseCommand {
     }
 
     update(dt) {
-
     }
 
     execute() {
-        console.log("BaseCommand");
     }
 }

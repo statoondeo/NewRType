@@ -16,9 +16,10 @@ class CircleCollideBox extends BaseCollideBox {
 
     draw(context) {
         context.save();
+        // context.translate(-this.radius, -this.radius);
         context.strokeStyle = this.color;
         context.beginPath();
-        context.arc(this.position.x + this.radius, this.position.y + this.radius, this.radius, 0, 2 * Math.PI);
+        context.arc(this.position.x, this.position.y, this.radius, 0, 2 * Math.PI);
         context.stroke();
         context.restore();
     }
