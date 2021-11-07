@@ -6,8 +6,8 @@ class MoveCommand extends BaseCommand {
 
     execute() {
         if (this.canExecute) {
-            this.gameObject.vector.x += this.vector.x;
-            this.gameObject.vector.y += this.vector.y;
+            this.gameObject.moveStrategy.vector.x += this.vector.x;
+            this.gameObject.moveStrategy.vector.y += this.vector.y;
         }
     }
 }

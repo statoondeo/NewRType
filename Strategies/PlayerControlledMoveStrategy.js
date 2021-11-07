@@ -9,11 +9,10 @@ class PlayerControlledMoveStrategy extends BaseMoveStrategy {
 
         // On exécute toutes les commandes demandées par le joueur
         ServiceLocator.getService(ServiceLocator.KEYBOARD).handleInput().forEach(command => {
-            console.log("PlayerControlledMoveStrategy");
             command.execute();
         });
-    }
-    
-    move() { 
+
+        // Application des mouvements demandés
+        super.update(dt);
     }
 }

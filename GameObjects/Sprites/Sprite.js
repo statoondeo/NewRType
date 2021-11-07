@@ -9,15 +9,7 @@ class Sprite extends GameObject {
     }
 
     getClone() {
-        let clone = new Sprite(this.image);
-        clone.partition = this.partition;
-        clone.position = this.position.getClone();
-        clone.originalSize = this.originalSize.getClone();
-        clone.scale = this.scale.getClone();
-        clone.size = this.size.getClone();
-        clone.collideBox = this.collideBox.getClone();
-        clone.image = this.image;
-        return clone;
+        return new Sprite(this.image);
     }
 
     update(dt) {

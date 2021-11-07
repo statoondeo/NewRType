@@ -12,8 +12,8 @@ class RollingLayer extends GameObject {
         this.secondSprite.speed = this.firstSprite.speed;
         this.secondSprite.position = new Vec2(this.firstSprite.size.x, 0);
 
-        this.firstSprite.behaveStrategy = new BaseBehaveStrategy(this.firstSprite, new UniformMoveStrategy(this.firstSprite, direction.getClone()), new BaseFireStrategy(this.firstSprite));
-        this.secondSprite.behaveStrategy = new BaseBehaveStrategy(this.secondSprite, new UniformMoveStrategy(this.secondSprite, direction.getClone()), new BaseFireStrategy(this.secondSprite));
+        this.firstSprite.moveStrategy = new UniformMoveStrategy(this.firstSprite, direction.getClone());
+        this.secondSprite.moveStrategy = new UniformMoveStrategy(this.secondSprite, direction.getClone());
     }
 
     update(dt) {

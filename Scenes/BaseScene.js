@@ -65,17 +65,17 @@ class BaseScene {
         let screen = ServiceLocator.getService(ServiceLocator.SCREEN);
         this.quadTree = new QuadTree(new Vec2(), new Vec2(screen.width, screen.height));
         this.gameObjectsCollection.forEach(gameObject => {
-            if (gameObject.status == GameObjectState.ACTIVE && gameObject.collideBox.type != BaseCollideBox.NONE) {
+            if (gameObject.status == GameObjectState.ACTIVE && gameObject.collideBox.type != CollideBoxType.NONE) {
                 this.quadTree.addItem(gameObject);
             }
         });
 
         let collision = false;
         this.gameObjectsCollection.forEach(gameObject => {
-            gameObject.collideBox.isCollided = false;
+            gameObject.collideBox.setCollided(false);
 
             // On ne traite que les objets qui ont une collideBox et qui sont actifs
-            if (gameObject.collideBox.type != BaseCollideBox.NONE && gameObject.status == GameObjectState.ACTIVE) {
+            if (gameObject.collideBox.type != CollideBoxType.NONE && gameObject.status == GameObjectState.ACTIVE) {
 
                 // On cherche les candidats à la collision avec notre gameObject
                 this.quadTree.getCandidates(gameObject.collideBox).forEach(targetGameObject => {
@@ -85,13 +85,12 @@ class BaseScene {
                     // pour vérifier une collision
                     if ((targetGameObject.partition != gameObject.partition) && 
                         (targetGameObject.status == GameObjectState.ACTIVE) && 
-                        (targetGameObject.collideBox.type != BaseCollideBox.NONE) &&
-                        (collision = Collider.isCollision(targetGameObject.collideBox, gameObject.collideBox))) {
+                        (targetGameObject.collideBox.type != CollideBoxType.NONE) &&
+                        (collision = gameObject.collideBox.collide(targetGameObject.collideBox))) {
 
                             // Si une collision est détectée, on exécute le comportement associé du gameObject
-                            // matérialisé dans une command
+                            // matérialisé dans une commande
                             gameObject.collideCommand.execute(targetGameObject);      
-                            gameObject.collideBox.isCollided = true;
                     }
                 });
             }
@@ -150,11 +149,13 @@ class BaseScene {
         // On écrit la vitesse en bas à gauche
         context.fillStyle = "White";
         context.font = "normal 10pt neuropol";
-        context.fillText("Life : " + this.playerShip.life, 10, 720);
-        context.fillText("Speed : " + this.playerShip.speed, 10, 750);
+        context.fillText("Game objects : " + this.gameObjectsCollection.length, 10, 710);
+        context.fillText("Weapon level : " + this.playerShip.fireCommand.weapon.currentLevel(), 10, 730);
+        context.fillText("Life : " + this.playerShip.life, 10, 750);
+        context.fillText("Speed : " + this.playerShip.speed, 10, 770);
 
         // TODO : A supprimer
-        context.fillText("Step : " + Math.floor(this.scheduler.currentStep), 10, 780);
+        context.fillText("Step : " + Math.floor(this.scheduler.currentStep), 10, 790);
 
         if (ServiceLocator.getService(ServiceLocator.PARAMETER).colliderDisplay) {
             // Affichage du quadTree

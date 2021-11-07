@@ -4,6 +4,7 @@
 class QuadTree extends RectCollideBox {
     constructor(position, size, level = 0) {
         super(position, size);
+        this.type = CollideBoxType.QUADRANT;
         this.color = BaseCollideBox.NEUTRAL_COLOR;
 
         // Liste des items gérés dans le cas d'une leaf
@@ -18,14 +19,14 @@ class QuadTree extends RectCollideBox {
     }
     
     // Limite d'objets dans un quadrant (limite avant de découper)
-    static LengthLimit = 8;
+    static LengthLimit = 12;
 
     // Limite de profondeur du QuadTree
-    static MaxLevel = 4;
+    static MaxLevel = 5;
 
     getCandidates(collideBox) {
         let candidates = [];
-        if (Collider.isCollision(this, collideBox)) {
+        if (Collider.isRectangleInRectangle(this, collideBox.getBox())) {
             if (this.items == null) {
                 this.children.forEach(child => {
                     Array.prototype.push.apply(candidates, child.getCandidates(collideBox));
@@ -79,7 +80,7 @@ class QuadTree extends RectCollideBox {
         else {
             // On est sur un node, donc on ajoute le gameObject aux sous-quadrants
             this.children.forEach(subQuadrant => {
-                if (Collider.isCollision(gameOject.collideBox, subQuadrant)) {
+                if (Collider.isRectangleInRectangle(subQuadrant, gameOject.collideBox.getBox())) {
                     subQuadrant.addItem(gameOject);
                 }
             });

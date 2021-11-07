@@ -11,7 +11,7 @@ class OnceLayer extends GameObject {
 
         this.sprite = new Sprite(image);
         this.sprite.speed = layer * sceneSpeed;
-        this.sprite.behaveStrategy = new BaseBehaveStrategy(this.sprite, new UniformMoveStrategy(this.sprite, direction.getClone()), new BaseFireStrategy(this.sprite));
+        this.sprite.moveStrategy = new UniformMoveStrategy(this.sprite, direction.getClone());
     }
     
     subjectChanged(scheduler) {

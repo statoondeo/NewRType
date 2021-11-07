@@ -1,7 +1,12 @@
 class SpeedPowerUpGameObject extends BonusGameObject {
     constructor(playerShip) {
         super(new BlueSparkGameObject(), new SpeedUpGameObject(), 75);
-        this.bonusCommand = new SpeedBonusCommand(playerShip, 100);
+        this.playerShip = playerShip;
+        this.bonusCommand = new SpeedBonusCommand(this.playerShip, 100);
+    }
+        
+    getClone() {
+        return new SpeedPowerUpGameObject(this.playerShip);
     }
 
     static size = new Vec2(200);

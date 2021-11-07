@@ -5,12 +5,19 @@ class BaseSpawner extends GameObject {
         super();
         this.gameObjectPrototype = gameObjectPrototype;
         this.spawnNumber = spawnNumber;
-        this.gameObjectPrototype.position.x = appearPoint.x;
-        this.gameObjectPrototype.position.y = appearPoint.y;
+        if (null != appearPoint.position) {
+            this.position = appearPoint.position;
+            this.size = appearPoint.size;
+        }
+        else {
+            this.position.x = appearPoint.x;
+            this.position.y = appearPoint.y;
+            this.size.x = this.size.y = 0;
+        }
     }
 
     update(dt) {
-
+        super.update(dt);
     }
 
     spawn() {

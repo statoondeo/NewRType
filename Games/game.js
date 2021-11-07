@@ -25,7 +25,6 @@ function load(canvas) {
     assetLoader.add("images/player1.png");
     assetLoader.add("images/player2.png");
     assetLoader.add("images/starknife.png");
-    assetLoader.add("images/sphere.png");
     assetLoader.add("images/wobbler.png");
     assetLoader.add("images/background1.png");
     assetLoader.add("images/background2.png");
@@ -41,12 +40,20 @@ function load(canvas) {
     assetLoader.add("images/redspark.png");
     assetLoader.add("images/greenspark.png");
     assetLoader.add("images/purplespark.png");
-    assetLoader.add("images/serpentbody.png");
-    assetLoader.add("images/serpenthead.png");
-    assetLoader.add("images/serpentrear.png");
     assetLoader.add("images/redbullet.png");
     assetLoader.add("images/bluebullet.png");
     assetLoader.add("images/greenbullet.png");
+    assetLoader.add("images/rocket.png");
+    assetLoader.add("images/soil1.png");
+    assetLoader.add("images/soil2.png");
+    assetLoader.add("images/soil3.png");
+    assetLoader.add("images/soil4.png");
+    assetLoader.add("images/tech_bottom_end_left.png");
+    assetLoader.add("images/tech_bottom_end_right.png");
+    assetLoader.add("images/tech_bottom_tile.png");
+    assetLoader.add("images/tech_bottom_tile2.png");
+    assetLoader.add("images/bigsaucer.png");
+    assetLoader.add("images/cube.png");
 
     assetLoader.start(startGame);
 }

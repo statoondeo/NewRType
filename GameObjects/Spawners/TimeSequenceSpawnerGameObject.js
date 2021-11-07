@@ -19,6 +19,7 @@ class TimeSequenceSpawnerGameObject extends BaseSpawner {
     }
 
     update(dt) {
+        super.update(dt);
         // Rafraichissement de la fréquence de spawn
         this.spawnTime -= dt;
         if (this.spawnTime <= 0) {
@@ -35,6 +36,8 @@ class TimeSequenceSpawnerGameObject extends BaseSpawner {
         // Duplication du prototype
         // On l'ajoute à la liste des gameObjects de la scene
         let newShip = this.gameObjectPrototype.getClone();
+        newShip.position.x = this.position.x + this.size.x / 2;
+        newShip.position.y = this.position.y + this.size.y / 2;
         ServiceLocator.getService(ServiceLocator.SCENE).currentScene.addGameObject(newShip);
 
         // On passe au suivant

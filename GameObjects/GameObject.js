@@ -11,7 +11,8 @@ class GameObject {
         this.partition = GameObjectPartition.GAME_PARTITION;
         this.maxLife = 0;
         this.life = 0;
-        this.behaveStrategy = new DummyBehaveStrategy();
+        this.moveStrategy = new DummyMoveStrategy();
+        this.fireCommand = new DummyCommand();
         this.collideCommand = new DummyCommand();
         this.dealDamageCommand = new DummyCommand();
         this.dieCommand = new DummyCommand(this);
@@ -29,23 +30,17 @@ class GameObject {
     // Mise à jour du gameObject
     // Les comportements sont modélisés dans des commandes
     update(dt) {
-        // Initialisation du mouvement
-        this.vector.x = this.vector.y = 0;
-
-        // Mise à jour et application du comportement à adopter
-        this.behaveStrategy.update(dt);
-        this.behaveStrategy.behave();
+        // Mise à jour et application du movement
+        this.moveStrategy.update(dt);
 
         // Mise à jour des commandes
+        this.fireCommand.update(dt);
         this.collideCommand.update(dt);
         this.dealDamageCommand.update(dt);
         this.dieCommand.update(dt);
 
         // Mise à jour de la boite de collision
         this.collideBox.update(dt);
-
-        // En général un gameobject en dehors de l'écran devient obsolète
-        this.status = Tools.isOutOfScreen(this.position, this.size) ? GameObjectState.OUTDATED : this.status;
     }
 
     // Affichage du gameObject

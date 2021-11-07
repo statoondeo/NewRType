@@ -1,5 +1,5 @@
 class Easing {
     static easeInOutSine(x) {
-    return -(Math.cos(Math.PI * x) - 1) / 2;
+        return -(Math.cos(Math.PI * x) - 1) / 2;
     }
 }

@@ -21,7 +21,11 @@
         <script src="Tools/Schedulers/LinearScheduler.js"></script>
         <script src="Tools/Schedulers/AdaptativeScheduler.js"></script>
 
+        <script src="Weapons/Weapon.js"></script>
+
         <script src="Colliders/BaseCollideBox.js"></script>
+        <script src="Colliders/CompositeCollideBox.js"></script>
+        <script src="Colliders/CollideBoxType.js"></script>
         <script src="Colliders/CircleCollideBox.js"></script>
         <script src="Colliders/RectCollideBox.js"></script>
         <script src="Colliders/Collider.js"></script>
@@ -53,42 +57,43 @@
         <script src="GameObjects/Misc/PlayerShipGameObject.js"></script>
         <script src="GameObjects/Misc/EnemyShipGameObject.js"></script>
         <script src="GameObjects/Misc/SparkGameObject.js"></script>
+        <script src="GameObjects/Misc/RocketGameObject.js"></script>
 
         <script src="GameObjects/Spawners/BaseSpawner.js"></script>
         <script src="GameObjects/Spawners/AllInCircleSpawnerGameObject.js"></script>
         <script src="GameObjects/Spawners/TimeSequenceSpawnerGameObject.js"></script>
 
+        <script src="Tools/Beziers/Curve.js"></script>
+
         <script src="Commands/BaseCommand.js"></script>
         <script src="Commands/DummyCommand.js"></script>
-        <script src="Commands/FireCommand.js"></script>
-        <script src="Commands/DoubleFireCommand.js"></script>
         <script src="Commands/FireActionCommand.js"></script>
         <script src="Commands/AsapFireCommand.js"></script>
-        <script src="Commands/PlayerAimedFireCommand.js"></script>
         <script src="Commands/MoveCommand.js"></script>
         <script src="Commands/SpeedBonusCommand.js"></script>
         <script src="Commands/DealDamageCommand.js"></script>
         <script src="Commands/DieCommand.js"></script>
         <script src="Commands/PopAndDieCommand.js"></script>
+        <script src="Commands/WeaponBonusCommand.js"></script>
         <script src="Commands/collideCommands/BonusCollideCommand.js"></script>
         <script src="Commands/collideCommands/MissileCollideCommand.js"></script>
         <script src="Commands/collideCommands/ShipCollideCommand.js"></script>
         <script src="Commands/collideCommands/WallCollideCommand.js"></script>
+        <script src="Commands/WeaponCommands/BulletFireCommand.js"></script>
+        <script src="Commands/WeaponCommands/BulletWeaponFireCommand.js"></script>
 
         <script src="Strategies/BaseStrategy.js"></script>
-        <script src="Strategies/BaseBehaveStrategy.js"></script>
-        <script src="Strategies/DummyBehaveStrategy.js"></script>
-        <script src="Strategies/PlayerControlledBehaveStrategy.js"></script>
+        <script src="Strategies/BaseMoveStrategy.js"></script>
+        <script src="Strategies/BezierApexMoveStrategy.js"></script>
+        <script src="Strategies/DummyMoveStrategy.js"></script>
+        <script src="Strategies/PlayerControlledMoveStrategy.js"></script>
+        <script src="Strategies/SinWaveMoveStrategy.js"></script>
+        <script src="Strategies/UniformMoveStrategy.js"></script>
+        <script src="Strategies/PlayerAimedUniformMoveStrategy.js"></script>
 
-        <script src="Strategies/MoveStrategies/BaseMoveStrategy.js"></script>
-        <script src="Strategies/MoveStrategies/PlayerControlledMoveStrategy.js"></script>
-        <script src="Strategies/MoveStrategies/UniformMoveStrategy.js"></script>
-        <script src="Strategies/MoveStrategies/HorizontalLoopingMoveStrategy.js"></script>
-        <script src="Strategies/MoveStrategies/SinWaveMoveStrategy.js"></script>
-
-        <script src="Strategies/FireStrategies/BaseFireStrategy.js"></script>
-
+        <script src="GameObjects/Concretes/CubeGameObject.js"></script>
         <script src="GameObjects/Concretes/RockyDecorImage.js"></script>
+        <script src="GameObjects/Concretes/Soil1DecorImage.js"></script>
         <script src="GameObjects/Concretes/GreenExplosionGameObject.js"></script>
         <script src="GameObjects/Concretes/GreenSparkGameObject.js"></script>
         <script src="GameObjects/Concretes/Background1GameObject.js"></script>
@@ -109,6 +114,8 @@
         <script src="GameObjects/Concretes/RedExplosionGameObject.js"></script>
         <script src="GameObjects/Concretes/RedSparkGameObject.js"></script>
         <script src="GameObjects/Concretes/PurpleSparkGameObject.js"></script>
+        <script src="GameObjects/Concretes/WhiteRocketGameObject.js"></script>
+        <script src="GameObjects/Concretes/BigSaucerGameObject.js"></script>
 
         <script src="Scenes/BaseScene.js"></script>
         <script src="Scenes/Level1Scene.js"></script>

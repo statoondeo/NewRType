@@ -14,9 +14,16 @@ class SinWaveMoveStrategy extends BaseMoveStrategy {
         this.totalDt += dt;
 
         // Le déplacement en x est linéaire
-        this.moveCommand.vector.x = this.initialVector.x * this.amplitude;
+        this.vector.x = this.initialVector.x * this.amplitude;
 
         // Le déplacement vertical est sinusoidal
-        this.moveCommand.vector.y = this.initialVector.y + Math.sin(this.totalDt) * this.amplitude;
+        this.vector.y = this.initialVector.y + Math.sin(this.totalDt) * this.amplitude;
+
+        // Application du mouvement
+        super.update(dt);
+
+        if (this.gameObject.status == GameObjectState.ACTIVE && Tools.isOutOfScreen(this.gameObject.position, this.gameObject.size)) {
+            this.gameObject.status = GameObjectState.OUTDATED;
+        }
     }
 }

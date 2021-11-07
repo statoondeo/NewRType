@@ -22,4 +22,8 @@ class Tools {
     static getClone(item) {
         return Object.assign(Object.create(Object.getPrototypeOf(item)), item)
     }    
+
+    static lerp(minBound, maxBound, ratio) {
+        return minBound * (1 - ratio) + maxBound * ratio;
+    }
 }

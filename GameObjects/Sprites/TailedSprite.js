@@ -11,10 +11,6 @@ class TailedSprite extends GameObject {
         this.ttl = this.momentumTtl;
     }
 
-    getClone() {
-        return new TailedSprite(this.headSprite, this.bodySprite, this.tailSprite, this.nbBody, this.speed);
-    }
-
     update(dt) {
         super.update(dt);
         this.ttl -= dt;

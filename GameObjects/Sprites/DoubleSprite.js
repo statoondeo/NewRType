@@ -3,27 +3,12 @@ class DoubleSprite extends GameObject {
         super();
         this.firstSprite = firstSprite;
         this.secondSprite = secondSprite;
-        this.size.x = Math.max(this.firstSprite.size.x, this.secondSprite.size.x);
-        this.size.y = Math.max(this.firstSprite.size.y, this.secondSprite.size.y);
-        this.firstSpriteOffset = (this.size.x - this.firstSprite.size.x) / 2;
-        this.secondSpriteOffset = (this.size.x - this.secondSprite.size.x) / 2;
-        this.collideBox = new CircleCollideBox(this.position, Math.min(this.firstSprite.size.x, this.secondSprite.size.x) / 2)
-        this.firstSprite.collideBox.type = this.secondSprite.collideBox.type = BaseCollideBox.NONE;
+        this.secondeSpriteOffset = new Vec2((this.firstSprite.size.x - this.secondSprite.size.x) / 2, (this.firstSprite.size.y - this.secondSprite.size.y) / 2);
+        this.collideBox = new CircleCollideBox(this.position, Math.max(this.firstSprite.size.x, this.secondSprite.size.x) / 2)
+        this.firstSprite.collideBox.type = this.secondSprite.collideBox.type = CollideBoxType.NONE;
         this.alpha = 1;
         this.speed = speed;
         this.firstSprite.speed = this.secondSprite.speed = 0;
-    }
-
-    getClone() {
-        let clone = new DoubleSprite(this.firstSprite.getClone(), this.secondSprite.getClone(), this.speed);
-        clone.partition = this.partition;
-        clone.position = this.position.getClone();
-        clone.size = this.size.getClone();
-        clone.behaveStrategy = this.behaveStrategy.getClone(clone);
-        clone.speed = this.speed;
-        clone.collideBox = this.collideBox.getClone();
-        clone.collideBox.position = clone.position;
-        return clone;
     }
 
     update(dt) {
@@ -34,8 +19,8 @@ class DoubleSprite extends GameObject {
         this.firstSprite.position.y = this.position.y;
 
         this.secondSprite.update(dt);
-        this.secondSprite.position.x = this.position.x;
-        this.secondSprite.position.y = this.position.y;
+        this.secondSprite.position.x = this.position.x + this.secondeSpriteOffset.x;
+        this.secondSprite.position.y = this.position.y + this.secondeSpriteOffset.y;
     }
 
     draw(context) {

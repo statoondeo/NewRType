@@ -5,7 +5,7 @@ class FireActionCommand extends BaseCommand {
 
     execute() {
         if (this.canExecute) {
-            this.gameObject.behaveStrategy.fire();
+            this.gameObject.fireCommand.execute();
         }
     }
 }

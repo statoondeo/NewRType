@@ -10,10 +10,6 @@ class ExplosionGameObject extends AnimatedSprite {
         this.totalTtl = 0.150;
     }
 
-    getClone() {
-        return new ExplosionGameObject(this.image, this.size.getClone());
-    }
-
     update(dt) {
         super.update(dt);
         this.totalTtl -= dt;

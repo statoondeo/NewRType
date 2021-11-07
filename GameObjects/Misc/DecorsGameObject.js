@@ -9,7 +9,7 @@ class DecorsGameObject extends GameObject {
         this.status = GameObjectState.IDLE;
         this.sprite = new Sprite(image);
         this.sprite.speed = layer * sceneSpeed;
-        this.sprite.behaveStrategy = new BaseBehaveStrategy(this.sprite, new UniformMoveStrategy(this.sprite, new Vec2(-1, 0)), new BaseFireStrategy(this.sprite));
+        this.sprite.moveStrategy = new UniformMoveStrategy(this.sprite, new Vec2(-1, 0));
         if (active) {
             this.collideBox = new RectCollideBox(this.sprite.position, this.sprite.size);
         }

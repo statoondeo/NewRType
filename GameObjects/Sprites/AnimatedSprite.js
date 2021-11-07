@@ -6,7 +6,7 @@ class AnimatedSprite extends GameObject {
         this.image = image;
         this.currentFrame = 0;
         this.originalSize = tileSheet;
-        this.size = tileSheet.getClone();
+        this.size = tileSheet;
         this.tile = new Vec2();
         this.scale = new Vec2(1);
         this.getNewFrame();
@@ -14,29 +14,6 @@ class AnimatedSprite extends GameObject {
         // Gestion des animations
         this.animations = [];
         this.currentAnimation = null;
-    }
-
-    getClone() {
-        let clone = new AnimatedSprite(this.image, this.size.getClone());
-        clone.partition = this.partition;
-        clone.position = this.position.getClone();
-        clone.originalSize = this.originalSize.getClone();
-        clone.scale = this.scale.getClone();
-        clone.behaveStrategy = this.behaveStrategy.getClone(clone);
-        clone.speed = this.speed;
-        clone.collideBox = this.collideBox.getClone();
-        clone.collideBox.position = clone.position;
-        clone.image = this.image;
-        clone.currentFrame = this.currentFrame;
-        clone.tile = this.tile.getClone();
-        clone.animations = [];
-        this.animations.forEach(animation => {
-            clone.animations.push(animation.getClone());
-        });
-        let index = this.currentAnimation == null ? -1 : this.animations.indexOf(this.currentAnimation);
-        clone.currentAnimation = index == -1 ? null : clone.animations[index];
-
-        return clone;
     }
 
     getNewFrame() {
@@ -76,8 +53,6 @@ class AnimatedSprite extends GameObject {
 
     draw(context) {
         context.save();
-        context.translate(-this.size.x * this.scale.x / 2, -this.size.y * this.scale.y / 2);
-        context.globalAlpha = this.alpha;
         context.drawImage(
             this.image, 
             Math.floor(this.tile.x), 
@@ -89,9 +64,6 @@ class AnimatedSprite extends GameObject {
             Math.floor(this.size.x * this.scale.x), 
             Math.floor(this.size.y * this.scale.y));
         context.restore();
-        if (this.size.x == 200) {
-            console.log("Size=",this.size, this.scale, this.tile);
-        }
         if (ServiceLocator.getService(ServiceLocator.PARAMETER).colliderDisplay) {
             this.collideBox.draw(context);
         }    

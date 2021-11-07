@@ -8,10 +8,6 @@ class StaticLayer extends GameObject {
         this.visual = visual;
     }
 
-    update(dt) {
-        super.update(dt);
-    }
-
     draw(context) {
         this.visual.draw(context);
     }
