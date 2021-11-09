@@ -1,6 +1,15 @@
 let gameReady = false;
 let sceneManager = null;
 
+// Gestion des images de chargement
+let loaderImage = document.getElementById("loaderImage");
+let loaderImages = [];
+let totalDt = 0;
+for (let index = 1; index <= 14; index++) {
+    let item = document.getElementById("loaderImage-" + index); 
+    loaderImages.push(item.src);
+}
+
 function keyDownEventListener(key) {
     key.preventDefault();
     ServiceLocator.getService(ServiceLocator.KEYBOARD).switchOn(key.code);
@@ -105,7 +114,14 @@ function startGame() {
 }
 
 function update(dt) {
-    if (!gameReady) return;
+    if (!gameReady) {
+        let ratio = Math.floor(ServiceLocator.getService(ServiceLocator.RESOURCE).getLoadedRatio() / 14 * 100);
+        if (ratio < loaderImages.length) {
+            loaderImage.src = loaderImages[ratio];
+        }
+
+        return;
+    };
 
     sceneManager.update(dt);
 
