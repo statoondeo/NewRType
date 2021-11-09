@@ -33,12 +33,7 @@ class Level1Scene extends BaseScene {
         scene.addSynchronizedGameObject(new DecorsGameObject(rockyDecorImage.image, 0.9, baseSpeed, 11000, new Vec2(screen.width, screen.height - rockyDecorImage.image.height), false));
 
         // On retourne le décor rocheux pour l'utiliser dans la scène
-        let imageFlipper = new ImageHandler(new Vec2(rockyDecorImage.image.width, rockyDecorImage.image.height), new Vec2(1, -1));
-        imageFlipper.addImage(rockyDecorImage.image, new Vec2());
-        imageFlipper.assemble();
-        let flippedImage = imageFlipper.getAssembledImage();
-
-        scene.addSynchronizedGameObject(new DecorsGameObject(flippedImage, 0.9, baseSpeed, 6150, new Vec2(screen.width, 0), false));
+        scene.addSynchronizedGameObject(new DecorsGameObject(ImageHandler.flipImage(rockyDecorImage.image, new Vec2(-1)), 0.9, baseSpeed, 6150, new Vec2(screen.width, 0), false));
 
         // Gestion du joueur
         let playerShip = new Player1ShipGameObject(new Vec2((screen.width - PlayerShipGameObject.size.x) / 2, (screen.height - PlayerShipGameObject.size.y) / 2));

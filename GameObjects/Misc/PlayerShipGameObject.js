@@ -2,7 +2,7 @@ class PlayerShipGameObject extends AnimatedSprite {
     constructor(image, tile, initialPosition) {
         super(image, tile)
         this.type = GameObjectType.SHIP;
-        this.collideBox = new CircleCollideBox(this.position, this.size.x / 2);
+        this.collideBox = new CircleCollideBox(this.position, 0.6 * this.size.x / 2, new Vec2(0.3 * this.size.x / 2, 0.3 * this.size.x / 2));
         this.layer = 1;
         this.partition = GameObjectPartition.PLAYER_PARTITION;
         this.moveStrategy = new PlayerControlledMoveStrategy(this);
@@ -10,7 +10,7 @@ class PlayerShipGameObject extends AnimatedSprite {
         this.position.y = initialPosition.y;
         this.collideCommand = new ShipCollideCommand(this);
         this.dieCommand = new DummyCommand();
-        this.fireCommand = new BulletWeaponFireCommand(this, BulletWeaponFactory.getBulletWeapon(this));
+        this.fireCommand = new WeaponFireCommand(this, WeaponFactory.getBulletWeapon(this));
 
         // Paramétrage du vaisseau du joueur
         this.life = this.maxLife = 1000;

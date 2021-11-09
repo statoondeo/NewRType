@@ -1,5 +1,5 @@
 class LinearScheduler extends BaseScheduler {
-    constructor(speed, startingStep) {
+    constructor(speed, startingStep = 0) {
         super();
         this.speed = speed;
         this.currentStep = startingStep;

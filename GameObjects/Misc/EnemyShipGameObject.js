@@ -2,11 +2,11 @@ class EnemyShipGameObject extends AnimatedSprite {
     constructor(image, tile, maxLife, speed) {
         super(image, tile)
         this.type = GameObjectType.SHIP;
-        this.collideBox = new CircleCollideBox(this.position, this.size.x / 2);
-        this.layer = 1;
+        this.collideBox = new CircleCollideBox(this.position, 0.8 * this.size.x / 2, new Vec2(0.3 * this.size.x / 2, 0.2 * this.size.y / 2));
+        this.layer = 0.995;
         this.partition = GameObjectPartition.GAME_PARTITION;
         this.collideCommand = new ShipCollideCommand(this);
-        this.dieCommand = new DieCommand(this);
+        this.dieCommand = new PopAndDieCommand(this, new MediumRedExplosionGameObject());
         this.life = this.maxLife = maxLife;
         this.speed = speed;
         this.dealDamageCommand = new DealDamageCommand(this, this.maxLife);

@@ -12,6 +12,9 @@ class InputListener {
 
         // Commandes du joueur
         this.boundedCommands = [];
+
+        // Coordonnées de la souris
+        this.mouse = new Vec2();
     }
 
     registerCommand(control, command) {
@@ -27,6 +30,11 @@ class InputListener {
 
     clearCommands() {
         this.boundedCommands = [];
+    }
+
+    mouseMove(mouseX, mouseY) {
+        this.mouse.x = mouseX;
+        this.mouse.y = mouseY;
     }
 
     // Gestion des contrôles utilisés par le joueur pour cette frame

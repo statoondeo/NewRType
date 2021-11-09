@@ -147,17 +147,25 @@ class BaseScene {
         });
 
         // On écrit la vitesse en bas à gauche
-        context.fillStyle = "White";
-        context.font = "normal 10pt neuropol";
-        context.fillText("Game objects : " + this.gameObjectsCollection.length, 10, 710);
-        context.fillText("Weapon level : " + this.playerShip.fireCommand.weapon.currentLevel(), 10, 730);
-        context.fillText("Life : " + this.playerShip.life, 10, 750);
-        context.fillText("Speed : " + this.playerShip.speed, 10, 770);
+        // let inputHandler = ServiceLocator.getService(ServiceLocator.KEYBOARD);
+        // context.fillStyle = "White";
+        // context.font = "normal 10pt neuropol";
+        // context.fillText("Game objects : " + this.gameObjectsCollection.length, 10, 710);
+        // context.fillText("Mouse : " + inputHandler.mouse.x + "/" + inputHandler.mouse.y, 10, 730);
+        // if (this.playerShip != null) {
+        //     context.fillText("Weapon level : " + this.playerShip.fireCommand.weapon.currentLevel(), 10, 730);
+        //     context.fillText("Life : " + this.playerShip.life, 10, 750);
+        //     context.fillText("Speed : " + this.playerShip.speed, 10, 770);
+        // }
 
         // TODO : A supprimer
-        context.fillText("Step : " + Math.floor(this.scheduler.currentStep), 10, 790);
+        // context.fillText("Step : " + Math.floor(this.scheduler.currentStep), 10, 790);
 
         if (ServiceLocator.getService(ServiceLocator.PARAMETER).colliderDisplay) {
+            context.fillStyle = "White";
+            context.font = "normal 10pt neuropol";
+            context.fillText("Game objects : " + this.gameObjectsCollection.length, 10, 710);
+
             // Affichage du quadTree
             if (null != this.quadTree) {
                 this.quadTree.draw(context);

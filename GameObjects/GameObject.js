@@ -18,15 +18,6 @@ class GameObject {
         this.dieCommand = new DummyCommand(this);
     }
 
-    setScale(newScale) {
-        this.scale.x = newScale.x;
-        this.scale.y = newScale.y;
-
-        // Mise à jour de la taille réélle
-        this.size.x = this.originalSize.x * this.scale.x;
-        this.size.y = this.originalSize.y * this.scale.y;
-    }
-
     // Mise à jour du gameObject
     // Les comportements sont modélisés dans des commandes
     update(dt) {

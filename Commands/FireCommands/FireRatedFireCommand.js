@@ -1,17 +1,3 @@
-class BulletWeaponFireCommand extends BaseCommand {
-    constructor(gameObject, weapon) {
-        super(gameObject);
-        this.weapon = weapon;
-    }
-
-    update(dt) {
-        this.weapon.update(dt);
-    }
-
-    execute() {
-        this.weapon.fire();
-    }
-}
 class FireRatedFireCommand extends BaseCommand {
     constructor(gameObject, prototype, startingPoint, fireRate, randomized = true) {
         super(gameObject);
@@ -43,19 +29,3 @@ class FireRatedFireCommand extends BaseCommand {
         }
     }   
 }
-class Level01RocketFireCommand extends FireRatedFireCommand {
-    constructor(gameObject, prototype, startingPoint, fireRate) {
-        super(gameObject, prototype, startingPoint, fireRate);
-    }
-}
-class Level02RocketFireCommand extends FireRatedFireCommand {
-    constructor(gameObject, prototype, startingPoint, fireRate) {
-        super(gameObject, prototype, startingPoint, fireRate / 2);
-    }
-}
-class Level1RocketFireCommand extends Level02RocketFireCommand {
-    constructor(gameObject, prototype, startingPoint, fireRate) {
-        super(gameObject, prototype, startingPoint, fireRate);
-    }
-}
-

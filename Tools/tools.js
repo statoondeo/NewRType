@@ -17,11 +17,7 @@ class Tools {
             vector.y = vector.y / normalization;
         }
         return vector;
-    }
-
-    static getClone(item) {
-        return Object.assign(Object.create(Object.getPrototypeOf(item)), item)
-    }    
+    }  
 
     static lerp(minBound, maxBound, ratio) {
         return minBound * (1 - ratio) + maxBound * ratio;

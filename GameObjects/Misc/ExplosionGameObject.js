@@ -1,13 +1,15 @@
 class ExplosionGameObject extends AnimatedSprite {
-    constructor(image, size) {
+    constructor(image, size, speed = 15) {
         super(image, size)
         this.type = GameObjectType.NONE;
         this.partition = GameObjectPartition.NEUTRAL_PARTITION;
         this.status = GameObjectState.IDLE;
         this.layer = 1;
-        this.addAnimation(new Animation("IDLE", [0, 4, 7, 6, 5, 4, 3, 2, 1, 0], 15 / 1000, true));
+        this.speed = speed;
+        let animationTable = [0, 4, 7, 6, 5, 4, 3, 2, 1, 0];
+        this.addAnimation(new Animation("IDLE", animationTable, this.speed / 1000, true));
         this.startAnimation("IDLE", 0);
-        this.totalTtl = 0.150;
+        this.totalTtl = animationTable.length * this.speed / 1000;
     }
 
     update(dt) {

@@ -5,10 +5,8 @@ class AnimatedSprite extends GameObject {
         // Pour la gestion des spriteSheet
         this.image = image;
         this.currentFrame = 0;
-        this.originalSize = tileSheet;
         this.size = tileSheet;
         this.tile = new Vec2();
-        this.scale = new Vec2(1);
         this.getNewFrame();
 
         // Gestion des animations
@@ -61,8 +59,8 @@ class AnimatedSprite extends GameObject {
             Math.floor(this.size.y), 
             Math.floor(this.position.x), 
             Math.floor(this.position.y), 
-            Math.floor(this.size.x * this.scale.x), 
-            Math.floor(this.size.y * this.scale.y));
+            Math.floor(this.size.x), 
+            Math.floor(this.size.y));
         context.restore();
         if (ServiceLocator.getService(ServiceLocator.PARAMETER).colliderDisplay) {
             this.collideBox.draw(context);

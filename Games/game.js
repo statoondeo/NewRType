@@ -11,17 +11,42 @@ function keyUpEventListener(key) {
     ServiceLocator.getService(ServiceLocator.KEYBOARD).switchOff(key.code);
 }
 
+function mouseMoveEventListener(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    ServiceLocator.getService(ServiceLocator.KEYBOARD).mouseMove(event.clientX, event.clientY);
+}
+
+function mouseClickEventListener(event) {
+    e.preventDefault();
+    e.stopPropagation();
+    // ServiceLocator.getService(ServiceLocator.KEYBOARD).mouseClick();
+}
+
 function load(canvas) {
     let inputListener = new InputListener();
+
+    // Pour le calcul des coordonnées de la souris
+    inputListener.offSet = new Vec2(canvas.left, canvas.top);
+
+    // Gestion du clavier
     document.addEventListener("keydown", keyDownEventListener, false);
     document.addEventListener("keyup", keyUpEventListener, false);
 
+    // Gestion de la souris
+    canvas.addEventListener('mousemove', mouseMoveEventListener, false);
+    canvas.addEventListener('click', mouseClickEventListener, false);
+
+    // Gestion de ressources
     let assetLoader = new AssetLoader();
+
+    // Services utilisés dans toute l'application
     ServiceLocator.registerService(ServiceLocator.SCREEN, { width : canvas.width, height : canvas.height });
     ServiceLocator.registerService(ServiceLocator.KEYBOARD, inputListener);
     ServiceLocator.registerService(ServiceLocator.RESOURCE, assetLoader);
     ServiceLocator.registerService(ServiceLocator.PARAMETER, new Parameter());
     
+    // Ressources à charger
     assetLoader.add("images/player1.png");
     assetLoader.add("images/player2.png");
     assetLoader.add("images/starknife.png");
@@ -54,24 +79,27 @@ function load(canvas) {
     assetLoader.add("images/tech_bottom_tile2.png");
     assetLoader.add("images/bigsaucer.png");
     assetLoader.add("images/cube.png");
+    assetLoader.add("images/gas2.png");
+    assetLoader.add("images/gui/bigPanel.png");
+    assetLoader.add("images/gui/button.png");
 
     assetLoader.start(startGame);
 }
 
 function startGame() {
     sceneManager = new SceneManager();
-    let currentScene = Level1Scene.createInstance()
+    let currentScene = MenuScene.createInstance()
     sceneManager.addScene(currentScene);
     sceneManager.setCurrent(currentScene);
     ServiceLocator.registerService(ServiceLocator.SCENE, sceneManager);
 
-    // On enregistre les controles à utiliser
-    let inputListener = ServiceLocator.getService(ServiceLocator.KEYBOARD);
-    inputListener.registerCommand("ArrowUp", new MoveCommand(currentScene.playerShip, new Vec2(0, -1)));
-    inputListener.registerCommand("ArrowDown", new MoveCommand(currentScene.playerShip, new Vec2(0, 1)));
-    inputListener.registerCommand("ArrowLeft", new MoveCommand(currentScene.playerShip, new Vec2(-1, 0)));
-    inputListener.registerCommand("ArrowRight", new MoveCommand(currentScene.playerShip, new Vec2(1, 0)));
-    inputListener.registerCommand("KeyZ", new FireActionCommand(currentScene.playerShip));
+    // // On enregistre les controles à utiliser
+    // let inputListener = ServiceLocator.getService(ServiceLocator.KEYBOARD);
+    // inputListener.registerCommand("ArrowUp", new MoveCommand(currentScene.playerShip, new Vec2(0, -1)));
+    // inputListener.registerCommand("ArrowDown", new MoveCommand(currentScene.playerShip, new Vec2(0, 1)));
+    // inputListener.registerCommand("ArrowLeft", new MoveCommand(currentScene.playerShip, new Vec2(-1, 0)));
+    // inputListener.registerCommand("ArrowRight", new MoveCommand(currentScene.playerShip, new Vec2(1, 0)));
+    // inputListener.registerCommand("KeyZ", new FireActionCommand(currentScene.playerShip));
 
     gameReady = true;
 }
@@ -86,6 +114,15 @@ function update(dt) {
         let parameters = ServiceLocator.getService(ServiceLocator.PARAMETER);
         parameters.setColliderDisplay(!parameters.colliderDisplay);
     }
+
+    // if (ServiceLocator.getService(ServiceLocator.KEYBOARD).isPressed("KeyV")) {
+    //     let playerShip = ServiceLocator.getService(ServiceLocator.SCENE).currentScene.playerShip;
+    //     let explosion = new BigSaucerBigExplosionGameObject(playerShip);
+    //     explosion.status = GameObjectState.ACTIVE;
+    //     explosion.position.x = playerShip.position.x;
+    //     explosion.position.y = playerShip.position.y;
+    //     ServiceLocator.getService(ServiceLocator.SCENE).currentScene.addGameObject(explosion);
+    // }
 }
 
 function draw(context) {

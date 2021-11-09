@@ -5,8 +5,8 @@
         src: url('fonts/neuropol.otf');
     }
     </style>
-    <body>
-        <canvas id="canvas" width="1280" height="800" style="background-color: coral;" />
+    <body style="background-color: black;">
+        <canvas id="canvas" width="1280" height="800" style="background-color: coral; border: none;" />
         <script src="Tools/InputListener.js"></script>
         <script src="Tools/AssetLoader.js"></script>
         <script src="Tools/Easing.js"></script>
@@ -22,6 +22,8 @@
         <script src="Tools/Schedulers/AdaptativeScheduler.js"></script>
 
         <script src="Weapons/Weapon.js"></script>
+        <script src="Weapons/WeaponFactory.js"></script>
+        <script src="Weapons/WeaponState.js"></script>
 
         <script src="Colliders/BaseCollideBox.js"></script>
         <script src="Colliders/CompositeCollideBox.js"></script>
@@ -63,29 +65,39 @@
         <script src="GameObjects/Spawners/AllInCircleSpawnerGameObject.js"></script>
         <script src="GameObjects/Spawners/TimeSequenceSpawnerGameObject.js"></script>
 
-        <script src="Tools/Beziers/Curve.js"></script>
+        <script src="Tools/Beziers/BezierCurve.js"></script>
+        <script src="Tools/Beziers/CompositeCurve.js"></script>
 
         <script src="Commands/BaseCommand.js"></script>
-        <script src="Commands/DummyCommand.js"></script>
-        <script src="Commands/FireActionCommand.js"></script>
-        <script src="Commands/AsapFireCommand.js"></script>
-        <script src="Commands/MoveCommand.js"></script>
-        <script src="Commands/SpeedBonusCommand.js"></script>
+        <script src="Commands/CompositeCommand.js"></script>
         <script src="Commands/DealDamageCommand.js"></script>
         <script src="Commands/DieCommand.js"></script>
+        <script src="Commands/DummyCommand.js"></script>
+        <script src="Commands/FireActionCommand.js"></script>
+        <script src="Commands/MoveCommand.js"></script>
         <script src="Commands/PopAndDieCommand.js"></script>
+        <script src="Commands/SpeedBonusCommand.js"></script>
         <script src="Commands/WeaponBonusCommand.js"></script>
         <script src="Commands/collideCommands/BonusCollideCommand.js"></script>
         <script src="Commands/collideCommands/MissileCollideCommand.js"></script>
         <script src="Commands/collideCommands/ShipCollideCommand.js"></script>
         <script src="Commands/collideCommands/WallCollideCommand.js"></script>
-        <script src="Commands/WeaponCommands/BulletFireCommand.js"></script>
-        <script src="Commands/WeaponCommands/BulletWeaponFireCommand.js"></script>
+        <script src="Commands/FireCommands/AsapFireCommand.js"></script>
+        <script src="Commands/FireCommands/FireRatedFireCommand.js"></script>
+        <script src="Commands/WeaponCommands/WeaponFireCommand.js"></script>
+        <script src="Commands/WeaponCommands/BulletCommands/BaseMultiBulletFireCommand.js"></script>
+        <script src="Commands/WeaponCommands/BulletCommands/Level1BulletFireCommand.js"></script>
+        <script src="Commands/WeaponCommands/BulletCommands/Level2BulletFireCommand.js"></script>
+        <script src="Commands/WeaponCommands/BulletCommands/Level3BulletFireCommand.js"></script>
+        <script src="Commands/WeaponCommands/BulletCommands/Level4BulletFireCommand.js"></script>
+        <script src="Commands/WeaponCommands/BulletCommands/Level5BulletFireCommand.js"></script>
+
 
         <script src="Strategies/BaseStrategy.js"></script>
         <script src="Strategies/BaseMoveStrategy.js"></script>
         <script src="Strategies/BezierApexMoveStrategy.js"></script>
         <script src="Strategies/DummyMoveStrategy.js"></script>
+        <script src="Strategies/MouseControlledMoveStrategy.js"></script>
         <script src="Strategies/PlayerControlledMoveStrategy.js"></script>
         <script src="Strategies/SinWaveMoveStrategy.js"></script>
         <script src="Strategies/UniformMoveStrategy.js"></script>
@@ -112,17 +124,25 @@
         <script src="GameObjects/Concretes/WeaponUpGameObject.js"></script>
         <script src="GameObjects/Concretes/WeaponPowerUpGameObject.js"></script>
         <script src="GameObjects/Concretes/RedExplosionGameObject.js"></script>
+        <script src="GameObjects/Concretes/MediumRedExplosionGameObject.js"></script>
         <script src="GameObjects/Concretes/RedSparkGameObject.js"></script>
         <script src="GameObjects/Concretes/PurpleSparkGameObject.js"></script>
         <script src="GameObjects/Concretes/WhiteRocketGameObject.js"></script>
-        <script src="GameObjects/Concretes/BigSaucerGameObject.js"></script>
+        <script src="GameObjects/Concretes/BigSaucer/BigSaucerBulletWave.js"></script>
+        <script src="GameObjects/Concretes/BigSaucer/BigSaucerCollideBox.js"></script>
+        <script src="GameObjects/Concretes/BigSaucer/BigSaucerComingOutApex.js"></script>
+        <script src="GameObjects/Concretes/BigSaucer/BigSaucerFinalApex.js"></script>
+        <script src="GameObjects/Concretes/BigSaucer/BigSaucerGameObject.js"></script>
 
         <script src="Scenes/BaseScene.js"></script>
         <script src="Scenes/Level1Scene.js"></script>
+        <script src="Scenes/MenuScene.js"></script>
         <script src="Scenes/Tests/TestPlayerMovesScene.js"></script>
         <script src="Scenes/Tests/TestUniformMovesScene.js"></script>
         <script src="Scenes/Tests/TestLoopingMovesScene.js"></script>
         <script src="Scenes/SceneManager.js"></script>
+
+        <script src="Gui/Button.js"></script>
 
         <script src="Games/game.js"></script>
         <script src="Games/main.js"></script>

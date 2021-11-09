@@ -22,9 +22,7 @@ class Sprite extends GameObject {
         context.drawImage(
             this.image, 
             Math.floor(this.position.x), 
-            Math.floor(this.position.y), 
-            this.size.x, 
-            this.size.y);
+            Math.floor(this.position.y));
         context.restore();
         if (ServiceLocator.getService(ServiceLocator.PARAMETER).colliderDisplay) {
             this.collideBox.draw(context);

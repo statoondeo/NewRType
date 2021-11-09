@@ -37,9 +37,9 @@ function showFps() {
     for (let index = 0; index < 5; index++) {
         avgFps += fpsList[index];
     }
-    drawContext.fillStyle = "White";
-    drawContext.font = "normal 10pt neuropol";
-    drawContext.fillText(Math.floor(avgFps / 5) + " fps", 10, 20);
+    // drawContext.fillStyle = "White";
+    // drawContext.font = "normal 10pt neuropol";
+    // drawContext.fillText(Math.floor(avgFps / 5) + " fps", 10, 20);
 }
 
 function init() {
