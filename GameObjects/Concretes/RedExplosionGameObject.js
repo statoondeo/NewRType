@@ -1,6 +1,6 @@
 class RedExplosionGameObject extends ExplosionGameObject {
     constructor() {
-        super(ServiceLocator.getService(ServiceLocator.RESOURCE).getImage("images/redspark.png"), new Vec2(100), 15);
+        super(ServiceLocator.getService(ServiceLocator.RESOURCE).getImage("Images/redspark.png"), new Vec2(100), 15);
     }
     
     getClone() {

@@ -1,7 +1,7 @@
 class CubeGameObject extends EnemyShipGameObject {
     constructor(playerShip) {
         // Paramétrage du vaisseau ennemi
-        super(ServiceLocator.getService(ServiceLocator.RESOURCE).getImage("images/cube.png"), new Vec2(64), 200, 0)
+        super(ServiceLocator.getService(ServiceLocator.RESOURCE).getImage("Images/cube.png"), new Vec2(64), 200, 0)
         this.playerShip = playerShip;
         this.layer = 0.99;
         this.moveStrategy = new DummyMoveStrategy();
@@ -22,7 +22,7 @@ class CubeGameObject extends EnemyShipGameObject {
 class TimedCubeGameObject extends EnemyShipGameObject {
     constructor(playerShip) {
         // Paramétrage du vaisseau ennemi
-        super(ServiceLocator.getService(ServiceLocator.RESOURCE).getImage("images/cube.png"), new Vec2(64), 200, 0)
+        super(ServiceLocator.getService(ServiceLocator.RESOURCE).getImage("Images/cube.png"), new Vec2(64), 200, 0)
         this.playerShip = playerShip;
         this.layer = 0.99;
         this.moveStrategy = new DummyMoveStrategy();

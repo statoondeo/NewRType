@@ -27,9 +27,9 @@ function mouseMoveEventListener(event) {
 }
 
 function mouseClickEventListener(event) {
-    e.preventDefault();
-    e.stopPropagation();
-    // ServiceLocator.getService(ServiceLocator.KEYBOARD).mouseClick();
+    event.preventDefault();
+    event.stopPropagation();
+    ServiceLocator.getService(ServiceLocator.KEYBOARD).mouseClick(event.clientX, event.clientY);
 }
 
 function load(canvas) {
@@ -56,59 +56,52 @@ function load(canvas) {
     ServiceLocator.registerService(ServiceLocator.PARAMETER, new Parameter());
     
     // Ressources à charger
-    assetLoader.add("images/player1.png");
-    assetLoader.add("images/player2.png");
-    assetLoader.add("images/starknife.png");
-    assetLoader.add("images/wobbler.png");
-    assetLoader.add("images/background1.png");
-    assetLoader.add("images/background2.png");
-    assetLoader.add("images/background3.png");
-    assetLoader.add("images/rock7.png");
-    assetLoader.add("images/rock8.png");
-    assetLoader.add("images/rock9.png");
-    assetLoader.add("images/rock10.png");
-    assetLoader.add("images/rock11.png");
-    assetLoader.add("images/speedpowerup.png");
-    assetLoader.add("images/powerup.png");
-    assetLoader.add("images/bluespark.png");
-    assetLoader.add("images/redspark.png");
-    assetLoader.add("images/greenspark.png");
-    assetLoader.add("images/purplespark.png");
-    assetLoader.add("images/redbullet.png");
-    assetLoader.add("images/bluebullet.png");
-    assetLoader.add("images/greenbullet.png");
-    assetLoader.add("images/rocket.png");
-    assetLoader.add("images/soil1.png");
-    assetLoader.add("images/soil2.png");
-    assetLoader.add("images/soil3.png");
-    assetLoader.add("images/soil4.png");
-    assetLoader.add("images/tech_bottom_end_left.png");
-    assetLoader.add("images/tech_bottom_end_right.png");
-    assetLoader.add("images/tech_bottom_tile.png");
-    assetLoader.add("images/tech_bottom_tile2.png");
-    assetLoader.add("images/bigsaucer.png");
-    assetLoader.add("images/cube.png");
-    assetLoader.add("images/gas2.png");
-    assetLoader.add("images/gui/bigPanel.png");
-    assetLoader.add("images/gui/button.png");
+    assetLoader.add("Images/player1.png");
+    assetLoader.add("Images/player2.png");
+    assetLoader.add("Images/starknife.png");
+    assetLoader.add("Images/wobbler.png");
+    assetLoader.add("Images/background1.png");
+    assetLoader.add("Images/background2.png");
+    assetLoader.add("Images/background3.png");
+    assetLoader.add("Images/rock7.png");
+    assetLoader.add("Images/rock8.png");
+    assetLoader.add("Images/rock9.png");
+    assetLoader.add("Images/rock10.png");
+    assetLoader.add("Images/rock11.png");
+    assetLoader.add("Images/speedpowerup.png");
+    assetLoader.add("Images/powerup.png");
+    assetLoader.add("Images/bluespark.png");
+    assetLoader.add("Images/redspark.png");
+    assetLoader.add("Images/greenspark.png");
+    assetLoader.add("Images/purplespark.png");
+    assetLoader.add("Images/redbullet.png");
+    assetLoader.add("Images/bluebullet.png");
+    assetLoader.add("Images/greenbullet.png");
+    assetLoader.add("Images/rocket.png");
+    assetLoader.add("Images/soil1.png");
+    assetLoader.add("Images/soil2.png");
+    assetLoader.add("Images/soil3.png");
+    assetLoader.add("Images/soil4.png");
+    assetLoader.add("Images/tech_bottom_end_left.png");
+    assetLoader.add("Images/tech_bottom_end_right.png");
+    assetLoader.add("Images/tech_bottom_tile.png");
+    assetLoader.add("Images/tech_bottom_tile2.png");
+    assetLoader.add("Images/bigsaucer.png");
+    assetLoader.add("Images/cube.png");
+    assetLoader.add("Images/gas2.png");
+    assetLoader.add("Images/Gui/bigPanel.png");
+    assetLoader.add("Images/Gui/smallPanel.png");
+    assetLoader.add("Images/Gui/button.png");
 
     assetLoader.start(startGame);
 }
 
 function startGame() {
     sceneManager = new SceneManager();
-    let currentScene = MenuScene.createInstance()
-    sceneManager.addScene(currentScene);
-    sceneManager.setCurrent(currentScene);
+    sceneManager.addScene("MENU", new MenuScene());
+    sceneManager.addScene("LEVEL1", new Level1Scene());
+    sceneManager.setCurrent("MENU");
     ServiceLocator.registerService(ServiceLocator.SCENE, sceneManager);
-
-    // // On enregistre les controles à utiliser
-    // let inputListener = ServiceLocator.getService(ServiceLocator.KEYBOARD);
-    // inputListener.registerCommand("ArrowUp", new MoveCommand(currentScene.playerShip, new Vec2(0, -1)));
-    // inputListener.registerCommand("ArrowDown", new MoveCommand(currentScene.playerShip, new Vec2(0, 1)));
-    // inputListener.registerCommand("ArrowLeft", new MoveCommand(currentScene.playerShip, new Vec2(-1, 0)));
-    // inputListener.registerCommand("ArrowRight", new MoveCommand(currentScene.playerShip, new Vec2(1, 0)));
-    // inputListener.registerCommand("KeyZ", new FireActionCommand(currentScene.playerShip));
 
     gameReady = true;
 }
@@ -125,20 +118,25 @@ function update(dt) {
 
     sceneManager.update(dt);
 
+    let inputListener = ServiceLocator.getService(ServiceLocator.KEYBOARD);
+
     // Est-ce que l'on passe en affichage collideBox?
-    if (ServiceLocator.getService(ServiceLocator.KEYBOARD).isPressed("KeyC")) {
+    if (inputListener.isPressed("KeyC")) {
         let parameters = ServiceLocator.getService(ServiceLocator.PARAMETER);
         parameters.setColliderDisplay(!parameters.colliderDisplay);
     }
 
-    // if (ServiceLocator.getService(ServiceLocator.KEYBOARD).isPressed("KeyV")) {
-    //     let playerShip = ServiceLocator.getService(ServiceLocator.SCENE).currentScene.playerShip;
-    //     let explosion = new BigSaucerBigExplosionGameObject(playerShip);
-    //     explosion.status = GameObjectState.ACTIVE;
-    //     explosion.position.x = playerShip.position.x;
-    //     explosion.position.y = playerShip.position.y;
-    //     ServiceLocator.getService(ServiceLocator.SCENE).currentScene.addGameObject(explosion);
-    // }
+    // Fonction de test
+    if (inputListener.isClicked()) {
+        let playerShip = ServiceLocator.getService(ServiceLocator.SCENE).currentScene.playerShip;
+        let explosion = new BigSaucerBigExplosionGameObject(playerShip);
+        explosion.status = GameObjectState.ACTIVE;
+        explosion.position.x = playerShip.position.x;
+        explosion.position.y = playerShip.position.y;
+        ServiceLocator.getService(ServiceLocator.SCENE).currentScene.addGameObject(explosion);
+    }
+
+    inputListener.update(dt);
 }
 
 function draw(context) {

@@ -5,7 +5,7 @@ class BigSaucerGameObject extends EnemyShipGameObject {
 
     constructor(playerShip, cubePrototype = new CubeGameObject(playerShip)) {
         // Paramétrage du vaisseau ennemi
-        super(ServiceLocator.getService(ServiceLocator.RESOURCE).getImage("images/bigsaucer.png"), BigSaucerGameObject.size, 20000, 0)
+        super(ServiceLocator.getService(ServiceLocator.RESOURCE).getImage("Images/bigsaucer.png"), BigSaucerGameObject.size, 20000, 0)
         this.layer = 0.999;
 
         this.playerShip = playerShip;
@@ -42,4 +42,16 @@ class BigSaucerGameObject extends EnemyShipGameObject {
         this.TimeSequenceSpawnerGameObject.update(dt);
     }
 }
+class BigSaucerMiniatureGameObject extends AnimatedSprite {
 
+    static size = new Vec2(128, 48);
+
+    constructor() {        
+        let miniature = ImageHandler.zoomImage(ServiceLocator.getService(ServiceLocator.RESOURCE).getImage("Images/bigsaucer.png"), new Vec2(0.5));
+        super(miniature, BigSaucerMiniatureGameObject.size)
+
+        // Animation
+        this.addAnimation(new Animation("IDLE", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23], 20 / 1000, true));
+        this.startAnimation("IDLE", 0);
+    }
+}

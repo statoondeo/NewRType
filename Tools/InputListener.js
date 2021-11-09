@@ -15,6 +15,9 @@ class InputListener {
 
         // Coordonnées de la souris
         this.mouse = new Vec2();
+
+        // Coordonnées du click
+        this.click = new Vec2();
     }
 
     registerCommand(control, command) {
@@ -35,6 +38,16 @@ class InputListener {
     mouseMove(mouseX, mouseY) {
         this.mouse.x = mouseX;
         this.mouse.y = mouseY;
+    }
+
+    mouseClick(mouseX, mouseY) {
+        this.click.x = mouseX;
+        this.click.y = mouseY;
+    }
+
+    update(dt) {
+        // Ré-initialisation du click à faire en fin de frame
+        this.click.x = this.click.y = -1;
     }
 
     // Gestion des contrôles utilisés par le joueur pour cette frame
@@ -77,6 +90,11 @@ class InputListener {
     // Est-ce que la touche vient d'être enfoncée?
     isPressed(key) {
         return this.isDown(key) && !this.isPreviouslyDown(key);
+    }
+
+    // Est-ce que la souris a été clickée
+    isClicked() {
+        return this.click.x != -1 || this.click.y != -1
     }
 }
 

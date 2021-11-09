@@ -51,6 +51,7 @@ class AnimatedSprite extends GameObject {
 
     draw(context) {
         context.save();
+        context.globalAlpha = this.globalAlpha;
         context.drawImage(
             this.image, 
             Math.floor(this.tile.x), 

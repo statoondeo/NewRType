@@ -4,7 +4,7 @@ class ExplosionGameObject extends AnimatedSprite {
         this.type = GameObjectType.NONE;
         this.partition = GameObjectPartition.NEUTRAL_PARTITION;
         this.status = GameObjectState.IDLE;
-        this.layer = 1;
+        this.layer = 0.99;
         this.speed = speed;
         let animationTable = [0, 4, 7, 6, 5, 4, 3, 2, 1, 0];
         this.addAnimation(new Animation("IDLE", animationTable, this.speed / 1000, true));

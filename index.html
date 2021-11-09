@@ -2,27 +2,27 @@
     <style>
     @font-face {
         font-family: 'neuropol';
-        src: url('fonts/neuropol.otf');
+        src: url('Fonts/neuropol.otf');
     }
     </style>
     <body style="background-color: black;">
         <h3 style="font: bold 24pt neuropol;color: white;position:absolute;top:300;left:490;">Chargement</h3>
-        <img id="loaderImage" src="images/gui/base00.png" style="position:absolute;top:377;left:345;" />
+        <img id="loaderImage" src="Images/Gui/base00.png" style="position:absolute;top:377;left:345;" />
         <canvas id="canvas" width="1280" height="800" style="background-color: transparent; margin: 0%;padding: 0%;position:absolute;top:0;left:0;" />
-        <img id="loaderImage-1" src="images/gui/base01.png" style="visibility: hidden;" />
-        <img id="loaderImage-2" src="images/gui/base02.png" style="visibility: hidden;" />
-        <img id="loaderImage-3" src="images/gui/base03.png" style="visibility: hidden;" />
-        <img id="loaderImage-4" src="images/gui/base04.png" style="visibility: hidden;" />
-        <img id="loaderImage-5" src="images/gui/base05.png" style="visibility: hidden;" />
-        <img id="loaderImage-6" src="images/gui/base06.png" style="visibility: hidden;" />
-        <img id="loaderImage-7" src="images/gui/base07.png" style="visibility: hidden;" />
-        <img id="loaderImage-8" src="images/gui/base08.png" style="visibility: hidden;" />
-        <img id="loaderImage-9" src="images/gui/base09.png" style="visibility: hidden;" />
-        <img id="loaderImage-10" src="images/gui/base10.png" style="visibility: hidden;" />
-        <img id="loaderImage-11" src="images/gui/base11.png" style="visibility: hidden;" />
-        <img id="loaderImage-12" src="images/gui/base12.png" style="visibility: hidden;" />
-        <img id="loaderImage-13" src="images/gui/base13.png" style="visibility: hidden;" />
-        <img id="loaderImage-14" src="images/gui/base14.png" style="visibility: hidden;" />
+        <img id="loaderImage-1" src="Images/Gui/base01.png" style="visibility: hidden;" />
+        <img id="loaderImage-2" src="Images/Gui/base02.png" style="visibility: hidden;" />
+        <img id="loaderImage-3" src="Images/Gui/base03.png" style="visibility: hidden;" />
+        <img id="loaderImage-4" src="Images/Gui/base04.png" style="visibility: hidden;" />
+        <img id="loaderImage-5" src="Images/Gui/base05.png" style="visibility: hidden;" />
+        <img id="loaderImage-6" src="Images/Gui/base06.png" style="visibility: hidden;" />
+        <img id="loaderImage-7" src="Images/Gui/base07.png" style="visibility: hidden;" />
+        <img id="loaderImage-8" src="Images/Gui/base08.png" style="visibility: hidden;" />
+        <img id="loaderImage-9" src="Images/Gui/base09.png" style="visibility: hidden;" />
+        <img id="loaderImage-10" src="Images/Gui/base10.png" style="visibility: hidden;" />
+        <img id="loaderImage-11" src="Images/Gui/base11.png" style="visibility: hidden;" />
+        <img id="loaderImage-12" src="Images/Gui/base12.png" style="visibility: hidden;" />
+        <img id="loaderImage-13" src="Images/Gui/base13.png" style="visibility: hidden;" />
+        <img id="loaderImage-14" src="Images/Gui/base14.png" style="visibility: hidden;" />
 
         <script src="Tools/InputListener.js"></script>
         <script src="Tools/AssetLoader.js"></script>
@@ -86,6 +86,7 @@
         <script src="Tools/Beziers/CompositeCurve.js"></script>
 
         <script src="Commands/BaseCommand.js"></script>
+        <script src="Commands/BackToMenuCommand.js"></script>
         <script src="Commands/CompositeCommand.js"></script>
         <script src="Commands/DealDamageCommand.js"></script>
         <script src="Commands/DieCommand.js"></script>
@@ -95,10 +96,10 @@
         <script src="Commands/PopAndDieCommand.js"></script>
         <script src="Commands/SpeedBonusCommand.js"></script>
         <script src="Commands/WeaponBonusCommand.js"></script>
-        <script src="Commands/collideCommands/BonusCollideCommand.js"></script>
-        <script src="Commands/collideCommands/MissileCollideCommand.js"></script>
-        <script src="Commands/collideCommands/ShipCollideCommand.js"></script>
-        <script src="Commands/collideCommands/WallCollideCommand.js"></script>
+        <script src="Commands/CollideCommands/BonusCollideCommand.js"></script>
+        <script src="Commands/CollideCommands/MissileCollideCommand.js"></script>
+        <script src="Commands/CollideCommands/ShipCollideCommand.js"></script>
+        <script src="Commands/CollideCommands/WallCollideCommand.js"></script>
         <script src="Commands/FireCommands/AsapFireCommand.js"></script>
         <script src="Commands/FireCommands/FireRatedFireCommand.js"></script>
         <script src="Commands/WeaponCommands/WeaponFireCommand.js"></script>
@@ -153,7 +154,10 @@
 
         <script src="Scenes/BaseScene.js"></script>
         <script src="Scenes/Level1Scene.js"></script>
-        <script src="Scenes/MenuScene.js"></script>
+        <script src="Scenes/MainMenu/MainMenuRareoyArdeasImage.js"></script>
+        <script src="Scenes/MainMenu/MainMenuBigSaucerImage.js"></script>
+        <script src="Scenes/MainMenu/MainMenuPanelImage.js"></script>
+        <script src="Scenes/MainMenu/MenuScene.js"></script>
         <script src="Scenes/Tests/TestPlayerMovesScene.js"></script>
         <script src="Scenes/Tests/TestUniformMovesScene.js"></script>
         <script src="Scenes/Tests/TestLoopingMovesScene.js"></script>
@@ -161,6 +165,6 @@
 
         <script src="Gui/Button.js"></script>
 
-        <script src="Games/game.js"></script>
-        <script src="Games/main.js"></script>
+        <script src="Games/Game.js"></script>
+        <script src="Games/Main.js"></script>
 </html>

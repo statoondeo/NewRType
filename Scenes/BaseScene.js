@@ -1,8 +1,8 @@
 class BaseScene {
     // Le scheduler est l'objet qui gère le déroulement du temps au sein de la scène
-    constructor(scheduler) {
+    constructor() {
         // métronome de la scène
-        this.scheduler = scheduler;
+        this.scheduler = null;
 
           // Partition spatiale recréée à chaque update
         this.quadTree = null;
@@ -36,6 +36,12 @@ class BaseScene {
 
         // Partition entre les gameObjects du joueur, du décor et ceux du jeu pour faciliter les collisions
         this.gameObjectsPartitions[gameObjet.partition].push(gameObjet);
+    }
+
+    // Chargement de la scène
+    load() {
+        // Initialisation de la scène
+        this.gameObjectsCollection = [];
     }
 
     // Le tableau étant trié, on peut rechercher par dichotomie pour être plus performant

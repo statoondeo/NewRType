@@ -1,6 +1,6 @@
 class WobblerGameObject extends EnemyShipGameObject {
     constructor(playerShip) {
-        super(ServiceLocator.getService(ServiceLocator.RESOURCE).getImage("images/wobbler.png"), new Vec2(64), 600, 150);
+        super(ServiceLocator.getService(ServiceLocator.RESOURCE).getImage("Images/wobbler.png"), new Vec2(64), 600, 150);
         this.playerShip = playerShip;
         this.moveStrategy = new SinWaveMoveStrategy(this, new Vec2(1, 0), 100);
         this.fireCommand = new AsapFireCommand(new Level1BulletFireCommand(this, new GreenBulletGameObject(this, this.playerShip, this.partition), 2));

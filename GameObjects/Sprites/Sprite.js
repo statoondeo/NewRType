@@ -18,7 +18,7 @@ class Sprite extends GameObject {
 
     draw(context) {
         context.save();
-        context.globalAlpha = this.alpha;
+        context.globalAlpha = this.globalAlpha;
         context.drawImage(
             this.image, 
             Math.floor(this.position.x), 

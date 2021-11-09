@@ -1,6 +1,6 @@
 class PurpleSparkGameObject extends SparkGameObject {
     constructor() {
-        super(ServiceLocator.getService(ServiceLocator.RESOURCE).getImage("images/purplespark.png"));
+        super(ServiceLocator.getService(ServiceLocator.RESOURCE).getImage("Images/purplespark.png"));
     }
                             
     getClone() {

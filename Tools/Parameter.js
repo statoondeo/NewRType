@@ -1,7 +1,7 @@
 class Parameter {
     constructor() {
         // Affichage en mode collideBox
-        this.colliderDisplay = true;
+        this.colliderDisplay = false;
     }
     
     setColliderDisplay(colliderDisplay) {

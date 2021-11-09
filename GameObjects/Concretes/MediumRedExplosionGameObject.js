@@ -1,6 +1,6 @@
 class MediumRedExplosionGameObject extends ExplosionGameObject {
     constructor() {
-        let image = ImageHandler.zoomImage(ServiceLocator.getService(ServiceLocator.RESOURCE).getImage("images/redspark.png"), new Vec2(2));
+        let image = ImageHandler.zoomImage(ServiceLocator.getService(ServiceLocator.RESOURCE).getImage("Images/redspark.png"), new Vec2(2));
         super(image, new Vec2(200), 30);
     }
     
@@ -10,7 +10,7 @@ class MediumRedExplosionGameObject extends ExplosionGameObject {
 }
 class GiantRedExplosionGameObject extends ExplosionGameObject {
     constructor() {
-        let image = ImageHandler.zoomImage(ServiceLocator.getService(ServiceLocator.RESOURCE).getImage("images/redspark.png"), new Vec2(5));
+        let image = ImageHandler.zoomImage(ServiceLocator.getService(ServiceLocator.RESOURCE).getImage("Images/redspark.png"), new Vec2(5));
         super(image, new Vec2(500), 75);
     }
     
@@ -84,6 +84,8 @@ class BigSaucerBigExplosionGameObject extends GiantRedExplosionGameObject {
         super.update(dt);
         if (this.status == GameObjectState.ACTIVE && !this.popped) {
             this.popped = true;
+            this.position.x = this.gameObject.position.x + (this.gameObject.size.x - this.size.x) / 2;
+            this.position.y = this.gameObject.position.y + (this.gameObject.size.y - this.size.y) / 2;
             this.explosionsList.forEach(explosion => {
                 explosion.position.x = this.gameObject.position.x + (this.gameObject.size.x - explosion.size.x) / 2;
                 explosion.position.y = this.gameObject.position.y + (this.gameObject.size.y - explosion.size.y) / 2;
