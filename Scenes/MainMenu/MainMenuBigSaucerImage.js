@@ -4,9 +4,6 @@ class MainMenuBigSaucerImage {
         let canvas = ImageHandler.createCanvas(screen.width, screen.height);
         let context = canvas.getContext("2d");
 
-        let sprite = new Sprite(ServiceLocator.getService(ServiceLocator.RESOURCE).getImage("Images/Gui/smallPanel.png"));
-        sprite.draw(context);
-
         let text = new TextUIElement("Big Saucer", "white", "bold 18pt neuropol");
         text.position.x = 200;
         text.position.y = 100;
@@ -27,24 +24,29 @@ class MainMenuBigSaucerImage {
         text.position.y = 280;
         text.draw(context);
 
-        text = new TextUIElement("Allez mes fidèles Aliénoïdes, montrez", "white", "14pt neuropol");
+        text = new TextUIElement("Je serais bientôt en route avec mes", "white", "14pt neuropol");
         text.position.x = 100;
         text.position.y = 340;
         text.draw(context);
 
-        text = new TextUIElement("à ce répugnant terrien notre manière", "white", "14pt neuropol");
+        text = new TextUIElement("fidèles Aliénoïdes pour te montrer,", "white", "14pt neuropol");
         text.position.x = 100;
         text.position.y = 360;
         text.draw(context);
 
-        text = new TextUIElement("de traiter les avortons de son espèce!", "white", "14pt neuropol");
+        text = new TextUIElement("répugnant terrien, notre manière de", "white", "14pt neuropol");
         text.position.x = 100;
         text.position.y = 380;
         text.draw(context);
 
-        text = new TextUIElement("A L'ASSAULT!!!!!", "white", "bold 18pt neuropol");
+        text = new TextUIElement("traiter les avortons de ton espèce!", "white", "14pt neuropol");
         text.position.x = 100;
-        text.position.y = 440;
+        text.position.y = 400;
+        text.draw(context);
+        
+        text = new TextUIElement("AH AH AH AH", "white", "bold 18pt neuropol");
+        text.position.x = 100;
+        text.position.y = 460;
         text.draw(context);
 
         return canvas;

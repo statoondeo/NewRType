@@ -92,6 +92,7 @@ function load(canvas) {
     assetLoader.add("Images/Gui/bigPanel.png");
     assetLoader.add("Images/Gui/smallPanel.png");
     assetLoader.add("Images/Gui/button.png");
+    assetLoader.add("Images/Gui/verySmallPanel.png");
 
     assetLoader.start(startGame);
 }
@@ -100,7 +101,7 @@ function startGame() {
     sceneManager = new SceneManager();
     sceneManager.addScene("MENU", new MenuScene());
     sceneManager.addScene("LEVEL1", new Level1Scene());
-    sceneManager.setCurrent("MENU");
+    sceneManager.setCurrent("LEVEL1");
     ServiceLocator.registerService(ServiceLocator.SCENE, sceneManager);
 
     gameReady = true;
@@ -108,7 +109,8 @@ function startGame() {
 
 function update(dt) {
     if (!gameReady) {
-        let ratio = Math.floor(ServiceLocator.getService(ServiceLocator.RESOURCE).getLoadedRatio() / 14 * 100);
+        let loadRatio = ServiceLocator.getService(ServiceLocator.RESOURCE).getLoadedRatio();
+        let ratio = Math.floor(loadRatio / 7 * 100);
         if (ratio < loaderImages.length) {
             loaderImage.src = loaderImages[ratio];
         }
@@ -126,15 +128,15 @@ function update(dt) {
         parameters.setColliderDisplay(!parameters.colliderDisplay);
     }
 
-    // Fonction de test
-    if (inputListener.isClicked()) {
-        let playerShip = ServiceLocator.getService(ServiceLocator.SCENE).currentScene.playerShip;
-        let explosion = new BigSaucerBigExplosionGameObject(playerShip);
-        explosion.status = GameObjectState.ACTIVE;
-        explosion.position.x = playerShip.position.x;
-        explosion.position.y = playerShip.position.y;
-        ServiceLocator.getService(ServiceLocator.SCENE).currentScene.addGameObject(explosion);
-    }
+    // // Fonction de test
+    // if (inputListener.isClicked()) {
+    //     let playerShip = ServiceLocator.getService(ServiceLocator.SCENE).currentScene.playerShip;
+    //     let explosion = new BigSaucerBigExplosionGameObject(playerShip);
+    //     explosion.status = GameObjectState.ACTIVE;
+    //     explosion.position.x = playerShip.position.x;
+    //     explosion.position.y = playerShip.position.y;
+    //     ServiceLocator.getService(ServiceLocator.SCENE).currentScene.addGameObject(explosion);
+    // }
 
     inputListener.update(dt);
 }

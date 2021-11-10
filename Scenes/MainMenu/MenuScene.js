@@ -26,6 +26,7 @@ class MenuScene extends BaseScene {
         let playerShip = new CircleShape("orangered", new Vec2(6));
         playerShip.collideBox = new CircleCollideBox(playerShip.position, 3);
         playerShip.moveStrategy = new MouseControlledMoveStrategy(playerShip);
+        playerShip.partition = GameObjectPartition.PLAYER_PARTITION;
         this.addPlayerShip(playerShip);
 
         // Big Saucer met l'ambia,ce dans la scène
@@ -34,22 +35,25 @@ class MenuScene extends BaseScene {
         this.addGameObject(bigSaucer);
 
         // Panneau principal
-        let mainPanel = new BigPanelUIElement(new Vec2(), MainMenuPanelImage.getInstance(), false);
+        let mainPanel = new BigPanelUIElement(new Vec2(), false);
+        mainPanel.addElement(new SpriteUIElement(MainMenuPanelImage.getInstance()));
         this.addGameObject(mainPanel);
 
-        // Pour commencer à jouer
-        let button = new ButtonUIElement("Jouer", new PlayCommand(mainPanel));
-        button.position.x = (screen.width - ButtonUIElement.size.x) / 2;
-        button.position.y = screen.height * 0.75;
-        mainPanel.addElement(button);
-
         // Dialogue de Big Saucer
-        let panel1 = new BigSaucerSmallPanelUIElement(new Vec2(screen.width - SmallPanelUIElement.size.x, 0), false, mainPanel);
+        let panel1 = new DelayableSmallPanelUIElement(new BigSaucerMiniatureGameObject(), new Vec2(screen.width - SmallPanelUIElement.size.x, 0), false, 1);
+        panel1.addElement(new SpriteUIElement(MainMenuBigSaucerImage.getInstance()));
         this.addGameObject(panel1);
 
         // Dialogue de Rareoy Ardeas
-        let panel2 = new RareoyArdeasSmallPanelUIElement(new Vec2(0, screen.height - SmallPanelUIElement.size.x), false, panel1);
+        let panel2 = new DelayableSmallPanelUIElement(new Player1ShipMiniatureGameObject(), new Vec2(0, screen.height - SmallPanelUIElement.size.x), false, 4);
+        panel2.addElement(new SpriteUIElement(MainMenuRareoyArdeasImage.getInstance()));
         this.addGameObject(panel2);
+
+        // Pour commencer à jouer
+        let button = new ButtonUIElement("Jouer", new PlayCommand(mainPanel, panel1, panel2));
+        button.position.x = (screen.width - ButtonUIElement.size.x) / 2;
+        button.position.y = screen.height * 0.75;
+        mainPanel.addElement(button);
 
         // Début réél du jeu
         button = new ButtonUIElement("Allons-y ...", new Play2Command(panel1, panel2));
@@ -62,15 +66,19 @@ class MenuScene extends BaseScene {
     }
 }
 class PlayCommand extends BaseCommand {
-    constructor(mainPanel) {
+    constructor(mainPanel, startablePanel1, startablePanel2) {
         super();
         this.panel = mainPanel;
+        this.startablePanel1 = startablePanel1;
+        this.startablePanel2 = startablePanel2;
     }
 
     execute() {
         if (this.canExecute) {
             this.canExecute = false;
             this.panel.hide();
+            this.startablePanel1.show();
+            this.startablePanel2.show();
         }
     }
 }

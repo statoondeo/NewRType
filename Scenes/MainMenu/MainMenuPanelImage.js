@@ -4,9 +4,6 @@ class MainMenuPanelImage {
         let canvas = ImageHandler.createCanvas(screen.width, screen.height);
         let context = canvas.getContext("2d");
 
-        let sprite = new Sprite(ServiceLocator.getService(ServiceLocator.RESOURCE).getImage("Images/Gui/bigPanel.png"));
-        sprite.draw(context);
-
         let baseAxe = 200;
         let text = new TextUIElement("Raphael DUCHOSSOY (Gamecodeur.fr)", "white", "bold 26pt neuropol");
         text.position.x = baseAxe;

@@ -36,6 +36,8 @@ class GameObject {
 
     // Affichage du gameObject
     draw(context) {
-        this.collideBox.draw(context);
+        if (ServiceLocator.getService(ServiceLocator.PARAMETER).colliderDisplay) {
+            this.collideBox.draw(context);
+        }
     }
 }

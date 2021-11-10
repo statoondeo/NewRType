@@ -5,7 +5,7 @@ class BigSaucerGameObject extends EnemyShipGameObject {
 
     constructor(playerShip, cubePrototype = new CubeGameObject(playerShip)) {
         // Paramétrage du vaisseau ennemi
-        super(ServiceLocator.getService(ServiceLocator.RESOURCE).getImage("Images/bigsaucer.png"), BigSaucerGameObject.size, 20000, 0)
+        super(ServiceLocator.getService(ServiceLocator.RESOURCE).getImage("Images/bigsaucer.png"), BigSaucerGameObject.size, 40000, 0)
         this.layer = 0.999;
 
         this.playerShip = playerShip;

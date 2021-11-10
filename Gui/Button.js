@@ -3,26 +3,11 @@ class UIElement extends GameObject {
         super();
         this.visibility = visibility;
         this.globalAlpha = this.visibility ? 1 : 0;
-        
-        // Les éléments d'interface sont observables
-        this.observers = [];
+        this.partition = GameObjectPartition.NEUTRAL_PARTITION;
     }
 
-    registerObserver(observer) {
-        this.observers.push(observer);
-    }
-    
-    unregisterObserver(observer) {
-        let index = this.observers.indexOf(observer);
-        if (index >= 0) {
-            this.observers.splice(index, 1);
-        }
-    }
-
-    notify(property) {
-        this.observers.forEach(observer => {
-            observer.subjectChanged(this, property);
-        });
+    setPosition(position) {
+        this.position = position;
     }
 
     setAlpha(alpha) {
@@ -33,14 +18,63 @@ class UIElement extends GameObject {
         return this.globalAlpha;
     }
 }
-
-class BigPanelUIElement extends UIElement{
-    constructor(position, image, visibility) {
+class UIElementDecorator extends UIElement {
+    constructor(gameObject, visibility = true) {
         super(visibility);
-        this.sprite = new Sprite(image);
+        this.gameObject = gameObject;
+        this.size = this.gameObject.size;
+    }
+
+    setPosition(position) {
         this.position = position;
-        this.sprite.position = this.position;
-        this.size = this.sprite.size;
+        this.gameObject.position.x = position.x;
+        this.gameObject.position.y = position.y;
+    }
+
+    setAlpha(alpha) {
+        this.gameObject.globalAlpha = alpha;
+    }
+
+    getAlpha() {
+        return this.gameObject.globalAlpha;
+    }   
+
+    update(dt) {
+        this.gameObject.update(dt);
+    }
+
+    draw(context) {
+        this.gameObject.draw(context);
+    }
+}
+class SpriteUIElement extends UIElement {
+    constructor(image) {
+        super();
+        this.sprite = new Sprite(image);
+    }
+
+    setPosition(position) {
+        this.sprite.position = position;
+    }
+
+    setAlpha(alpha) {
+        super.setAlpha(alpha);
+        this.sprite.globalAlpha = alpha;
+    }
+
+    update(dt) {
+        this.sprite.update(dt);
+    }
+
+    draw(context) {
+        this.sprite.draw(context);
+    }
+}
+class PanelUIElement  extends UIElement {
+    constructor(position, size, visibility) {
+        super(visibility);
+        this.position = position;
+        this.size = size;
         this.internalUIElement = [];
         this.pendingVisibility = false;
         this.alphaDirection = 0;
@@ -49,22 +83,21 @@ class BigPanelUIElement extends UIElement{
     }
 
     addElement(element) {
-        element.setAlpha(this.getAlpha());
-        element.position.x += this.position.x;
-        element.position.y += this.position.y;
+        element.setAlpha(this.getAlpha());        
+        element.setPosition(new Vec2(element.position.x + this.position.x, element.position.y + this.position.y));
         this.internalUIElement.push(element);
     }
 
     setAlpha(alpha) {
         super.setAlpha(alpha);
-        this.sprite.globalAlpha = alpha;
+        this.globalAlpha = alpha;
         this.internalUIElement.forEach(element => {
             element.setAlpha(alpha);
         });
     }
 
     getAlpha() {
-        return this.sprite.globalAlpha;
+        return this.globalAlpha;
     }
 
     hide() {
@@ -72,7 +105,6 @@ class BigPanelUIElement extends UIElement{
         this.pendingVisibility = true;
         this.alphaDirection = -1;
         this.visibilityTtl = this.visibilityMaxTtl;
-        this.notify("hide");
     }
 
     show() {
@@ -81,10 +113,10 @@ class BigPanelUIElement extends UIElement{
         this.pendingVisibility = true;
         this.alphaDirection = 1;
         this.visibilityTtl = this.visibilityMaxTtl;
-        this.notify("show");
     }
 
     update(dt) {
+        super.update(dt);
         if (this.pendingVisibility) {
             this.visibilityTtl -= dt;
             if (this.visibilityTtl <= 0) {
@@ -95,7 +127,6 @@ class BigPanelUIElement extends UIElement{
                 this.setAlpha(this.alphaDirection > 0 ? (this.visibilityMaxTtl - this.visibilityTtl) / this.visibilityMaxTtl : this.visibilityTtl / this.visibilityMaxTtl);
             }
         }
-        this.sprite.update(dt);
         this.internalUIElement.forEach(element => {
             element.update(dt);
         });
@@ -103,92 +134,175 @@ class BigPanelUIElement extends UIElement{
 
     draw(context) {
         if (this.visibility) {
-            this.sprite.draw(context);
             this.internalUIElement.forEach(element => {
                 element.draw(context);
             });
         }
+    }    
+}
+class BigPanelUIElement extends PanelUIElement {
+    static size = new Vec2(1280, 800);
+    constructor(position, visibility) {
+        super(position, BigPanelUIElement.size, visibility);
+        this.addElement(new SpriteUIElement(ServiceLocator.getService(ServiceLocator.RESOURCE).getImage("Images/Gui/bigPanel.png")));
+     }
+}
+class MiniaturePanelUIElement extends PanelUIElement {
+    static miniatureOffset = new Vec2(92, 96)
+    constructor(panel, miniature, visibility) {
+        super(panel.position, panel.size, visibility);
+        this.panel = panel;
+        this.miniature = miniature;
+        this.miniature.position.x = MiniaturePanelUIElement.miniatureOffset.x - this.miniature.size.x / 2;
+        this.miniature.position.y = MiniaturePanelUIElement.miniatureOffset.y - this.miniature.size.y / 2;
+        this.addElement(this.miniature);
+    }
+    addElement(element) {
+        this.panel.addElement(element);
+    }
+    show() {
+        this.panel.show();
+    }
+    hide() {
+        this.panel.hide();
+    }
+    update(dt) {
+        this.panel.update(dt);
+    }
+    draw(context) {
+        this.panel.draw(context);
     }
 }
-
-class SmallPanelUIElement extends BigPanelUIElement {
+class SmallPanelUIElement extends PanelUIElement {
     static size = new Vec2(619, 614);
-    static miniatureOffset = new Vec2(92, 96)
-    constructor(image, position, miniature, visibility) {
-        super(position, image, visibility);
-        this.miniature = miniature;
-        this.miniature.globalAlpha = this.globalAlpha;
-        this.position = position;
-        this.miniature.position.x = this.position.x + SmallPanelUIElement.miniatureOffset.x - this.miniature.size.x / 2;
-        this.miniature.position.y = this.position.y + SmallPanelUIElement.miniatureOffset.y - this.miniature.size.y / 2;
+    constructor(position, visibility) {
+        super(position, visibility);
+        this.addElement(new SpriteUIElement(ServiceLocator.getService(ServiceLocator.RESOURCE).getImage("Images/Gui/smallPanel.png")));
+    }
+}
+class VerySmallPanelUIElement extends PanelUIElement {
+    static size = new Vec2(619, 330);
+    constructor(position, visibility) {
+        super(position, visibility);
+        this.addElement(new SpriteUIElement(ServiceLocator.getService(ServiceLocator.RESOURCE).getImage("Images/Gui/verySmallPanel.png")));
+    }
+}
+class DelayableSmallPanelUIElement extends SmallPanelUIElement {
+    constructor(miniature, position, visibility, delay) {
+        super(miniature, position, visibility);
+        this.started = false;
+        this.ttl = delay;
     }
 
-    setAlpha(alpha) {
-        super.setAlpha(alpha);
-        this.miniature.globalAlpha = alpha;
+    show() {
+        this.started = true;
     }
 
     update(dt) {
         super.update(dt);
-        this.miniature.update(dt);
+        if (this.started) {
+            this.ttl -= dt;
+            if (this.ttl < 0) {
+                super.show();
+                this.started = false;
+            }
+        }
+    }
+}
+class StartableUIElement extends UIElement {
+    constructor(uiElement, startingPoint, endPoint) {
+        super();
+        this.uiElement = uiElement;
+        this.startingPoint = startingPoint;
+        this.endPoint = endPoint;
+        this.started = false;
+        this.ended = false;
+        this.status = GameObjectState.IDLE;
+    }
+
+    subjectChanged(subject) {
+        if (subject.currentStep >= this.startingPoint && !this.started) {
+            this.started = true;
+            this.status = GameObjectState.ACTIVE;
+            this.uiElement.show();
+        } 
+        if (subject.currentStep >= this.endPoint) {
+            subject.unregister(this);
+            this.ended = true;
+            this.uiElement.hide();
+        }
+    }
+
+    update(dt) {
+        if (this.started && this.ended && !this.visibility) {
+            this.status = GameObjectState.OUTDATED;
+        }
+        else {
+            this.uiElement.update(dt);
+        }
     }
 
     draw(context) {
-        super.draw(context);
-        this.miniature.draw(context);
+        this.uiElement.draw(context);
     }
 }
-class BigSaucerSmallPanelUIElement extends SmallPanelUIElement {
-    constructor(position, visibility, observablePanel) {
-        super(MainMenuBigSaucerImage.getInstance(), position, new BigSaucerMiniatureGameObject(), visibility);
-        this.observablePanel = observablePanel
-        this.observablePanel.registerObserver(this);
+class StartableSmallPanelUIElement extends SmallPanelUIElement {
+    constructor(miniature, position, visibility, startingPoint, endPoint) {
+        super(miniature, position, visibility);
+        this.startingPoint = startingPoint;
+        this.endPoint = endPoint;
         this.started = false;
-        this.ttl = 2;
+        this.ended = false;
+        this.status = GameObjectState.IDLE;
     }
 
-    subjectChanged(observable, property) {
-        if (observable == this.observablePanel && property == "hide") {
+    subjectChanged(subject) {
+        if (subject.currentStep >= this.startingPoint && !this.started) {
             this.started = true;
-            this.observablePanel.unregisterObserver(this);
+            this.status = GameObjectState.ACTIVE;
+            this.show();
+        } 
+        if (subject.currentStep >= this.endPoint) {
+            subject.unregister(this);
+            this.ended = true;
+            this.hide();
         }
     }
 
     update(dt) {
         super.update(dt);
-        if (this.started) {
-            this.ttl -= dt;
-            if (this.ttl < 0) {
-                this.show();
-                this.started = false;
-            }
+        if (this.started && this.ended && !this.visibility) {
+            this.status = GameObjectState.OUTDATED;
         }
     }
 }
-class RareoyArdeasSmallPanelUIElement extends SmallPanelUIElement {
-    constructor(position, visibility, observablePanel) {
-        super(MainMenuRareoyArdeasImage.getInstance(), position, new Player1ShipMiniatureGameObject(), visibility);
-        this.observablePanel = observablePanel
-        this.observablePanel.registerObserver(this);
+class StartableVerySmallPanelUIElement extends VerySmallPanelUIElement {
+    constructor(miniature, position, visibility, startingPoint, endPoint) {
+        super(miniature, position, visibility);
+        this.startingPoint = startingPoint;
+        this.endPoint = endPoint;
         this.started = false;
-        this.ttl = 3;
+        this.ended = false;
+        this.status = GameObjectState.IDLE;
     }
 
-    subjectChanged(observable, property) {
-        if (observable == this.observablePanel && property == "show") {
+    subjectChanged(subject) {
+        if (subject.currentStep >= this.startingPoint && !this.started) {
             this.started = true;
-            this.observablePanel.unregisterObserver(this);
+            this.status = GameObjectState.ACTIVE;
+            this.show();
+        } 
+        if (subject.currentStep >= this.endPoint) {
+            subject.unregister(this);
+            this.ended = true;
+            this.hide();
         }
     }
 
     update(dt) {
         super.update(dt);
-        if (this.started) {
-            this.ttl -= dt;
-            if (this.ttl < 0) {
-                this.show();
-                this.started = false;
-            }
+        if (this.started && this.ended && !this.visibility) {
+            this.status = GameObjectState.OUTDATED;
         }
     }
 }
@@ -226,6 +340,12 @@ class ButtonUIElement extends UIElement {
         this.textUIElement = new TextUIElement(label, "black", "bold 24pt neuropol");
     }
 
+    setPosition(position) {
+        super.setPosition(position);
+        this.sprite.position = position;
+        this.collideBox.position = this.position;
+    }
+
     setAlpha(alpha) {
         this.sprite.globalAlpha = alpha;
         this.textUIElement.setAlpha(alpha);
@@ -236,16 +356,18 @@ class ButtonUIElement extends UIElement {
     }
 
     update(dt) {
+        super.update(dt);
         this.textUIElement.position.x = this.position.x + (this.size.x - this.textUIElement.size.x) / 2;
         this.textUIElement.position.y = this.position.y + this.size.y * 0.3;
 
         let inputHandler = ServiceLocator.getService(ServiceLocator.KEYBOARD);
-        if (inputHandler.isClicked() && Collider.isPointInRectangle(inputHandler.click, this.collideBox)) {
+        if (inputHandler.isClicked() && this.visibility && Collider.isPointInRectangle(inputHandler.click, this.collideBox)) {
             this.command.execute();
         }
     }
 
     draw(context) {
+        super.draw(context);
         if (this.visibility) {
             this.sprite.draw(context);
             this.textUIElement.draw(context);
