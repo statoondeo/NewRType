@@ -18,6 +18,7 @@ class BaseScene {
 
         // Vaisseau du joueur
         this.playerShip = null;
+        this.fadingLayer = null;
     }
 
     addPlayerShip(playerShip) {
@@ -42,6 +43,25 @@ class BaseScene {
     load() {
         // Initialisation de la scène
         this.gameObjectsCollection = [];
+
+        // On ajoute de suite la couche permettant les transitions de début et fin
+        // Par défaut ce sera un ecran noir
+        let screen = ServiceLocator.getService(ServiceLocator.SCREEN);
+        let canvas = ImageHandler.createCanvas(screen.width, screen.height);
+        let context = canvas.getContext("2d");
+        context.fillStyle = "black";
+        context.fillRect(0, 0, screen.width, screen.height);
+        this.fadingLayer = new FadingLayer(canvas, true);
+        this.addGameObject(this.fadingLayer);
+    }
+
+    // Gestion des début et fin de la scène
+    show(command) {
+        this.fadingLayer.hide(command);
+    }
+
+    hide(command) {
+        this.fadingLayer.show(command);
     }
 
     // Le tableau étant trié, on peut rechercher par dichotomie pour être plus performant

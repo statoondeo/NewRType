@@ -6,7 +6,7 @@
     }
     </style>
     <body style="background-color: black;">
-        <h3 style="font: bold 24pt neuropol;color: white;position:absolute;top:300;left:490;">Chargement</h3>
+        <h3 id="loaderText" style="font: bold 24pt neuropol;color: white;position:absolute;top:300;left:490;">Chargement</h3>
         <img id="loaderImage" src="Images/Gui/base00.png" style="position:absolute;top:377;left:345;" />
         <canvas id="canvas" width="1280" height="800" style="background-color: transparent; margin: 0%;padding: 0%;position:absolute;top:0;left:0;" />
         <img id="loaderImage-1" src="Images/Gui/base01.png" style="visibility: hidden;" />
@@ -65,6 +65,7 @@
         <script src="GameObjects/Sprites/AnimatedSprite.js"></script>
         <script src="GameObjects/Sprites/Animation.js"></script>
 
+        <script src="GameObjects/Layers/FadingLayer.js"></script>
         <script src="GameObjects/Layers/OnceLayer.js"></script>
         <script src="GameObjects/Layers/RollingLayer.js"></script>
         <script src="GameObjects/Layers/StaticLayer.js"></script>
@@ -86,7 +87,8 @@
         <script src="Tools/Beziers/CompositeCurve.js"></script>
 
         <script src="Commands/BaseCommand.js"></script>
-        <script src="Commands/BackToMenuCommand.js"></script>
+        <script src="Commands/SwitchSceneCommand.js"></script>
+        <script src="Commands/GotoSceneCommand.js"></script>
         <script src="Commands/CompositeCommand.js"></script>
         <script src="Commands/DealDamageCommand.js"></script>
         <script src="Commands/DieCommand.js"></script>
@@ -153,17 +155,30 @@
         <script src="GameObjects/Concretes/BigSaucer/BigSaucerGameObject.js"></script>
 
         <script src="Scenes/BaseScene.js"></script>
-        <script src="Scenes/Level1Scene.js"></script>
+        <script src="Scenes/SceneManager.js"></script>
         <script src="Scenes/MainMenu/MainMenuRareoyArdeasImage.js"></script>
         <script src="Scenes/MainMenu/MainMenuBigSaucerImage.js"></script>
         <script src="Scenes/MainMenu/MainMenuPanelImage.js"></script>
         <script src="Scenes/MainMenu/MenuScene.js"></script>
-        <script src="Scenes/Tests/TestPlayerMovesScene.js"></script>
-        <script src="Scenes/Tests/TestUniformMovesScene.js"></script>
-        <script src="Scenes/Tests/TestLoopingMovesScene.js"></script>
-        <script src="Scenes/SceneManager.js"></script>
+        <script src="Scenes/Level1/Level1BigSaucer1Image.js"></script>
+        <script src="Scenes/Level1/Level1BigSaucer2Image.js"></script>
+        <script src="Scenes/Level1/Level1RareoyArdeas1Image.js"></script>
+        <script src="Scenes/Level1/Level1TitleImage.js"></script>
+        <script src="Scenes/Level1/Level1Scene.js"></script>
 
-        <script src="Gui/Button.js"></script>
+        <script src="Gui/UIElement.js"></script>
+        <script src="Gui/UIElementDecorator.js"></script>
+        <script src="Gui/TextUIElement.js"></script>
+        <script src="Gui/SpriteUIElement.js"></script>
+        <script src="Gui/PanelUIElement.js"></script>
+        <script src="Gui/BasePanelUIElementDecorator.js"></script>
+        <script src="Gui/BigPanelUIElement.js"></script>
+        <script src="Gui/ButtonUIElement.js"></script>
+        <script src="Gui/DelayablePanelUIElementDecorator.js"></script>
+        <script src="Gui/MiniaturePanelUIElementDecorator.js"></script>
+        <script src="Gui/SmallPanelUIElement.js"></script>
+        <script src="Gui/StartableUIElementDecorator.js"></script>
+        <script src="Gui/VerySmallPanelUIElement.js"></script>
 
         <script src="Games/Game.js"></script>
         <script src="Games/Main.js"></script>

@@ -17,7 +17,7 @@ class InputListener {
         this.mouse = new Vec2();
 
         // Coordonnées du click
-        this.click = new Vec2();
+        this.click = false;
     }
 
     registerCommand(control, command) {
@@ -40,14 +40,12 @@ class InputListener {
         this.mouse.y = mouseY;
     }
 
-    mouseClick(mouseX, mouseY) {
-        this.click.x = mouseX;
-        this.click.y = mouseY;
+    mouseDown() {
+        this.click = true;
     }
-
-    update(dt) {
-        // Ré-initialisation du click à faire en fin de frame
-        this.click.x = this.click.y = -1;
+    
+    mouseUp() {
+        this.click = false;
     }
 
     // Gestion des contrôles utilisés par le joueur pour cette frame
@@ -94,7 +92,7 @@ class InputListener {
 
     // Est-ce que la souris a été clickée
     isClicked() {
-        return this.click.x != -1 || this.click.y != -1
+        return this.click;
     }
 }
 

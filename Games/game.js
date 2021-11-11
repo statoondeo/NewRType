@@ -3,8 +3,10 @@ let sceneManager = null;
 
 // Gestion des images de chargement
 let loaderImage = document.getElementById("loaderImage");
+let loaderText = document.getElementById("loaderText");
 let loaderImages = [];
 let totalDt = 0;
+
 for (let index = 1; index <= 14; index++) {
     let item = document.getElementById("loaderImage-" + index); 
     loaderImages.push(item.src);
@@ -26,10 +28,16 @@ function mouseMoveEventListener(event) {
     ServiceLocator.getService(ServiceLocator.KEYBOARD).mouseMove(event.clientX, event.clientY);
 }
 
-function mouseClickEventListener(event) {
+function mouseDownEventListener(event) {
     event.preventDefault();
     event.stopPropagation();
-    ServiceLocator.getService(ServiceLocator.KEYBOARD).mouseClick(event.clientX, event.clientY);
+    ServiceLocator.getService(ServiceLocator.KEYBOARD).mouseDown();
+}
+
+function mouseUpEventListener(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    ServiceLocator.getService(ServiceLocator.KEYBOARD).mouseUp();
 }
 
 function load(canvas) {
@@ -44,7 +52,8 @@ function load(canvas) {
 
     // Gestion de la souris
     canvas.addEventListener('mousemove', mouseMoveEventListener, false);
-    canvas.addEventListener('click', mouseClickEventListener, false);
+    canvas.addEventListener('mousedown', mouseDownEventListener, false);
+    canvas.addEventListener('mouseup', mouseUpEventListener, false);
 
     // Gestion de ressources
     let assetLoader = new AssetLoader();
@@ -101,8 +110,12 @@ function startGame() {
     sceneManager = new SceneManager();
     sceneManager.addScene("MENU", new MenuScene());
     sceneManager.addScene("LEVEL1", new Level1Scene());
-    sceneManager.setCurrent("LEVEL1");
+    sceneManager.setCurrent("MENU");
     ServiceLocator.registerService(ServiceLocator.SCENE, sceneManager);
+
+    // On fait disparaitre les élément de chargement
+    loaderImage.style.visibility = "hidden";
+    loaderText.style.visibility = "hidden";
 
     gameReady = true;
 }
@@ -137,8 +150,6 @@ function update(dt) {
     //     explosion.position.y = playerShip.position.y;
     //     ServiceLocator.getService(ServiceLocator.SCENE).currentScene.addGameObject(explosion);
     // }
-
-    inputListener.update(dt);
 }
 
 function draw(context) {
