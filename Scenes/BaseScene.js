@@ -191,6 +191,7 @@ class BaseScene {
             context.fillStyle = "White";
             context.font = "normal 10pt neuropol";
             context.fillText("Game objects : " + this.gameObjectsCollection.length, 10, 710);
+            context.fillText("Fps : " + Math.floor(fpsList.reduce((a, b) => a + b) / fpsList.length), 10, 690);
 
             // Affichage du quadTree
             if (null != this.quadTree) {
