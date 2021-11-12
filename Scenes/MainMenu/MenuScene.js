@@ -22,9 +22,6 @@ class MenuScene extends BaseScene {
         // La background principal
         this.addGameObject(new RollingLayer(0.1, baseSpeed, resources.getImage("Images/gas2.png"), new Vec2(-1, 0)));
 
-        // Etoiles filantes
-        this.addGameObject(new ShootingStarLayer(0.5));
-
         // Le joueur est remplacé par une bille orange
         let playerShip = new CircleShape("orangered", new Vec2(6));
         playerShip.collideBox = new CircleCollideBox(playerShip.position, 3);
