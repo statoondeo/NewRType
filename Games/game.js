@@ -107,9 +107,9 @@ function load(canvas) {
     assetLoader.add(AssetLoader.IMAGE, "Images/Gui/lifeBar.png");
     assetLoader.add(AssetLoader.IMAGE, "Images/Gui/playerHud.png");
 
-    assetLoader.add(AssetLoader.SOUND, "sounds/laser4.mp3");
+    // assetLoader.add(AssetLoader.SOUND, "sounds/laser4.mp3");
 
-    assetLoader.add(AssetLoader.SOUND, "Musics/bensound-highoctane.mp3");
+    // assetLoader.add(AssetLoader.SOUND, "Musics/bensound-highoctane.mp3");
 
     assetLoader.start(startGame);
 }

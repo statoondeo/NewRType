@@ -23,6 +23,5 @@ class PlayerShipGameObject extends AnimatedSprite {
     update(dt) {
         super.update(dt);
         this.thrust.update(dt);
-        console.log(this.status);
     }
 }
