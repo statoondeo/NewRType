@@ -1,8 +1,13 @@
 class WeaponState {
-    constructor(fireCommand, level) {
+    constructor(name, fireCommand, level) {
         this.fireCommand = fireCommand;
         this.previousWeaponState = this.nextWeaponState = null;
+        this.name = name;
         this.level = level;
+    }
+
+    getName() {
+        return this.name + " - Level " + this.level;
     }
 
     currentLevel() {

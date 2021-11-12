@@ -14,5 +14,19 @@ class PlayerControlledMoveStrategy extends BaseMoveStrategy {
 
         // Application des mouvements demandés
         super.update(dt);
+
+        // On contrôle qu'il ne soit pas hors de l'écran
+        let screen = ServiceLocator.getService(ServiceLocator.SCREEN);
+        if (this.gameObject.position.x < 0) {
+            this.gameObject.position.x = 0;
+        } else if (this.gameObject.position.x + this.gameObject.size.x > screen.width) {
+            this.gameObject.position.x = screen.width - this.gameObject.size.x; 
+        }
+        
+        if (this.gameObject.position.y < 0) {
+            this.gameObject.position.y = 0;
+        } else if (this.gameObject.position.y + this.gameObject.size.y > screen.height) {
+            this.gameObject.position.y = screen.height - this.gameObject.size.y; 
+        }
     }
 }

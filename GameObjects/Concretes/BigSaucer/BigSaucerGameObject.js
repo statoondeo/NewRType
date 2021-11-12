@@ -5,7 +5,7 @@ class BigSaucerGameObject extends EnemyShipGameObject {
 
     constructor(playerShip, cubePrototype = new CubeGameObject(playerShip)) {
         // Paramétrage du vaisseau ennemi
-        super(ServiceLocator.getService(ServiceLocator.RESOURCE).getImage("Images/bigsaucer.png"), BigSaucerGameObject.size, 40000, 0)
+        super(ServiceLocator.getService(ServiceLocator.RESOURCE).getImage("Images/bigsaucer.png"), BigSaucerGameObject.size, 1000, 0)
         this.layer = 0.999;
 
         this.playerShip = playerShip;
@@ -24,7 +24,7 @@ class BigSaucerGameObject extends EnemyShipGameObject {
         this.startAnimation("IDLE", 0);
 
         // Animation de mort
-        this.dieCommand = new PopAndDieCommand(this, new BigSaucerBigExplosionGameObject(this));
+        this.dieCommand = new PopAndDieCommand(this, new ParticlesMediumExplosionGameObject(this, [ new GiantRedExplosionGameObject(100), new MediumRedExplosionGameObject(100), new RedExplosionGameObject(75) ]));
 
         // Il spawn des cubes
         this.TimeSequenceSpawnerGameObject = new TimeSequenceSpawnerGameObject(cubePrototype, 0, this, 3, 15);

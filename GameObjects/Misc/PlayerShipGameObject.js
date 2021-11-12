@@ -1,4 +1,5 @@
 class PlayerShipGameObject extends AnimatedSprite {
+    static size = new Vec2(64);
     constructor(image, tile, initialPosition) {
         super(image, tile)
         this.type = GameObjectType.SHIP;
@@ -17,7 +18,11 @@ class PlayerShipGameObject extends AnimatedSprite {
         this.speed = 200;
 
         this.dealDamageCommand = new DealDamageCommand(this, this.maxLife);
+        this.thrust = new ParticlesThrustGameObject(this, new BlueExplosionGameObject(75));
     }
 
-    static size = new Vec2(64);
+    update(dt) {
+        super.update(dt);
+        this.thrust.update(dt);
+    }
 }

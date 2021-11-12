@@ -10,7 +10,6 @@ class GotoSceneCommand extends BaseCommand {
 
     execute() {
         if (this.canExecute) {
-            console.log("Goto");
             ServiceLocator.getService(ServiceLocator.SCENE).setCurrent(this.targetScene);
         }
     }

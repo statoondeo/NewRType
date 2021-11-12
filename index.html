@@ -9,22 +9,25 @@
         <h3 id="loaderText" style="font: bold 24pt neuropol;color: white;position:absolute;top:300;left:490;">Chargement</h3>
         <img id="loaderImage" src="Images/Gui/base00.png" style="position:absolute;top:377;left:345;" />
         <canvas id="canvas" width="1280" height="800" style="background-color: transparent; margin: 0%;padding: 0%;position:absolute;top:0;left:0;" />
-        <img id="loaderImage-1" src="Images/Gui/base01.png" style="visibility: hidden;" />
-        <img id="loaderImage-2" src="Images/Gui/base02.png" style="visibility: hidden;" />
-        <img id="loaderImage-3" src="Images/Gui/base03.png" style="visibility: hidden;" />
-        <img id="loaderImage-4" src="Images/Gui/base04.png" style="visibility: hidden;" />
-        <img id="loaderImage-5" src="Images/Gui/base05.png" style="visibility: hidden;" />
-        <img id="loaderImage-6" src="Images/Gui/base06.png" style="visibility: hidden;" />
-        <img id="loaderImage-7" src="Images/Gui/base07.png" style="visibility: hidden;" />
-        <img id="loaderImage-8" src="Images/Gui/base08.png" style="visibility: hidden;" />
-        <img id="loaderImage-9" src="Images/Gui/base09.png" style="visibility: hidden;" />
-        <img id="loaderImage-10" src="Images/Gui/base10.png" style="visibility: hidden;" />
-        <img id="loaderImage-11" src="Images/Gui/base11.png" style="visibility: hidden;" />
-        <img id="loaderImage-12" src="Images/Gui/base12.png" style="visibility: hidden;" />
-        <img id="loaderImage-13" src="Images/Gui/base13.png" style="visibility: hidden;" />
-        <img id="loaderImage-14" src="Images/Gui/base14.png" style="visibility: hidden;" />
+        <img id="loaderImage-1" src="Images/Gui/base01.png" style="display: none;" />
+        <img id="loaderImage-2" src="Images/Gui/base02.png" style="display: none;" />
+        <img id="loaderImage-3" src="Images/Gui/base03.png" style="display: none;" />
+        <img id="loaderImage-4" src="Images/Gui/base04.png" style="display: none;" />
+        <img id="loaderImage-5" src="Images/Gui/base05.png" style="display: none;" />
+        <img id="loaderImage-6" src="Images/Gui/base06.png" style="display: none;" />
+        <img id="loaderImage-7" src="Images/Gui/base07.png" style="display: none;" />
+        <img id="loaderImage-8" src="Images/Gui/base08.png" style="display: none;" />
+        <img id="loaderImage-9" src="Images/Gui/base09.png" style="display: none;" />
+        <img id="loaderImage-10" src="Images/Gui/base10.png" style="display: none;" />
+        <img id="loaderImage-11" src="Images/Gui/base11.png" style="display: none;" />
+        <img id="loaderImage-12" src="Images/Gui/base12.png" style="display: none;" />
+        <img id="loaderImage-13" src="Images/Gui/base13.png" style="display: none;" />
+        <img id="loaderImage-14" src="Images/Gui/base14.png" style="display: none;" />
+
+        <audio src="Musics/bensound-highoctane.mp3" id="newdawnMusic"></audio>
 
         <script src="Tools/InputListener.js"></script>
+        <script src="Tools/Sound.js"></script>
         <script src="Tools/AssetLoader.js"></script>
         <script src="Tools/Easing.js"></script>
         <script src="Tools/Manager.js"></script>
@@ -78,6 +81,8 @@
         <script src="GameObjects/Misc/EnemyShipGameObject.js"></script>
         <script src="GameObjects/Misc/SparkGameObject.js"></script>
         <script src="GameObjects/Misc/RocketGameObject.js"></script>
+        <script src="GameObjects/Misc/Particles.js"></script>
+        <script src="GameObjects/Misc/LifeBarGameObject.js"></script>
 
         <script src="GameObjects/Spawners/BaseSpawner.js"></script>
         <script src="GameObjects/Spawners/AllInCircleSpawnerGameObject.js"></script>
@@ -179,7 +184,12 @@
         <script src="Gui/SmallPanelUIElement.js"></script>
         <script src="Gui/StartableUIElementDecorator.js"></script>
         <script src="Gui/VerySmallPanelUIElement.js"></script>
+        <script src="Gui/HUDPanelUIElement.js"></script>
 
         <script src="Games/Game.js"></script>
         <script src="Games/Main.js"></script>
+        <script>
+            window.onload = function () { window.focus(); } ;
+            window.onclick = function () { window.focus(); };
+        </script>
 </html>

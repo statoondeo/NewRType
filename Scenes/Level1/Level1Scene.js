@@ -24,10 +24,16 @@ class Level1Scene extends BaseScene {
         inputListener.registerCommand("KeyZ", new FireActionCommand(this.playerShip));
 
         // Scene de jeu proprement dite
-        let baseSpeed = 60;
+        let baseSpeed = 120;
 
         // Métronome
         this.scheduler = new LinearScheduler(baseSpeed, screen.width);
+
+        //   On ajoute le HUD
+        let hud = new HUDPanelUIElement(playerShip, new Vec2(), false);
+        hud = new MiniaturePanelUIElementDecorator(hud, new UIElementDecorator(new Player1ShipMiniatureGameObject()));
+        hud = new StartableUIElementDecorator(hud, 2000);
+        this.addSynchronizedGameObject(hud); 
 
         // Gestion des backgrounds
         // Le fond est représenté par un rectangle noir qui fait la taille du canvas et il est constant
@@ -61,7 +67,7 @@ class Level1Scene extends BaseScene {
         this.addSynchronizedGameObject(new AllInCircleSpawnerGameObject(new StarknifeGameObject(), new Vec2(2 * (screen.width - StarknifeGameObject.size.x) / 3, (screen.height - StarknifeGameObject.size.y) / 2), 16, 5800));
 
         // Boss
-        this.addSynchronizedGameObject(new TimeSequenceSpawnerGameObject(new BigSaucerGameObject(playerShip), 6200, new Vec2(), 1, 1));
+        this.addSynchronizedGameObject(new TimeSequenceSpawnerGameObject(new BigSaucerGameObject(playerShip), 6600, new Vec2(), 1, 1));
         
         // Narration
         let panel = new PanelUIElement(new Vec2(), true);

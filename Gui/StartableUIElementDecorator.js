@@ -1,5 +1,5 @@
 class StartableUIElementDecorator  extends BasePanelUIElementDecorator {
-    constructor(panel, startingPoint, endPoint) {
+    constructor(panel, startingPoint, endPoint = 0) {
         super(panel);
         this.startingPoint = startingPoint;
         this.endPoint = endPoint;
@@ -11,7 +11,7 @@ class StartableUIElementDecorator  extends BasePanelUIElementDecorator {
             this.started = true;
             this.show();
         }
-        if (this.started && !this.ended && scheduler.currentStep >= this.endPoint) {
+        if (this.endPoint != 0 && this.started && !this.ended && scheduler.currentStep >= this.endPoint) {
             this.ended = true;
             this.hide();
         }

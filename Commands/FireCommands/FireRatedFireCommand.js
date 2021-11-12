@@ -19,6 +19,9 @@ class FireRatedFireCommand extends BaseCommand {
 
     execute() {
         if (this.canExecute) {
+            // let sound = ServiceLocator.getService(ServiceLocator.RESOURCE).getSound("sounds/laser4.mp3");
+            // sound.stop();
+            // sound.play();
             this.fireRateTtl = this.fireRate;
 
             let clone = this.prototype.getClone();

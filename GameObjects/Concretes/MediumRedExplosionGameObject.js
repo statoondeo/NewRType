@@ -1,97 +1,94 @@
 class MediumRedExplosionGameObject extends ExplosionGameObject {
-    constructor() {
-        let image = ImageHandler.zoomImage(ServiceLocator.getService(ServiceLocator.RESOURCE).getImage("Images/redspark.png"), new Vec2(2));
-        super(image, new Vec2(200), 30);
+    constructor(speed = 30) {
+        super(ImageHandler.zoomImage(ServiceLocator.getService(ServiceLocator.RESOURCE).getImage("Images/redspark.png"), new Vec2(2)), new Vec2(200), speed);
     }
     
     getClone() {
-        return new MediumRedExplosionGameObject();
+        return new MediumRedExplosionGameObject(this.speed);
     }
 }
 class GiantRedExplosionGameObject extends ExplosionGameObject {
-    constructor() {
-        let image = ImageHandler.zoomImage(ServiceLocator.getService(ServiceLocator.RESOURCE).getImage("Images/redspark.png"), new Vec2(5));
-        super(image, new Vec2(500), 75);
+    constructor(speed = 75) {
+        super(ImageHandler.zoomImage(ServiceLocator.getService(ServiceLocator.RESOURCE).getImage("Images/redspark.png"), new Vec2(5)), new Vec2(500), speed);
     }
     
     getClone() {
-        return new GiantRedExplosionGameObject();
+        return new GiantRedExplosionGameObject(this.speed);
     }
 }
-class BigSaucerMediumExplosionGameObject extends MediumRedExplosionGameObject {
-    constructor(gameObject) {
+class ParticlesMediumExplosionGameObject extends GameObject {
+    constructor(gameObject, prototypesList) {
         super();
         this.gameObject = gameObject;
-        this.explosionsList = [];
-        this.speed = 60;
-        let angle;
-        let explosion;
-        for (let index = 0; index < 5; index++) {
-            explosion = new RedExplosionGameObject()
-            explosion.speed = Math.random() * 120 + 120;
-            explosion.position = this.position;
-            angle = Math.random() * 2 * Math.PI;
+        this.spawned = false;
+        this.prototypesList = prototypesList;
+        this.explosions = [];
+        let number = 3;
+        this.prototypesList.forEach(prototype => {
+            this.createExplosions(number, prototype);
+            number = number * 2 + 1;
+        });
+    }
+
+    createExplosions(maxNumber, explosionPrototype) {
+        for (let index = 0; index < maxNumber; index++) {
+            let explosion = explosionPrototype.getClone();
+            explosion.speed = Math.random() * 3 * explosion.speed / 4 + explosion.speed / 2;
+            let angle = Math.random() * 2 * Math.PI;
             explosion.moveStrategy = new UniformMoveStrategy(explosion, new Vec2(Math.cos(angle), Math.sin(angle)));
-            this.explosionsList.push(explosion);
-            this.status = GameObjectState.IDLE;
+            this.explosions.push(explosion);
         }        
-        this.popped = false;
-        this.status = GameObjectState.IDLE;
     }
     
     getClone(gameObject) {
-        return new BigSaucerMediumExplosionGameObject(gameObject);
+        return new ParticlesMediumExplosionGameObject(gameObject, this.prototypesList);
     }
 
     update(dt) {
-        super.update(dt);
-        if (this.status == GameObjectState.ACTIVE && !this.popped) {
-            this.popped = true;
-            this.explosionsList.forEach(explosion => {
+        if (!this.spawned) {
+            this.spawned = true;
+            this.status = GameObjectState.OUTDATED;
+
+            this.explosions.forEach(explosion => {
+                explosion.status = GameObjectState.ACTIVE;
                 explosion.position.x = this.gameObject.position.x + (this.gameObject.size.x - explosion.size.x) / 2;
                 explosion.position.y = this.gameObject.position.y + (this.gameObject.size.y - explosion.size.y) / 2;
-                explosion.status = GameObjectState.ACTIVE;
                 ServiceLocator.getService(ServiceLocator.SCENE).currentScene.addGameObject(explosion);
             });
         }
     }
 }
-
-class BigSaucerBigExplosionGameObject extends GiantRedExplosionGameObject {
-    constructor(gameObject) {
+class ParticlesThrustGameObject extends GameObject {
+    constructor(gameObject, prototype) {
         super();
         this.gameObject = gameObject;
-        this.explosionsList = [];
-        let angle;
-        let explosion;
-        for (let index = 0; index < 5; index++) {
-            explosion = new BigSaucerMediumExplosionGameObject(this.gameObject)
-            explosion.speed = Math.random() * 60 + 60;
-            explosion.position = this.position;
-            angle = Math.random() * 2 * Math.PI;
-            explosion.moveStrategy = new UniformMoveStrategy(explosion, new Vec2(Math.cos(angle), Math.sin(angle)));
-            this.explosionsList.push(explosion);
-        }
-        this.popped = false;
-        this.status = GameObjectState.IDLE;
+        this.prototype = prototype;
+        this.ttl = this.baseTtl = 0;
+        this.lastX = 0;
     }
-
+    
     getClone(gameObject) {
-        return new BigSaucerBigExplosionGameObject(gameObject);
+        return new ParticlesThrustGameObject(gameObject, this.prototype);
     }
 
     update(dt) {
-        super.update(dt);
-        if (this.status == GameObjectState.ACTIVE && !this.popped) {
-            this.popped = true;
-            this.position.x = this.gameObject.position.x + (this.gameObject.size.x - this.size.x) / 2;
-            this.position.y = this.gameObject.position.y + (this.gameObject.size.y - this.size.y) / 2;
-            this.explosionsList.forEach(explosion => {
-                explosion.position.x = this.gameObject.position.x + (this.gameObject.size.x - explosion.size.x) / 2;
-                explosion.position.y = this.gameObject.position.y + (this.gameObject.size.y - explosion.size.y) / 2;
-                explosion.status = GameObjectState.ACTIVE;
-                ServiceLocator.getService(ServiceLocator.SCENE).currentScene.addGameObject(explosion);
-            });
+        this.ttl -= dt;
+        if (this.ttl < 0) {
+            this.baseTtl = 50 / this.gameObject.speed;
+            if (this.gameObject.position.x > this.lastX) {
+                this.ttl = Math.random() * this.baseTtl;
+            }
+            else {
+                this.ttl = (Math.random() + 1) * this.baseTtl;
+            }
+            let explosion = this.prototype.getClone();
+            let angle = Math.random() * Math.PI / 2 + 3 * Math.PI / 4;
+            explosion.position.x = this.gameObject.position.x - explosion.size.x / 2;
+            explosion.position.y = this.gameObject.position.y + (this.gameObject.size.y - explosion.size.y) / 2;
+            explosion.moveStrategy = new UniformMoveStrategy(explosion, new Vec2(Math.cos(angle), Math.sin(angle)));
+            explosion.status = GameObjectState.ACTIVE;
+            ServiceLocator.getService(ServiceLocator.SCENE).currentScene.addGameObject(explosion);
+            this.lastX = this.gameObject.position.x;
         }
     }
 }

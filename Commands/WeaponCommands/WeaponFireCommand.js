@@ -4,6 +4,10 @@ class WeaponFireCommand extends BaseCommand {
         this.weapon = weapon;
     }
 
+    getName() {
+        return this.weapon.getName();
+    }
+
     update(dt) {
         this.weapon.update(dt);
     }

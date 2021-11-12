@@ -24,19 +24,19 @@ function keyUpEventListener(key) {
 
 function mouseMoveEventListener(event) {
     event.preventDefault();
-    event.stopPropagation();
+    // event.stopPropagation();
     ServiceLocator.getService(ServiceLocator.KEYBOARD).mouseMove(event.clientX, event.clientY);
 }
 
 function mouseDownEventListener(event) {
     event.preventDefault();
-    event.stopPropagation();
+    // event.stopPropagation();
     ServiceLocator.getService(ServiceLocator.KEYBOARD).mouseDown();
 }
 
 function mouseUpEventListener(event) {
     event.preventDefault();
-    event.stopPropagation();
+    // event.stopPropagation();
     ServiceLocator.getService(ServiceLocator.KEYBOARD).mouseUp();
 }
 
@@ -65,43 +65,49 @@ function load(canvas) {
     ServiceLocator.registerService(ServiceLocator.PARAMETER, new Parameter());
     
     // Ressources à charger
-    assetLoader.add("Images/player1.png");
-    assetLoader.add("Images/player2.png");
-    assetLoader.add("Images/starknife.png");
-    assetLoader.add("Images/wobbler.png");
-    assetLoader.add("Images/background1.png");
-    assetLoader.add("Images/background2.png");
-    assetLoader.add("Images/background3.png");
-    assetLoader.add("Images/rock7.png");
-    assetLoader.add("Images/rock8.png");
-    assetLoader.add("Images/rock9.png");
-    assetLoader.add("Images/rock10.png");
-    assetLoader.add("Images/rock11.png");
-    assetLoader.add("Images/speedpowerup.png");
-    assetLoader.add("Images/powerup.png");
-    assetLoader.add("Images/bluespark.png");
-    assetLoader.add("Images/redspark.png");
-    assetLoader.add("Images/greenspark.png");
-    assetLoader.add("Images/purplespark.png");
-    assetLoader.add("Images/redbullet.png");
-    assetLoader.add("Images/bluebullet.png");
-    assetLoader.add("Images/greenbullet.png");
-    assetLoader.add("Images/rocket.png");
-    assetLoader.add("Images/soil1.png");
-    assetLoader.add("Images/soil2.png");
-    assetLoader.add("Images/soil3.png");
-    assetLoader.add("Images/soil4.png");
-    assetLoader.add("Images/tech_bottom_end_left.png");
-    assetLoader.add("Images/tech_bottom_end_right.png");
-    assetLoader.add("Images/tech_bottom_tile.png");
-    assetLoader.add("Images/tech_bottom_tile2.png");
-    assetLoader.add("Images/bigsaucer.png");
-    assetLoader.add("Images/cube.png");
-    assetLoader.add("Images/gas2.png");
-    assetLoader.add("Images/Gui/bigPanel.png");
-    assetLoader.add("Images/Gui/smallPanel.png");
-    assetLoader.add("Images/Gui/button.png");
-    assetLoader.add("Images/Gui/verySmallPanel.png");
+    assetLoader.add(AssetLoader.IMAGE, "Images/player1.png");
+    assetLoader.add(AssetLoader.IMAGE, "Images/player2.png");
+    assetLoader.add(AssetLoader.IMAGE, "Images/starknife.png");
+    assetLoader.add(AssetLoader.IMAGE, "Images/wobbler.png");
+    assetLoader.add(AssetLoader.IMAGE, "Images/background1.png");
+    assetLoader.add(AssetLoader.IMAGE, "Images/background2.png");
+    assetLoader.add(AssetLoader.IMAGE, "Images/background3.png");
+    assetLoader.add(AssetLoader.IMAGE, "Images/rock7.png");
+    assetLoader.add(AssetLoader.IMAGE, "Images/rock8.png");
+    assetLoader.add(AssetLoader.IMAGE, "Images/rock9.png");
+    assetLoader.add(AssetLoader.IMAGE, "Images/rock10.png");
+    assetLoader.add(AssetLoader.IMAGE, "Images/rock11.png");
+    assetLoader.add(AssetLoader.IMAGE, "Images/speedpowerup.png");
+    assetLoader.add(AssetLoader.IMAGE, "Images/powerup.png");
+    assetLoader.add(AssetLoader.IMAGE, "Images/bluespark.png");
+    assetLoader.add(AssetLoader.IMAGE, "Images/redspark.png");
+    assetLoader.add(AssetLoader.IMAGE, "Images/greenspark.png");
+    assetLoader.add(AssetLoader.IMAGE, "Images/purplespark.png");
+    assetLoader.add(AssetLoader.IMAGE, "Images/redbullet.png");
+    assetLoader.add(AssetLoader.IMAGE, "Images/bluebullet.png");
+    assetLoader.add(AssetLoader.IMAGE, "Images/greenbullet.png");
+    assetLoader.add(AssetLoader.IMAGE, "Images/rocket.png");
+    assetLoader.add(AssetLoader.IMAGE, "Images/soil1.png");
+    assetLoader.add(AssetLoader.IMAGE, "Images/soil2.png");
+    assetLoader.add(AssetLoader.IMAGE, "Images/soil3.png");
+    assetLoader.add(AssetLoader.IMAGE, "Images/soil4.png");
+    assetLoader.add(AssetLoader.IMAGE, "Images/tech_bottom_end_left.png");
+    assetLoader.add(AssetLoader.IMAGE, "Images/tech_bottom_end_right.png");
+    assetLoader.add(AssetLoader.IMAGE, "Images/tech_bottom_tile.png");
+    assetLoader.add(AssetLoader.IMAGE, "Images/tech_bottom_tile2.png");
+    assetLoader.add(AssetLoader.IMAGE, "Images/bigsaucer.png");
+    assetLoader.add(AssetLoader.IMAGE, "Images/cube.png");
+    assetLoader.add(AssetLoader.IMAGE, "Images/gas2.png");
+    assetLoader.add(AssetLoader.IMAGE, "Images/Gui/bigPanel.png");
+    assetLoader.add(AssetLoader.IMAGE, "Images/Gui/smallPanel.png");
+    assetLoader.add(AssetLoader.IMAGE, "Images/Gui/button.png");
+    assetLoader.add(AssetLoader.IMAGE, "Images/Gui/verySmallPanel.png");
+    assetLoader.add(AssetLoader.IMAGE, "Images/Gui/lifeBar.png");
+    assetLoader.add(AssetLoader.IMAGE, "Images/Gui/playerHud.png");
+
+    assetLoader.add(AssetLoader.SOUND, "sounds/laser4.mp3");
+
+    assetLoader.add(AssetLoader.SOUND, "Musics/bensound-highoctane.mp3");
 
     assetLoader.start(startGame);
 }
@@ -110,7 +116,7 @@ function startGame() {
     sceneManager = new SceneManager();
     sceneManager.addScene("MENU", new MenuScene());
     sceneManager.addScene("LEVEL1", new Level1Scene());
-    sceneManager.setCurrent("MENU");
+    sceneManager.setCurrent("LEVEL1");
     ServiceLocator.registerService(ServiceLocator.SCENE, sceneManager);
 
     // On fait disparaitre les élément de chargement
@@ -141,16 +147,28 @@ function update(dt) {
         parameters.setColliderDisplay(!parameters.colliderDisplay);
     }
 
-    // // Fonction de test
-    // if (inputListener.isClicked()) {
+    // Fonction de test
+    if (particuleManagerTtl > 0) {
+        particuleManagerTtl -= dt;
+        if (particuleManagerTtl <= 0) {
+            particuleManagerTtl = 0;
+        }
+    }
+    // if (inputListener.isClicked() && particuleManagerTtl == 0) {
+    //     // particuleManagerTtl = 0.1;
     //     let playerShip = ServiceLocator.getService(ServiceLocator.SCENE).currentScene.playerShip;
-    //     let explosion = new BigSaucerBigExplosionGameObject(playerShip);
+    //     let explosion = new ParticlesMediumExplosionGameObject(playerShip, [ new MediumRedExplosionGameObject(100), new RedExplosionGameObject(75) ]);
     //     explosion.status = GameObjectState.ACTIVE;
-    //     explosion.position.x = playerShip.position.x;
-    //     explosion.position.y = playerShip.position.y;
     //     ServiceLocator.getService(ServiceLocator.SCENE).currentScene.addGameObject(explosion);
+        
+
+    //     // particlesManager = new ParticlesManager(ServiceLocator.getService(ServiceLocator.SCENE).currentScene.playerShip.position);
+    //     // ServiceLocator.getService(ServiceLocator.SCENE).currentScene.addGameObject(particlesManager);
     // }
 }
+
+let particlesManager = null;
+let particuleManagerTtl = 0.1;
 
 function draw(context) {
     if (!gameReady) return;

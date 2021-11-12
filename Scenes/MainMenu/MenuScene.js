@@ -65,7 +65,13 @@ class MenuScene extends BaseScene {
         button.position.y = SmallPanelUIElement.size.y * 0.6;
         panel2.addElement(button);
 
+        // On affiche la scène
         this.show();
+
+        // // Démarrag de la musique
+        // let music = resources.getSound("Musics/bensound-highoctane.mp3");
+        // music.volume = 0.25;
+        // music.play();
 
         // On commence la scène avec l'affichage du panneau principal
         mainPanel.show();

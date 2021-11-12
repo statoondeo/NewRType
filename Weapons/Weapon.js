@@ -1,7 +1,11 @@
 class Weapon {
     constructor(playerShip, initialWeaponState) {
-        this.playerSHip = playerShip;
+        this.playerShip = playerShip;
         this.currentWeaponState = initialWeaponState;
+    }
+
+    getName() {
+        return this.currentWeaponState.getName();
     }
 
     update(dt) {
