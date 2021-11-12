@@ -8,10 +8,48 @@ class Level1Scene extends BaseScene {
 
         let resources = ServiceLocator.getService(ServiceLocator.RESOURCE);
         let screen = ServiceLocator.getService(ServiceLocator.SCREEN);
+
+        // Scene de jeu proprement dite
+        let baseSpeed = 120;
+
+        // Métronome
+        this.scheduler = new LinearScheduler(baseSpeed, screen.width);
         
         // Gestion du joueur
         let playerShip = new Player1ShipGameObject(new Vec2((screen.width - PlayerShipGameObject.size.x) / 2, (screen.height - PlayerShipGameObject.size.y) / 2));
         this.addPlayerShip(playerShip);
+
+        // On ajoute le HUD
+        let hud = new HUDPanelUIElement(playerShip, new Vec2(), false);
+        hud = new MiniaturePanelUIElementDecorator(hud, new UIElementDecorator(new Player1ShipMiniatureGameObject()));
+        hud = new StartableUIElementDecorator(hud, 2000);
+        this.addSynchronizedGameObject(hud); 
+
+        // Ecran de défaite
+        let defeatPanel = new BigPanelUIElement(new Vec2(), false);
+        defeatPanel.addElement(new SpriteUIElement(Level1DefeatedImage.getInstance()));
+        let button = new ButtonUIElement("Rejouer", new SwitchSceneCommand(this, "LEVEL1"));
+        button.position.x = (screen.width - 2 * ButtonUIElement.size.x) / 3;
+        button.position.y = screen.height * 0.75;
+        defeatPanel.addElement(button);
+        button = new ButtonUIElement("Menu", new SwitchSceneCommand(this, "MENU"));
+        button.position.x = 2 * (screen.width - 2 * ButtonUIElement.size.x) / 3 + ButtonUIElement.size.x;
+        button.position.y = screen.height * 0.75;
+        defeatPanel.addElement(button);
+        defeatPanel.addElement(new SpriteUIElement(Level1DefeatedImage.getInstance()));
+        let bigSaucerSprite = new UIElementDecorator(BigSaucerGameObject.getAnimatedSprite());
+        bigSaucerSprite.position.x = (screen.width - BigSaucerGameObject.size.x) / 2;
+        bigSaucerSprite.position.y = screen.height * 0.15;
+        defeatPanel.addElement(bigSaucerSprite);
+        defeatPanel = new DelayablePanelUIElementDecorator(defeatPanel, 0.25);
+        this.addGameObject(defeatPanel);
+
+        // En cas de mort du joueur
+        playerShip.dieCommand.addCommand(new HidePlayerCommand(playerShip));
+        playerShip.dieCommand.addCommand(new HidePanelCommand(hud));
+        playerShip.dieCommand.addCommand(new ShowPanelCommand(defeatPanel));
+        playerShip.dieCommand.addCommand(new PurgePartitionCommand(this.gameObjectsPartitions[GameObjectPartition.GAME_PARTITION]));
+        playerShip.dieCommand.addCommand(new StopSchedulerCommand(playerShip, this.scheduler));
 
         // On enregistre les controles à utiliser
         let inputListener = ServiceLocator.getService(ServiceLocator.KEYBOARD);
@@ -23,26 +61,16 @@ class Level1Scene extends BaseScene {
         inputListener.registerCommand("Escape", new SwitchSceneCommand(this, "MENU"));
         inputListener.registerCommand("KeyZ", new FireActionCommand(this.playerShip));
 
-        // Scene de jeu proprement dite
-        let baseSpeed = 120;
-
-        // Métronome
-        this.scheduler = new LinearScheduler(baseSpeed, screen.width);
-
-        //   On ajoute le HUD
-        let hud = new HUDPanelUIElement(playerShip, new Vec2(), false);
-        hud = new MiniaturePanelUIElementDecorator(hud, new UIElementDecorator(new Player1ShipMiniatureGameObject()));
-        hud = new StartableUIElementDecorator(hud, 2000);
-        this.addSynchronizedGameObject(hud); 
 
         // Gestion des backgrounds
         // Le fond est représenté par un rectangle noir qui fait la taille du canvas et il est constant
         this.addGameObject(new BlackStaticBackgroundGameObject());
 
         // La background principal
-        this.addGameObject(new Background1GameObject(baseSpeed));
+        this.addGameObject(new RollingLayer(0.2, baseSpeed, ServiceLocator.getService(ServiceLocator.RESOURCE).getImage("Images/background1.png"), new Vec2(-1, 0)));
 
         // Eléments de décor qui ne vont passer qu'une fois
+        this.addSynchronizedGameObject(new OnceLayer(0.3, baseSpeed, resources.getImage("Images/station.png"), 2000, new Vec2(-1, 0)));
         this.addSynchronizedGameObject(new OnceLayer(0.3, baseSpeed, resources.getImage("Images/background2.png"), 8000, new Vec2(-1, 0)));
         this.addSynchronizedGameObject(new OnceLayer(0.5, baseSpeed, resources.getImage("Images/background3.png"), 10000, new Vec2(-1, 0)));
 
@@ -67,8 +95,34 @@ class Level1Scene extends BaseScene {
         this.addSynchronizedGameObject(new AllInCircleSpawnerGameObject(new StarknifeGameObject(), new Vec2(2 * (screen.width - StarknifeGameObject.size.x) / 3, (screen.height - StarknifeGameObject.size.y) / 2), 16, 5800));
 
         // Boss
-        this.addSynchronizedGameObject(new TimeSequenceSpawnerGameObject(new BigSaucerGameObject(playerShip), 6600, new Vec2(), 1, 1));
-        
+        // Ecran de victoire
+        let victoryPanel = new BigPanelUIElement(new Vec2(), false);
+        victoryPanel.addElement(new SpriteUIElement(Level1VictoryImage.getInstance()));
+        button = new ButtonUIElement("Menu", new SwitchSceneCommand(this, "MENU"));
+        button.position.x = (screen.width - 2 * ButtonUIElement.size.x) / 3;
+        button.position.y = screen.height * 0.75;
+        victoryPanel.addElement(button);
+        button = new ButtonUIElement("Continuer", new SwitchSceneCommand(this, "MENU"));
+        button.position.x = 2 * (screen.width - 2 * ButtonUIElement.size.x) / 3 + ButtonUIElement.size.x;
+        button.position.y = screen.height * 0.75;
+        victoryPanel.addElement(button);
+        let klawSprite = new UIElementDecorator(KlawGameObject.getAnimatedSprite());
+        klawSprite.position.x = (screen.width - KlawGameObject.size.x) / 2;
+        klawSprite.position.y = screen.height * 0.1;
+        victoryPanel.addElement(klawSprite);
+        victoryPanel = new DelayablePanelUIElementDecorator(victoryPanel, 0.25);
+        this.addGameObject(victoryPanel);
+
+        let bigSaucer = new BigSaucerGameObject(playerShip);
+        bigSaucer.moveStrategy = new BezierApexMoveStrategy(bigSaucer, new BigSaucerFinalApex(bigSaucer.size)); 
+        bigSaucer.dieCommand.addCommand(new HidePanelCommand(hud));
+        bigSaucer.dieCommand.addCommand(new HidePanelCommand(bigSaucer.bossHud));
+        bigSaucer.dieCommand.addCommand(new ShowPanelCommand(victoryPanel));
+        bigSaucer.dieCommand.addCommand(new PurgePartitionCommand(this.gameObjectsPartitions[GameObjectPartition.GAME_PARTITION]));
+        bigSaucer.dieCommand.addCommand(new StopSchedulerCommand(playerShip, this.scheduler));
+
+        this.addSynchronizedGameObject(new OnceSpawnerGameObject(bigSaucer, 6800, new Vec2()));
+
         // Narration
         let panel = new PanelUIElement(new Vec2(), true);
         panel.addElement(new SpriteUIElement(Level1TitleImage.getInstance()));

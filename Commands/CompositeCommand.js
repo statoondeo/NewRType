@@ -5,7 +5,7 @@ class CompositeCommand extends BaseCommand {
     }
 
     addCommand(command) {
-        this.commandsList.push(command);
+        this.commandsList.unshift(command);
     }
 
     update(dt) {

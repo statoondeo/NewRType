@@ -1,9 +1,9 @@
 class BigSaucerBulletWave extends BaseCommand {
     constructor(bigSaucer) {
         super();
+        this.bigSaucer = bigSaucer;
         this.AllInCircleSpawnerTtl = 5;
         this.step = 0;
-        this.AllInCircleSpawnerGameObject = new AllInCircleSpawnerGameObject(new RedBulletGameObject(bigSaucer.partition), bigSaucer, 12, 0);
     }
 
     update(dt) {
@@ -39,6 +39,7 @@ class BigSaucerBulletWave extends BaseCommand {
     execute() {
         if (this.canExecute) {
             this.canExecute = false;
+            this.AllInCircleSpawnerGameObject = new AllInCircleSpawnerGameObject(new RedBulletGameObject(this.bigSaucer.partition), this.bigSaucer, 12, 0);
             this.AllInCircleSpawnerGameObject.spawn();
         }
     }

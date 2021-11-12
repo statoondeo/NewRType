@@ -15,7 +15,8 @@ class GameObject {
         this.fireCommand = new DummyCommand();
         this.collideCommand = new DummyCommand();
         this.dealDamageCommand = new DummyCommand();
-        this.dieCommand = new DummyCommand(this);
+        this.dieCommand = new CompositeCommand();
+        this.dieCommand.addCommand(new DieCommand(this));
     }
 
     // Mise à jour du gameObject

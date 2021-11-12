@@ -10,7 +10,6 @@ class PlayerShipGameObject extends AnimatedSprite {
         this.position.x = initialPosition.x;
         this.position.y = initialPosition.y;
         this.collideCommand = new ShipCollideCommand(this);
-        this.dieCommand = new DummyCommand();
         this.fireCommand = new WeaponFireCommand(this, WeaponFactory.getBulletWeapon(this));
 
         // Paramétrage du vaisseau du joueur
@@ -24,5 +23,6 @@ class PlayerShipGameObject extends AnimatedSprite {
     update(dt) {
         super.update(dt);
         this.thrust.update(dt);
+        console.log(this.status);
     }
 }

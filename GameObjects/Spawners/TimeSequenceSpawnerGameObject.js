@@ -46,7 +46,7 @@ class TimeSequenceSpawnerGameObject extends BaseSpawner {
 
         // On ajoute un bonus si c'était le dernier
         if (this.spawnNumber == 0 && this.initialSpawnNumber > 1) {
-            newShip.dieCommand = new PopAndDieCommand(newShip, new WeaponPowerUpGameObject(ServiceLocator.getService(ServiceLocator.SCENE).currentScene.playerShip));
+            newShip.dieCommand.addCommand(new PopCommand(newShip, new WeaponPowerUpGameObject(ServiceLocator.getService(ServiceLocator.SCENE).currentScene.playerShip)));
         }
     }
 }

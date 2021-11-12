@@ -22,6 +22,9 @@ class MenuScene extends BaseScene {
         // La background principal
         this.addGameObject(new RollingLayer(0.1, baseSpeed, resources.getImage("Images/gas2.png"), new Vec2(-1, 0)));
 
+        // Etoiles filantes
+        this.addGameObject(new ShootingStarLayer(0.5));
+
         // Le joueur est remplacé par une bille orange
         let playerShip = new CircleShape("orangered", new Vec2(6));
         playerShip.collideBox = new CircleCollideBox(playerShip.position, 3);
@@ -32,6 +35,7 @@ class MenuScene extends BaseScene {
         // Big Saucer met l'ambiance dans la scène
         let bigSaucer = new BigSaucerGameObject(playerShip, new TimedCubeGameObject(playerShip));
         bigSaucer.moveStrategy = new BezierApexMoveStrategy(bigSaucer, new BigSaucerFinalApex(bigSaucer.size)); 
+        bigSaucer.bossHud = new UIElement();
         this.addGameObject(bigSaucer);
 
         // Panneau principal

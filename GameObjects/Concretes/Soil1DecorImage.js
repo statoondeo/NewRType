@@ -20,17 +20,13 @@ class Soil1DecorImage {
         let imageCoord = new Vec2(tech_bottom_end_left.width, soil1.height);
 
         // On pose les soils
-        console.log("Start", new Vec2(imageCoord.x, totalSize.y - imageCoord.y));
         imageAssembler.addImage(soil1, new Vec2(imageCoord.x, totalSize.y - imageCoord.y));
         imageCoord.x += soil1.width;
-        console.log("next", new Vec2(imageCoord.x, totalSize.y - imageCoord.y));
         imageAssembler.addImage(soil2, new Vec2(imageCoord.x, totalSize.y - imageCoord.y));
         imageCoord.y += soil1.height;
-        console.log("next", new Vec2(imageCoord.x, totalSize.y - imageCoord.y));
         imageAssembler.addImage(soil3, new Vec2(imageCoord.x, totalSize.y - imageCoord.y));
         imageCoord.x += soil2.width;
         imageCoord.y = soil4.height;
-        console.log("next", new Vec2(imageCoord.x, totalSize.y - imageCoord.y));
         imageAssembler.addImage(soil4, new Vec2(imageCoord.x, totalSize.y - imageCoord.y));
 
         // On pose les décorations

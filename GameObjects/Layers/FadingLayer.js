@@ -2,7 +2,7 @@
 class FadingLayer extends GameObject {
     constructor(image, initialVisibility) {
         super();
-
+        this.partition = GameObjectPartition.NEUTRAL_PARTITION;
         this.sprite = new Sprite(image);
         this.initialVisibility = initialVisibility;
         this.sprite.globalAlpha = this.initialVisibility ? 1 : 0;

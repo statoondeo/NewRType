@@ -1,5 +1,5 @@
 class LifeBarGameObject extends AnimatedSprite {
-    static size = new Vec2(525, 110);
+    static size = new Vec2(472, 99);
     constructor() {
         super(ServiceLocator.getService(ServiceLocator.RESOURCE).getImage("Images/Gui/lifeBar.png"), LifeBarGameObject.size);
 

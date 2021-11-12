@@ -6,7 +6,7 @@ class EnemyShipGameObject extends AnimatedSprite {
         this.layer = 0.995;
         this.partition = GameObjectPartition.GAME_PARTITION;
         this.collideCommand = new ShipCollideCommand(this);
-        this.dieCommand = new PopAndDieCommand(this, new ParticlesMediumExplosionGameObject(this, [ new MediumRedExplosionGameObject(100), new RedExplosionGameObject(75) ]));
+        this.dieCommand.addCommand(new PopCommand(this, new ParticlesMediumExplosionGameObject(this, [ new MediumRedExplosionGameObject(100), new RedExplosionGameObject(75) ])));
         this.life = this.maxLife = maxLife;
         this.speed = speed;
         this.dealDamageCommand = new DealDamageCommand(this, this.maxLife);

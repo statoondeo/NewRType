@@ -69,6 +69,7 @@ function load(canvas) {
     assetLoader.add(AssetLoader.IMAGE, "Images/player2.png");
     assetLoader.add(AssetLoader.IMAGE, "Images/starknife.png");
     assetLoader.add(AssetLoader.IMAGE, "Images/wobbler.png");
+    assetLoader.add(AssetLoader.IMAGE, "Images/station.png");
     assetLoader.add(AssetLoader.IMAGE, "Images/background1.png");
     assetLoader.add(AssetLoader.IMAGE, "Images/background2.png");
     assetLoader.add(AssetLoader.IMAGE, "Images/background3.png");
@@ -98,6 +99,7 @@ function load(canvas) {
     assetLoader.add(AssetLoader.IMAGE, "Images/bigsaucer.png");
     assetLoader.add(AssetLoader.IMAGE, "Images/cube.png");
     assetLoader.add(AssetLoader.IMAGE, "Images/gas2.png");
+    assetLoader.add(AssetLoader.IMAGE, "Images/klaw.png");
     assetLoader.add(AssetLoader.IMAGE, "Images/Gui/bigPanel.png");
     assetLoader.add(AssetLoader.IMAGE, "Images/Gui/smallPanel.png");
     assetLoader.add(AssetLoader.IMAGE, "Images/Gui/button.png");
@@ -116,7 +118,7 @@ function startGame() {
     sceneManager = new SceneManager();
     sceneManager.addScene("MENU", new MenuScene());
     sceneManager.addScene("LEVEL1", new Level1Scene());
-    sceneManager.setCurrent("LEVEL1");
+    sceneManager.setCurrent("MENU");
     ServiceLocator.registerService(ServiceLocator.SCENE, sceneManager);
 
     // On fait disparaitre les élément de chargement
@@ -147,28 +149,12 @@ function update(dt) {
         parameters.setColliderDisplay(!parameters.colliderDisplay);
     }
 
-    // Fonction de test
-    if (particuleManagerTtl > 0) {
-        particuleManagerTtl -= dt;
-        if (particuleManagerTtl <= 0) {
-            particuleManagerTtl = 0;
-        }
-    }
-    // if (inputListener.isClicked() && particuleManagerTtl == 0) {
-    //     // particuleManagerTtl = 0.1;
+    // // Fonction de test
+    // if (inputListener.isClicked()) {
     //     let playerShip = ServiceLocator.getService(ServiceLocator.SCENE).currentScene.playerShip;
-    //     let explosion = new ParticlesMediumExplosionGameObject(playerShip, [ new MediumRedExplosionGameObject(100), new RedExplosionGameObject(75) ]);
-    //     explosion.status = GameObjectState.ACTIVE;
-    //     ServiceLocator.getService(ServiceLocator.SCENE).currentScene.addGameObject(explosion);
-        
-
-    //     // particlesManager = new ParticlesManager(ServiceLocator.getService(ServiceLocator.SCENE).currentScene.playerShip.position);
-    //     // ServiceLocator.getService(ServiceLocator.SCENE).currentScene.addGameObject(particlesManager);
+    //     playerShip.dieCommand.execute();
     // }
 }
-
-let particlesManager = null;
-let particuleManagerTtl = 0.1;
 
 function draw(context) {
     if (!gameReady) return;

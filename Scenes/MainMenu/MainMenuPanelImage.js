@@ -3,25 +3,41 @@ class MainMenuPanelImage {
         let screen = ServiceLocator.getService(ServiceLocator.SCREEN);
         let canvas = ImageHandler.createCanvas(screen.width, screen.height);
         let context = canvas.getContext("2d");
+        let color = "silver";
 
-        let baseAxe = 200;
-        let text = new TextUIElement("Raphael DUCHOSSOY (Gamecodeur.fr)", "white", "bold 26pt neuropol");
-        text.position.x = baseAxe;
+        let style = "bold 26pt neuropol";
+        let label = "Raphael DUCHOSSOY (Gamecodeur.fr)";
+        context.font = style;
+        let width = context.measureText(label).width;
+        let text = new TextUIElement(label, color, style);
+        text.position.x = (screen.width - width) / 2;
         text.position.y = screen.height * 0.25;
         text.draw(context);
 
-        text = new TextUIElement("SPACE", "white", "bold 148pt neuropol");
-        text.position.x = baseAxe;
+        style = "bold 148pt neuropol";
+        label = "SPACE";
+        context.font = style;
+        width = context.measureText(label).width;
+        text = new TextUIElement(label, color, style);
+        text.position.x = (screen.width - width) / 2;
         text.position.y = screen.height * 0.3;
         text.draw(context);
 
-        text = new TextUIElement("Battle Ships", "white", "bold 84pt neuropol");
-        text.position.x = baseAxe;
+        style = "bold 84pt neuropol";
+        label = "Battle Ships";
+        context.font = style;
+        width = context.measureText(label).width;
+        text = new TextUIElement(label, color, style);
+        text.position.x = (screen.width - width) / 2;
         text.position.y = screen.height * 0.5;
         text.draw(context);
 
-        text = new TextUIElement("Pour la survie de la terre face aux envahisseurs Alienoïdes, qui veulent la conquérir depuis des années ...", "white", "9.5pt neuropol");
-        text.position.x = baseAxe;
+        style = "9.5pt neuropol";
+        label = "Pour la survie de la terre face aux envahisseurs Alienoïdes, qui veulent la conquérir depuis des années ...";
+        context.font = style;
+        width = context.measureText(label).width;
+        text = new TextUIElement(label, color, style);
+        text.position.x = (screen.width - width) / 2;        
         text.position.y = screen.height * 0.65;
         text.draw(context);
 

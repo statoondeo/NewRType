@@ -8,7 +8,7 @@ class BonusGameObject extends DoubleSprite {
         this.moveStrategy = new SinWaveMoveStrategy(this, new Vec2(-1, 0), 100);
         this.bonusCommand = new DummyCommand();
         this.collideCommand = new BonusCollideCommand(this);
-        this.dieCommand = new DieCommand(this);
+        this.dieCommand.addCommand(new DieCommand(this));
     }
 
     update(dt) {

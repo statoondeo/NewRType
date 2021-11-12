@@ -25,6 +25,7 @@ class ParticlesMediumExplosionGameObject extends GameObject {
         this.explosions = [];
         let number = 3;
         this.prototypesList.forEach(prototype => {
+            prototype.partition = GameObjectPartition.NEUTRAL_PARTITION;
             this.createExplosions(number, prototype);
             number = number * 2 + 1;
         });
@@ -64,7 +65,7 @@ class ParticlesThrustGameObject extends GameObject {
         this.gameObject = gameObject;
         this.prototype = prototype;
         this.ttl = this.baseTtl = 0;
-        this.lastX = 0;
+        this.lastPosition = new Vec2();
     }
     
     getClone(gameObject) {
@@ -75,7 +76,7 @@ class ParticlesThrustGameObject extends GameObject {
         this.ttl -= dt;
         if (this.ttl < 0) {
             this.baseTtl = 50 / this.gameObject.speed;
-            if (this.gameObject.position.x > this.lastX) {
+            if (this.gameObject.position.x != this.lastPosition.x || this.gameObject.position.y != this.lastPosition.y) {
                 this.ttl = Math.random() * this.baseTtl;
             }
             else {
@@ -88,7 +89,8 @@ class ParticlesThrustGameObject extends GameObject {
             explosion.moveStrategy = new UniformMoveStrategy(explosion, new Vec2(Math.cos(angle), Math.sin(angle)));
             explosion.status = GameObjectState.ACTIVE;
             ServiceLocator.getService(ServiceLocator.SCENE).currentScene.addGameObject(explosion);
-            this.lastX = this.gameObject.position.x;
+            this.lastPosition.x = this.gameObject.position.x;
+            this.lastPosition.y = this.gameObject.position.y;
         }
     }
 }

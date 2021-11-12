@@ -14,7 +14,7 @@ class BulletGameObject extends AnimatedSprite {
         this.startAnimation("IDLE", 0);
         this.collideCommand = new MissileCollideCommand(this);
         this.dealDamageCommand = new DealDamageCommand(this, damageAmount);
-        this.dieCommand = new DieCommand(this);
+        this.dieCommand.addCommand(new DieCommand(this));
     }
 }
 

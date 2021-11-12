@@ -4,7 +4,7 @@ class GreenBulletGameObject extends BulletGameObject {
         this.gameObject = gameObject;
         this.playerShip = playerShip;
         this.moveStrategy = new PlayerAimedUniformMoveStrategy(this, this.gameObject, this.playerShip);
-        this.dieCommand = new PopAndDieCommand(this, new GreenExplosionGameObject());
+        this.dieCommand.addCommand(new PopCommand(this, new GreenExplosionGameObject()));
     }
         
     getClone() {

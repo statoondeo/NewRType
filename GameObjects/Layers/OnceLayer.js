@@ -5,6 +5,7 @@ class OnceLayer extends GameObject {
     constructor(layer, sceneSpeed, image, startAt, direction) {
         super();
 
+        this.partition = GameObjectPartition.NEUTRAL_PARTITION;
         this.layer = layer;
         this.startAt = startAt;
         this.status = GameObjectState.IDLE;
