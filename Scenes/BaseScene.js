@@ -18,7 +18,10 @@ class BaseScene {
 
         // Vaisseau du joueur
         this.playerShip = null;
+
         this.fadingLayer = null;
+
+        this.music = null;
     }
 
     addPlayerShip(playerShip) {
@@ -46,7 +49,7 @@ class BaseScene {
 
         // On ajoute de suite la couche permettant les transitions de début et fin
         // Par défaut ce sera un ecran noir
-        let screen = ServiceLocator.getService(ServiceLocator.SCREEN);
+        let screen = Services.get(Services.SCREEN);
         let canvas = ImageHandler.createCanvas(screen.width, screen.height);
         let context = canvas.getContext("2d");
         context.fillStyle = "black";
@@ -58,10 +61,12 @@ class BaseScene {
     // Gestion des début et fin de la scène
     show(command) {
         this.fadingLayer.hide(command);
+        // this.music.play();
     }
 
     hide(command) {
         this.fadingLayer.show(command);
+        // this.music.stop();
     }
 
     // Le tableau étant trié, on peut rechercher par dichotomie pour être plus performant
@@ -88,7 +93,7 @@ class BaseScene {
     manageCollision() {
         // On remplit notre quadTree pour la partition spatiale des gameObjects
         // (Seuls les gameObjects intervenants dans les collisions sont retenus)
-        let screen = ServiceLocator.getService(ServiceLocator.SCREEN);
+        let screen = Services.get(Services.SCREEN);
         this.quadTree = new QuadTree(new Vec2(), new Vec2(screen.width, screen.height));
         this.gameObjectsCollection.forEach(gameObject => {
             if (gameObject.status == GameObjectState.ACTIVE && gameObject.collideBox.type != CollideBoxType.NONE) {
@@ -172,7 +177,7 @@ class BaseScene {
             }
         });
 
-        if (ServiceLocator.getService(ServiceLocator.PARAMETER).colliderDisplay) {
+        if (Services.get(Services.PARAMETER).colliderDisplay) {
             context.fillStyle = "White";
             context.font = "normal 10pt neuropol";
             context.fillText("Game objects : " + this.gameObjectsCollection.length, 5, 775);

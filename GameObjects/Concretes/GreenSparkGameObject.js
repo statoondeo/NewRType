@@ -1,6 +1,6 @@
 class GreenSparkGameObject extends SparkGameObject {
     constructor() {
-        super(ServiceLocator.getService(ServiceLocator.RESOURCE).getImage("Images/greenspark.png"));
+        super(Services.get(Services.ASSET).getImage("Images/greenspark.png"));
     }
                 
     getClone() {

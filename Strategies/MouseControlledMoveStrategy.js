@@ -5,7 +5,7 @@ class MouseControlledMoveStrategy extends BaseMoveStrategy {
 
     update(dt) {
         // On se place sur les coordonnées de la souris
-        let inputListener = ServiceLocator.getService(ServiceLocator.KEYBOARD);
+        let inputListener = Services.get(Services.INPUT);
         this.gameObject.position.x = inputListener.mouse.x;
         this.gameObject.position.y = inputListener.mouse.y;
     }

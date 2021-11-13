@@ -6,8 +6,8 @@ class Level1Scene extends BaseScene {
     load() {
         super.load();
 
-        let resources = ServiceLocator.getService(ServiceLocator.RESOURCE);
-        let screen = ServiceLocator.getService(ServiceLocator.SCREEN);
+        let resources = Services.get(Services.ASSET);
+        let screen = Services.get(Services.SCREEN);
 
         // Scene de jeu proprement dite
         let baseSpeed = 120;
@@ -52,7 +52,7 @@ class Level1Scene extends BaseScene {
         playerShip.dieCommand.addCommand(new StopSchedulerCommand(playerShip, this.scheduler));
 
         // On enregistre les controles à utiliser
-        let inputListener = ServiceLocator.getService(ServiceLocator.KEYBOARD);
+        let inputListener = Services.get(Services.INPUT);
         inputListener.clearCommands();
         inputListener.registerCommand("ArrowUp", new MoveCommand(this.playerShip, new Vec2(0, -1)));
         inputListener.registerCommand("ArrowDown", new MoveCommand(this.playerShip, new Vec2(0, 1)));
@@ -67,7 +67,7 @@ class Level1Scene extends BaseScene {
         this.addGameObject(new BlackStaticBackgroundGameObject());
 
         // La background principal
-        this.addGameObject(new RollingLayer(0.2, baseSpeed, ServiceLocator.getService(ServiceLocator.RESOURCE).getImage("Images/background1.png"), new Vec2(-1, 0)));
+        this.addGameObject(new RollingLayer(0.2, baseSpeed, Services.get(Services.ASSET).getImage("Images/background1.png"), new Vec2(-1, 0)));
 
         // Eléments de décor qui ne vont passer qu'une fois
         this.addSynchronizedGameObject(new OnceLayer(0.3, baseSpeed, resources.getImage("Images/station.png"), 2000, new Vec2(-1, 0)));

@@ -9,7 +9,7 @@ class WeaponBonusCommand extends BaseCommand {
 
     execute() {
         if (this.canExecute) {
-            ServiceLocator.getService(ServiceLocator.SCENE).currentScene.playerShip.fireCommand.weapon.levelUp();
+            Services.get(Services.SCENE).currentScene.playerShip.fireCommand.weapon.levelUp();
         }
     }
 }

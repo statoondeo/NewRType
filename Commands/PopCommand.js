@@ -14,7 +14,7 @@ class PopCommand extends BaseCommand {
             this.gameObjectPrototype.position.x = this.gameObject.position.x + this.offset.x;
             this.gameObjectPrototype.position.y = this.gameObject.position.y + this.offset.y;
             this.gameObjectPrototype.status = GameObjectState.ACTIVE;
-            ServiceLocator.getService(ServiceLocator.SCENE).currentScene.addGameObject(this.gameObjectPrototype);
+            Services.get(Services.SCENE).currentScene.addGameObject(this.gameObjectPrototype);
         }
     }
 }

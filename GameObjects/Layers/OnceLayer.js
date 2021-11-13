@@ -18,7 +18,7 @@ class OnceLayer extends GameObject {
     subjectChanged(scheduler) {
         if (scheduler.currentStep >= this.startAt) {
             this.status = GameObjectState.ACTIVE;
-            this.sprite.position.x = ServiceLocator.getService(ServiceLocator.SCREEN).width;
+            this.sprite.position.x = Services.get(Services.SCREEN).width;
             this.sprite.position.y = 0;
             scheduler.unregister(this);
         }

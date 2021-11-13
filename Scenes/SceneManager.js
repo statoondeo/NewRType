@@ -17,7 +17,7 @@ class SceneManager extends Manager {
 
     update(dt) {
         if (this.currentScene != null) {
-            let inputHandler = ServiceLocator.getService(ServiceLocator.KEYBOARD);
+            let inputHandler = Services.get(Services.INPUT);
             if (inputHandler.isPressed("Space")) {
                 this.pause = !this.pause;
             }

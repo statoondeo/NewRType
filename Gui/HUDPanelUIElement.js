@@ -4,7 +4,7 @@ class HUDPanelUIElement extends PanelUIElement {
         super(position, visibility);
         this.playerShip = playerShip;
 
-        let background = new SpriteUIElement(ServiceLocator.getService(ServiceLocator.RESOURCE).getImage("Images/Gui/playerHud.png"));
+        let background = new SpriteUIElement(Services.get(Services.ASSET).getImage("Images/Gui/playerHud.png"));
         background.position.x = -10;
         background.position.y = 10;
         this.addElement(background);

@@ -2,7 +2,7 @@ class BigSaucerFinalApex extends CompositeCurve {
     constructor(size) {
         super();
         this.size = size;
-        let screen = ServiceLocator.getService(ServiceLocator.SCREEN);
+        let screen = Services.get(Services.SCREEN);
         
         // Points caractéristiques de la courbe
         let pt1 = new Vec2(screen.width, 0);

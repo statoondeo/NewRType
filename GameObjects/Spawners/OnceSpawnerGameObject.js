@@ -19,6 +19,6 @@ class OnceSpawnerGameObject extends BaseSpawner {
     spawn() {
         // Duplication du prototype
         // On l'ajoute à la liste des gameObjects de la scene
-        ServiceLocator.getService(ServiceLocator.SCENE).currentScene.addGameObject(this.gameObjectPrototype);
+        Services.get(Services.SCENE).currentScene.addGameObject(this.gameObjectPrototype);
     }
 }

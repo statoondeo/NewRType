@@ -14,30 +14,30 @@ for (let index = 1; index <= 14; index++) {
 
 function keyDownEventListener(key) {
     key.preventDefault();
-    ServiceLocator.getService(ServiceLocator.KEYBOARD).switchOn(key.code);
+    Services.get(Services.INPUT).switchOn(key.code);
 }
 
 function keyUpEventListener(key) {
     key.preventDefault();
-    ServiceLocator.getService(ServiceLocator.KEYBOARD).switchOff(key.code);
+    Services.get(Services.INPUT).switchOff(key.code);
 }
 
 function mouseMoveEventListener(event) {
     event.preventDefault();
     // event.stopPropagation();
-    ServiceLocator.getService(ServiceLocator.KEYBOARD).mouseMove(event.clientX, event.clientY);
+    Services.get(Services.INPUT).mouseMove(event.clientX, event.clientY);
 }
 
 function mouseDownEventListener(event) {
     event.preventDefault();
     // event.stopPropagation();
-    ServiceLocator.getService(ServiceLocator.KEYBOARD).mouseDown();
+    Services.get(Services.INPUT).mouseDown();
 }
 
 function mouseUpEventListener(event) {
     event.preventDefault();
     // event.stopPropagation();
-    ServiceLocator.getService(ServiceLocator.KEYBOARD).mouseUp();
+    Services.get(Services.INPUT).mouseUp();
 }
 
 function load(canvas) {
@@ -59,10 +59,11 @@ function load(canvas) {
     let assetLoader = new AssetLoader();
 
     // Services utilisés dans toute l'application
-    ServiceLocator.registerService(ServiceLocator.SCREEN, { width : canvas.width, height : canvas.height });
-    ServiceLocator.registerService(ServiceLocator.KEYBOARD, inputListener);
-    ServiceLocator.registerService(ServiceLocator.RESOURCE, assetLoader);
-    ServiceLocator.registerService(ServiceLocator.PARAMETER, new Parameter());
+    Services.registerService(Services.SCREEN, { width : canvas.width, height : canvas.height });
+    Services.registerService(Services.INPUT, inputListener);
+    Services.registerService(Services.ASSET, assetLoader);
+    Services.registerService(Services.PARAMETER, new Parameter());
+    Services.registerService(Services.AUDIO, new AudioContext());
     
     // Ressources à charger
     assetLoader.add(AssetLoader.IMAGE, "Images/player1.png");
@@ -107,9 +108,11 @@ function load(canvas) {
     assetLoader.add(AssetLoader.IMAGE, "Images/Gui/lifeBar.png");
     assetLoader.add(AssetLoader.IMAGE, "Images/Gui/playerHud.png");
 
-    // assetLoader.add(AssetLoader.SOUND, "sounds/laser4.mp3");
+    assetLoader.add(AssetLoader.SOUND, "sounds/laser1.mp3");
+    assetLoader.add(AssetLoader.SOUND, "sounds/laser3.mp3");
+    assetLoader.add(AssetLoader.SOUND, "sounds/laser4.mp3");
 
-    // assetLoader.add(AssetLoader.SOUND, "Musics/bensound-highoctane.mp3");
+    assetLoader.add(AssetLoader.SOUND, "Musics/bensound-highoctane.mp3");
 
     assetLoader.start(startGame);
 }
@@ -119,18 +122,19 @@ function startGame() {
     sceneManager.addScene("MENU", new MenuScene());
     sceneManager.addScene("LEVEL1", new Level1Scene());
     sceneManager.setCurrent("MENU");
-    ServiceLocator.registerService(ServiceLocator.SCENE, sceneManager);
+    Services.registerService(Services.SCENE, sceneManager);
 
     // On fait disparaitre les élément de chargement
     loaderImage.style.visibility = "hidden";
     loaderText.style.visibility = "hidden";
 
     gameReady = true;
+    sceneManager.currentScene.show();
 }
 
 function update(dt) {
     if (!gameReady) {
-        let loadRatio = ServiceLocator.getService(ServiceLocator.RESOURCE).getLoadedRatio();
+        let loadRatio = Services.get(Services.ASSET).getLoadedRatio();
         let ratio = Math.floor(loadRatio / 7 * 100);
         if (ratio < loaderImages.length) {
             loaderImage.src = loaderImages[ratio];
@@ -141,19 +145,13 @@ function update(dt) {
 
     sceneManager.update(dt);
 
-    let inputListener = ServiceLocator.getService(ServiceLocator.KEYBOARD);
+    let inputListener = Services.get(Services.INPUT);
 
     // Est-ce que l'on passe en affichage collideBox?
     if (inputListener.isPressed("KeyC")) {
-        let parameters = ServiceLocator.getService(ServiceLocator.PARAMETER);
+        let parameters = Services.get(Services.PARAMETER);
         parameters.setColliderDisplay(!parameters.colliderDisplay);
     }
-
-    // // Fonction de test
-    // if (inputListener.isClicked()) {
-    //     let playerShip = ServiceLocator.getService(ServiceLocator.SCENE).currentScene.playerShip;
-    //     playerShip.dieCommand.execute();
-    // }
 }
 
 function draw(context) {

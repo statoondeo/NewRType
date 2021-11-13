@@ -26,7 +26,7 @@ class DoubleSprite extends GameObject {
     draw(context) {
         this.firstSprite.draw(context);
         this.secondSprite.draw(context);
-        if (ServiceLocator.getService(ServiceLocator.PARAMETER).colliderDisplay) {
+        if (Services.get(Services.PARAMETER).colliderDisplay) {
             this.collideBox.draw(context);
         }
     }

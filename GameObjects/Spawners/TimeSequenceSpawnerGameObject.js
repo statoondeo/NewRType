@@ -38,7 +38,7 @@ class TimeSequenceSpawnerGameObject extends BaseSpawner {
         let newShip = this.gameObjectPrototype.getClone();
         newShip.position.x = this.position.x + this.size.x / 2;
         newShip.position.y = this.position.y + this.size.y / 2;
-        ServiceLocator.getService(ServiceLocator.SCENE).currentScene.addGameObject(newShip);
+        Services.get(Services.SCENE).currentScene.addGameObject(newShip);
 
         // On passe au suivant
         this.spawnNumber--;
@@ -46,7 +46,7 @@ class TimeSequenceSpawnerGameObject extends BaseSpawner {
 
         // On ajoute un bonus si c'était le dernier
         if (this.spawnNumber == 0 && this.initialSpawnNumber > 1) {
-            newShip.dieCommand.addCommand(new PopCommand(newShip, new WeaponPowerUpGameObject(ServiceLocator.getService(ServiceLocator.SCENE).currentScene.playerShip)));
+            newShip.dieCommand.addCommand(new PopCommand(newShip, new WeaponPowerUpGameObject(Services.get(Services.SCENE).currentScene.playerShip)));
         }
     }
 }

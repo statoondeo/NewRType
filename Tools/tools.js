@@ -1,7 +1,7 @@
 
 class Tools {
     static isOutOfScreen(position, size) {
-        let screen = ServiceLocator.getService(ServiceLocator.SCREEN);
+        let screen = Services.get(Services.SCREEN);
         return position.x + size.x < 0 || position.x > screen.width || position.y + size.y < 0 || position.y > screen.height
     }
 
@@ -23,3 +23,4 @@ class Tools {
         return minBound * (1 - ratio) + maxBound * ratio;
     }
 }
+

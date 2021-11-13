@@ -3,7 +3,7 @@ class ButtonUIElement extends UIElement {
     constructor(label, command) {
         super();
         this.command = command;
-        this.sprite = new Sprite(ServiceLocator.getService(ServiceLocator.RESOURCE).getImage("Images/Gui/button.png"));
+        this.sprite = new Sprite(Services.get(Services.ASSET).getImage("Images/Gui/button.png"));
         this.position = this.sprite.position;
         this.size = this.sprite.size;
         this.collideBox = new RectCollideBox(this.position, this.size);
@@ -30,7 +30,7 @@ class ButtonUIElement extends UIElement {
         this.textUIElement.position.x = this.position.x + (this.size.x - this.textUIElement.size.x) / 2;
         this.textUIElement.position.y = this.position.y + this.size.y * 0.3;
 
-        let inputHandler = ServiceLocator.getService(ServiceLocator.KEYBOARD);
+        let inputHandler = Services.get(Services.INPUT);
         if (inputHandler.isClicked() && this.visibility && Collider.isPointInRectangle(inputHandler.mouse, this.collideBox)) {
             this.command.execute();
         }

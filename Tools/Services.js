@@ -1,16 +1,17 @@
-class ServiceLocator {
+class Services {
     static SCREEN = 0;
-    static RESOURCE = 1;
-    static KEYBOARD = 2;
+    static ASSET = 1;
+    static INPUT = 2;
     static SCENE = 3;
     static PARAMETER = 4;
+    static AUDIO = 5;
 
     static services = [];
 
     static registerService(serviceType, service) {
         this.services[serviceType] = service;
     }
-    static getService(serviceType) {
+    static get(serviceType) {
         return this.services[serviceType];
     }   
 }

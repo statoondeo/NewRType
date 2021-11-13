@@ -6,8 +6,8 @@ class MenuScene extends BaseScene {
     load() {
         super.load();
 
-        let resources = ServiceLocator.getService(ServiceLocator.RESOURCE);
-        let screen = ServiceLocator.getService(ServiceLocator.SCREEN);
+        let resources = Services.get(Services.ASSET);
+        let screen = Services.get(Services.SCREEN);
 
         // Scene de jeu proprement dite
         let baseSpeed = 60;
@@ -66,16 +66,20 @@ class MenuScene extends BaseScene {
         button.position.y = SmallPanelUIElement.size.y * 0.6;
         panel2.addElement(button);
 
-        // On affiche la scène
-        this.show();
-
-        // // Démarrag de la musique
-        // let music = resources.getSound("Musics/bensound-highoctane.mp3");
-        // music.volume = 0.25;
-        // music.play();
+        // // // Démarrage de la musique
+        // let audioService = Services.get(Services.AUDIO);
+        // this.music = Services.get(Services.ASSET).getSound("Musics/bensound-highoctane.mp3");
+        // let gain = audioService.createGain();
+        // gain.gain.value = 0.1;
+        // gain.connect(audioService.destination);
+        // this.music.source.connect(gain);
+        // this.music.source.start();
 
         // On commence la scène avec l'affichage du panneau principal
         mainPanel.show();
+
+        // On affiche la scène
+        this.show();
     }
 }
 class PlayCommand extends BaseCommand {

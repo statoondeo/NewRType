@@ -1,6 +1,6 @@
 class Soil1DecorImage {
     constructor() {
-        let resources = ServiceLocator.getService(ServiceLocator.RESOURCE);
+        let resources = Services.get(Services.ASSET);
 
         let soil1 = resources.getImage("Images/soil1.png")
         let soil2 = resources.getImage("Images/soil2.png")

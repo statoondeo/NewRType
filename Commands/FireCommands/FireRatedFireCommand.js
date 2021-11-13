@@ -19,16 +19,13 @@ class FireRatedFireCommand extends BaseCommand {
 
     execute() {
         if (this.canExecute) {
-            // let sound = ServiceLocator.getService(ServiceLocator.RESOURCE).getSound("sounds/laser4.mp3");
-            // sound.stop();
-            // sound.play();
             this.fireRateTtl = this.fireRate;
 
             let clone = this.prototype.getClone();
             clone.position.x = this.gameObject.position.x + (this.gameObject.size.x - clone.size.x) / 2 + this.startingPoint.x;
             clone.position.y = this.gameObject.position.y + (this.gameObject.size.y - clone.size.y) / 2 + this.startingPoint.y;
-
-            ServiceLocator.getService(ServiceLocator.SCENE).currentScene.addGameObject(clone);
+            clone.fire();
+            Services.get(Services.SCENE).currentScene.addGameObject(clone);
         }
     }   
 }

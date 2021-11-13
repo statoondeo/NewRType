@@ -23,7 +23,7 @@ class BezierApexMoveStrategy extends BaseMoveStrategy {
 
 class RocketApexMoveStrategy extends BezierApexMoveStrategy {
     constructor(gameObject) {
-        let screen = ServiceLocator.getService(ServiceLocator.SCREEN);
+        let screen = Services.get(Services.SCREEN);
 
         // Le point de départ est le museau du vaisseau
         let departurePoint = new Vec2(gameObject.position.x + gameObject.size.x, gameObject.position.y + gameObject.size.y / 2);

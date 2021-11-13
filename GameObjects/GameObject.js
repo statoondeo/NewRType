@@ -19,6 +19,10 @@ class GameObject {
         this.dieCommand.addCommand(new DieCommand(this));
     }
 
+    fire() {
+
+    }
+    
     // Mise à jour du gameObject
     // Les comportements sont modélisés dans des commandes
     update(dt) {
@@ -37,7 +41,7 @@ class GameObject {
 
     // Affichage du gameObject
     draw(context) {
-        if (ServiceLocator.getService(ServiceLocator.PARAMETER).colliderDisplay) {
+        if (Services.get(Services.PARAMETER).colliderDisplay) {
             this.collideBox.draw(context);
         }
     }

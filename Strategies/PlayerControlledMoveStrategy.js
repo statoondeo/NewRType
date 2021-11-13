@@ -8,7 +8,7 @@ class PlayerControlledMoveStrategy extends BaseMoveStrategy {
         this.vector.x = this.vector.y = 0;
 
         // On exécute toutes les commandes demandées par le joueur
-        ServiceLocator.getService(ServiceLocator.KEYBOARD).handleInput().forEach(command => {
+        Services.get(Services.INPUT).handleInput().forEach(command => {
             command.execute();
         });
 
@@ -16,7 +16,7 @@ class PlayerControlledMoveStrategy extends BaseMoveStrategy {
         super.update(dt);
 
         // On contrôle qu'il ne soit pas hors de l'écran
-        let screen = ServiceLocator.getService(ServiceLocator.SCREEN);
+        let screen = Services.get(Services.SCREEN);
         if (this.gameObject.position.x < 0) {
             this.gameObject.position.x = 0;
         } else if (this.gameObject.position.x + this.gameObject.size.x > screen.width) {

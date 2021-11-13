@@ -1,6 +1,6 @@
 class RockyDecorImage {
     constructor() {
-        let resources = ServiceLocator.getService(ServiceLocator.RESOURCE);
+        let resources = Services.get(Services.ASSET);
 
         let image1 = resources.getImage("Images/rock7.png")
         let image2 = resources.getImage("Images/rock11.png")

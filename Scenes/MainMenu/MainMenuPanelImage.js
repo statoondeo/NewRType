@@ -1,6 +1,6 @@
 class MainMenuPanelImage {
     static createInstance() {
-        let screen = ServiceLocator.getService(ServiceLocator.SCREEN);
+        let screen = Services.get(Services.SCREEN);
         let canvas = ImageHandler.createCanvas(screen.width, screen.height);
         let context = canvas.getContext("2d");
         let color = "silver";

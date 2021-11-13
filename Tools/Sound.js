@@ -1,20 +1,13 @@
 class Sound {
-    constructor(soundPath) {
-        this.soundPath = soundPath;
-        this.sound = document.createElement("audio");
-        this.sound.src = this.soundPath;
-        this.sound.setAttribute("preload", "auto");
-        this.sound.setAttribute("controls", "none");
-        this.sound.style.display = "none";
-        document.body.appendChild(this.sound);
+    constructor(audioBuffer) {
+        this.audioBuffer = audioBuffer;
     }
 
     play() {
-        this.sound.play();
-    }
-    
-    stop() {
-        this.sound.pause();
-        this.sound.currentTime = 0;
-    }
+        let source = Services.get(Services.AUDIO).createBufferSource();
+        source.buffer = this.audioBuffer;
+        source.connect(Services.get(Services.AUDIO).destination);
+        source.start();
+        return source;
+    }    
 }

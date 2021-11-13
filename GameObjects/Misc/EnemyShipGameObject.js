@@ -16,7 +16,7 @@ class EnemyShipGameObject extends AnimatedSprite {
         super.draw(context);
 
         // On dessine une barre de vie de la hauteur du sprite
-        if (ServiceLocator.getService(ServiceLocator.PARAMETER).colliderDisplay) {
+        if (Services.get(Services.PARAMETER).colliderDisplay) {
             context.save();
             context.fillStyle = "red";
             context.fillRect(this.position.x + this.size.x, this.position.y, 8, this.size.y);

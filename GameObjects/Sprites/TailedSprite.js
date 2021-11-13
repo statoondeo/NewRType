@@ -41,7 +41,7 @@ class TailedSprite extends GameObject {
     }
 
     draw(context) {
-        if (ServiceLocator.getService(ServiceLocator.PARAMETER).colliderDisplay) {
+        if (Services.get(Services.PARAMETER).colliderDisplay) {
             this.collideBox.draw(context);
         }
         else {
