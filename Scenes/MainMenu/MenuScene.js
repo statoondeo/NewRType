@@ -20,7 +20,7 @@ class MenuScene extends BaseScene {
         this.addGameObject(new BlackStaticBackgroundGameObject());
 
         // La background principal
-        this.addGameObject(new RollingLayer(0.1, baseSpeed, resources.getImage("Images/gas2.png"), new Vec2(-1, 0)));
+        this.addGameObject(new RollingLayer(0.1, baseSpeed, resources.get("Images/gas2.png"), new Vec2(-1, 0)));
 
         // Le joueur est remplacé par une bille orange
         let playerShip = new CircleShape("orangered", new Vec2(6));
@@ -41,9 +41,9 @@ class MenuScene extends BaseScene {
         this.addGameObject(mainPanel);
 
         // Dialogue de Big Saucer
-        let panel1 = new SmallPanelUIElement(new Vec2(screen.width - SmallPanelUIElement.size.x, 0), false);
+        let panel1 = new RedSmallPanelUIElement(new Vec2(screen.width - SmallPanelUIElement.size.x, 0), false);
         panel1.addElement(new SpriteUIElement(MainMenuBigSaucerImage.getInstance()));
-        panel1 = new MiniaturePanelUIElementDecorator(panel1, new UIElementDecorator(new BigSaucerMiniatureGameObject()));
+        panel1 = new RedMiniaturePanelUIElementDecorator(panel1, new UIElementDecorator(new BigSaucerMiniatureGameObject()));
         panel1 = new DelayablePanelUIElementDecorator(panel1, 1);
         this.addGameObject(panel1);
 
@@ -66,14 +66,8 @@ class MenuScene extends BaseScene {
         button.position.y = SmallPanelUIElement.size.y * 0.6;
         panel2.addElement(button);
 
-        // // // Démarrage de la musique
-        // let audioService = Services.get(Services.AUDIO);
-        // this.music = Services.get(Services.ASSET).getSound("Musics/bensound-highoctane.mp3");
-        // let gain = audioService.createGain();
-        // gain.gain.value = 0.1;
-        // gain.connect(audioService.destination);
-        // this.music.source.connect(gain);
-        // this.music.source.start();
+        // Démarrage de la musique
+        this.music = Services.get(Services.ASSET).get("Musics/bensound-highoctane.mp3");
 
         // On commence la scène avec l'affichage du panneau principal
         mainPanel.show();

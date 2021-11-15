@@ -27,6 +27,10 @@ class FadingLayer extends GameObject {
         this.visibilityTtl = 0;
     }
     
+    getRatio() {
+        return this.visibilityTtl / this.visibilityMaxTtl;
+    }
+
     update(dt) {
         super.update(dt);
         if (this.pendingVisibility) 
@@ -43,7 +47,7 @@ class FadingLayer extends GameObject {
                 }
             }
             else {
-                this.sprite.globalAlpha = this.visibilityTtl / this.visibilityMaxTtl;
+                this.sprite.globalAlpha = this.getRatio();
             }
         }
     }

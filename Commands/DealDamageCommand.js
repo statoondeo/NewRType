@@ -10,11 +10,22 @@ class DealDamageCommand extends BaseCommand {
 
     execute(otherGameObject) {
         if (this.canExecute) {
-            otherGameObject.life -=  this.amount;
-            if (otherGameObject.life <= 0) {
-                otherGameObject.life = 0;
-                otherGameObject.dieCommand.execute();
-            }
+            otherGameObject.damage(this.amount);
+        }
+    }
+}
+class TakeDamageCommand extends BaseCommand {
+    constructor(gameObject) {
+        super(gameObject);
+    }
+
+    getClone(gameObject) {
+        return new TakeDamageCommand(gameObject);
+    }
+
+    execute(amount) {
+        if (this.canExecute) {
+            this.gameObject.damage(amount);
         }
     }
 }

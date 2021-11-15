@@ -69,7 +69,9 @@ function load(canvas) {
     assetLoader.add(AssetLoader.IMAGE, "Images/player1.png");
     assetLoader.add(AssetLoader.IMAGE, "Images/player2.png");
     assetLoader.add(AssetLoader.IMAGE, "Images/starknife.png");
+    assetLoader.add(AssetLoader.IMAGE, "Images/starknife2.png");
     assetLoader.add(AssetLoader.IMAGE, "Images/wobbler.png");
+    assetLoader.add(AssetLoader.IMAGE, "Images/wobbler2.png");
     assetLoader.add(AssetLoader.IMAGE, "Images/station.png");
     assetLoader.add(AssetLoader.IMAGE, "Images/background1.png");
     assetLoader.add(AssetLoader.IMAGE, "Images/background2.png");
@@ -85,6 +87,7 @@ function load(canvas) {
     assetLoader.add(AssetLoader.IMAGE, "Images/redspark.png");
     assetLoader.add(AssetLoader.IMAGE, "Images/greenspark.png");
     assetLoader.add(AssetLoader.IMAGE, "Images/purplespark.png");
+    assetLoader.add(AssetLoader.IMAGE, "Images/laser.png");
     assetLoader.add(AssetLoader.IMAGE, "Images/redbullet.png");
     assetLoader.add(AssetLoader.IMAGE, "Images/bluebullet.png");
     assetLoader.add(AssetLoader.IMAGE, "Images/greenbullet.png");
@@ -99,20 +102,29 @@ function load(canvas) {
     assetLoader.add(AssetLoader.IMAGE, "Images/tech_bottom_tile2.png");
     assetLoader.add(AssetLoader.IMAGE, "Images/bigsaucer.png");
     assetLoader.add(AssetLoader.IMAGE, "Images/cube.png");
+    assetLoader.add(AssetLoader.IMAGE, "Images/bigsaucer2.png");
+    assetLoader.add(AssetLoader.IMAGE, "Images/cube2.png");
     assetLoader.add(AssetLoader.IMAGE, "Images/gas2.png");
     assetLoader.add(AssetLoader.IMAGE, "Images/klaw.png");
     assetLoader.add(AssetLoader.IMAGE, "Images/Gui/bigPanel.png");
-    assetLoader.add(AssetLoader.IMAGE, "Images/Gui/smallPanel.png");
     assetLoader.add(AssetLoader.IMAGE, "Images/Gui/button.png");
+    assetLoader.add(AssetLoader.IMAGE, "Images/Gui/smallPanel.png");
     assetLoader.add(AssetLoader.IMAGE, "Images/Gui/verySmallPanel.png");
     assetLoader.add(AssetLoader.IMAGE, "Images/Gui/lifeBar.png");
     assetLoader.add(AssetLoader.IMAGE, "Images/Gui/playerHud.png");
+    assetLoader.add(AssetLoader.IMAGE, "Images/Gui/smallPanel2.png");
+    assetLoader.add(AssetLoader.IMAGE, "Images/Gui/verySmallPanel2.png");
+    assetLoader.add(AssetLoader.IMAGE, "Images/Gui/lifeBar2.png");
+    assetLoader.add(AssetLoader.IMAGE, "Images/Gui/playerHud2.png");
 
     assetLoader.add(AssetLoader.SOUND, "sounds/laser1.mp3");
+    assetLoader.add(AssetLoader.SOUND, "sounds/laser2.mp3");
     assetLoader.add(AssetLoader.SOUND, "sounds/laser3.mp3");
     assetLoader.add(AssetLoader.SOUND, "sounds/laser4.mp3");
+    assetLoader.add(AssetLoader.SOUND, "sounds/laser5.mp3");
 
     assetLoader.add(AssetLoader.SOUND, "Musics/bensound-highoctane.mp3");
+    assetLoader.add(AssetLoader.SOUND, "Musics/bensound-scifi.mp3");
 
     assetLoader.start(startGame);
 }
@@ -121,7 +133,7 @@ function startGame() {
     sceneManager = new SceneManager();
     sceneManager.addScene("MENU", new MenuScene());
     sceneManager.addScene("LEVEL1", new Level1Scene());
-    sceneManager.setCurrent("MENU");
+    sceneManager.setCurrent("LEVEL1");
     Services.registerService(Services.SCENE, sceneManager);
 
     // On fait disparaitre les élément de chargement

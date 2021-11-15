@@ -3,11 +3,8 @@ class AssetLoader {
     static SOUND = "SOUND";
 
     constructor() {
-        this.imagePathes = [];
-        this.imageSources = [];
-
-        this.soundPathes = [];
-        this.soundSources = [];
+        this.assetPathes = [];
+        this.assetSources = [];
         this.callBack = null;
         this.loadedAssetsCount = 0;
     }
@@ -17,7 +14,7 @@ class AssetLoader {
     }
 
     getTotalAssetsCount() {
-        return this.imagePathes.length + this.soundPathes.length;
+        return this.assetPathes.length;
     }
 
     getLoadedAssetsCount() {
@@ -25,71 +22,44 @@ class AssetLoader {
     }
 
     add(type, assetPath) {
-        if (type == AssetLoader.IMAGE) {
-            this.imagePathes.push(assetPath);
-        } else if (type == AssetLoader.SOUND) {
-            this.soundPathes.push(assetPath);
-        }
+        this.assetPathes.push({ type : type, path : assetPath });
     }
 
-    getImages() {
-        return this.imageSources;
-    }
-
-    getImage(imagePath) {
-        return this.imageSources[imagePath];
-    }
-    
-    getSound(soundPath) {
-        return this.soundSources[soundPath];
+    get(path) {
+        return this.assetSources[path];
     }
 
     loadImage(path) {
-        return new Promise(resolve => {
+        return new Promise((success, error) => {
             // Chargement de l'image
             let image = new Image();
             image.onload = () => {
                 // Lorsque c'est terminé on resout la promesse
-                resolve(image);
+                success(image);
             };
             image.src = path;
         }).then((image) => {
             // Lorsque le chargement est terminé, on stocke l'asset 
             // et on met à jour le compteur d'avancement
-            this.imageSources[path] = image;
+            this.assetSources[path] = image;
             this.assetLoaded();
         });
     }
-
+     
     loadSound(path) {
-        return new Promise(resolve => {
-            // Charment du son
+        return new Promise((success, error) => {
+            // Chargement de l'image
             let audio = new Audio();
-            audio.preload = "auto";
-            audio.autoplay = false;
-            audio.oncanplay = () => {
+            audio.oncanplaythrough = () => {
                 // Lorsque c'est terminé on resout la promesse
-                resolve(audio);
+                success(audio);
             };
             audio.src = path;
         }).then((audio) => {
             // Lorsque le chargement est terminé, on stocke l'asset 
             // et on met à jour le compteur d'avancement
-            this.soundSources[path] = audio;
+            this.assetSources[path] = audio;
             this.assetLoaded();
-        });
-    }
-
-    loadSound2(path) {
-        return new Promise(resolve => {
-            fetch(path)
-            .then(content => content.arrayBuffer())
-            .then(buffer => Services.get(Services.AUDIO).decodeAudioData(buffer))
-            .then(audioBuffer => {
-                this.soundSources[path] = new Sound(audioBuffer);
-                this.assetLoaded();
-                resolve();
-            });
         });
     }
 
@@ -100,16 +70,16 @@ class AssetLoader {
         // (Une promesse permet d'effectuer une tâche asynchrone)
         let assetPromises = []
 
-        // Démarrage de la récupération des images
-        this.imagePathes.forEach(path => {
-            assetPromises.push(this.loadImage(path));
+        // Démarrage de la récupération des assets
+        this.assetPathes.forEach(asset => {
+            if (asset.type == AssetLoader.IMAGE) {
+                assetPromises.push(this.loadImage(asset.path));
+            }
+            else if (asset.type == AssetLoader.SOUND) {
+                assetPromises.push(this.loadSound(asset.path));
+            }
         });
         
-        // Démarrage de la récupération des sons
-        this.soundPathes.forEach(path => {
-            assetPromises.push(this.loadSound2(path));
-        });
-
         // On attend que toutes les promesses soient honorées
         Promise.all(assetPromises).then(() => {
             // On démarre le jeu

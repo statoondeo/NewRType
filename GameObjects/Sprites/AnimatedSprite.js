@@ -1,5 +1,5 @@
 class AnimatedSprite extends GameObject {
-    constructor(image, tileSheet) {
+    constructor(image, tileSheet, damagedImage = null) {
         super();
 
         // Pour la gestion des spriteSheet
@@ -12,6 +12,11 @@ class AnimatedSprite extends GameObject {
         // Gestion des animations
         this.animations = [];
         this.currentAnimation = null;
+
+        this.damagedMaxTtl = 0.15;
+        this.notdamagedImage = this.image;
+        this.damagedImage = damagedImage;
+        this.damageTtl = 0;
     }
 
     getNewFrame() {
@@ -39,6 +44,7 @@ class AnimatedSprite extends GameObject {
 
     update(dt) {
         super.update(dt);
+
         if (this.currentAnimation != null && this.currentAnimation.started) {
             // On avance dans l'animation
             this.currentAnimation.update(dt);

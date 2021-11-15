@@ -17,12 +17,22 @@ class GameObject {
         this.dealDamageCommand = new DummyCommand();
         this.dieCommand = new CompositeCommand();
         this.dieCommand.addCommand(new DieCommand(this));
+        this.takeDamage = new DummyCommand();
     }
 
-    fire() {
-
+    damage(amount) {
+        if (this.damagedImage != null) {
+            this.damageTtl = this.damagedMaxTtl;
+            this.image = this.damagedImage;
+        }
+        this.life -=  amount;
+        if (this.life <= 0) {
+            this.life = 0;
+            this.dieCommand.execute();
+        }
     }
     
+
     // Mise à jour du gameObject
     // Les comportements sont modélisés dans des commandes
     update(dt) {

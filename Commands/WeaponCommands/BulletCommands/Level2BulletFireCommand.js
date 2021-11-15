@@ -1,6 +1,6 @@
 class Level2BulletFireCommand extends Level1BulletFireCommand {
-    constructor(gameObject, bulletPrototype, fireRate, randomized) {
-        super(gameObject, bulletPrototype, fireRate, randomized);
+    constructor(gameObject, bulletPrototype, fireRate, randomized, sound) {
+        super(gameObject, bulletPrototype, fireRate, randomized, sound);
 
         let startingPoint = new Vec2();
         let otherBulletPrototype = bulletPrototype.getClone();

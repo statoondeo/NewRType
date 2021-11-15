@@ -18,7 +18,7 @@ class MainMenuPanelImage {
         label = "SPACE";
         context.font = style;
         width = context.measureText(label).width;
-        text = new TextUIElement(label, color, style);
+        text = new TextUIElement(label, "white", style);
         text.position.x = (screen.width - width) / 2;
         text.position.y = screen.height * 0.3;
         text.draw(context);
@@ -27,7 +27,7 @@ class MainMenuPanelImage {
         label = "Battle Ships";
         context.font = style;
         width = context.measureText(label).width;
-        text = new TextUIElement(label, color, style);
+        text = new TextUIElement(label, "white", style);
         text.position.x = (screen.width - width) / 2;
         text.position.y = screen.height * 0.5;
         text.draw(context);

@@ -1,6 +1,6 @@
 class MediumRedExplosionGameObject extends ExplosionGameObject {
     constructor(speed = 30) {
-        super(ImageHandler.zoomImage(Services.get(Services.ASSET).getImage("Images/redspark.png"), new Vec2(2)), new Vec2(200), speed);
+        super(ImageHandler.zoomImage(Services.get(Services.ASSET).get("Images/redspark.png"), new Vec2(2)), new Vec2(200), speed);
     }
     
     getClone() {
@@ -9,7 +9,7 @@ class MediumRedExplosionGameObject extends ExplosionGameObject {
 }
 class GiantRedExplosionGameObject extends ExplosionGameObject {
     constructor(speed = 75) {
-        super(ImageHandler.zoomImage(Services.get(Services.ASSET).getImage("Images/redspark.png"), new Vec2(5)), new Vec2(500), speed);
+        super(ImageHandler.zoomImage(Services.get(Services.ASSET).get("Images/redspark.png"), new Vec2(5)), new Vec2(500), speed);
     }
     
     getClone() {
@@ -46,17 +46,14 @@ class ParticlesMediumExplosionGameObject extends GameObject {
     }
 
     update(dt) {
-        if (!this.spawned) {
-            this.spawned = true;
-            this.status = GameObjectState.OUTDATED;
+        this.status = GameObjectState.OUTDATED;
 
-            this.explosions.forEach(explosion => {
-                explosion.status = GameObjectState.ACTIVE;
-                explosion.position.x = this.gameObject.position.x + (this.gameObject.size.x - explosion.size.x) / 2;
-                explosion.position.y = this.gameObject.position.y + (this.gameObject.size.y - explosion.size.y) / 2;
-                Services.get(Services.SCENE).currentScene.addGameObject(explosion);
-            });
-        }
+        this.explosions.forEach(explosion => {
+            explosion.status = GameObjectState.ACTIVE;
+            explosion.position.x = this.gameObject.position.x + (this.gameObject.size.x - explosion.size.x) / 2;
+            explosion.position.y = this.gameObject.position.y + (this.gameObject.size.y - explosion.size.y) / 2;
+            Services.get(Services.SCENE).currentScene.addGameObject(explosion);
+        });
     }
 }
 class ParticlesThrustGameObject extends GameObject {

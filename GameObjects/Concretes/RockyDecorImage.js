@@ -2,11 +2,11 @@ class RockyDecorImage {
     constructor() {
         let resources = Services.get(Services.ASSET);
 
-        let image1 = resources.getImage("Images/rock7.png")
-        let image2 = resources.getImage("Images/rock11.png")
-        let image3 = resources.getImage("Images/rock8.png")
-        let image4 = resources.getImage("Images/rock9.png")
-        let image5 = resources.getImage("Images/rock10.png")
+        let image1 = resources.get("Images/rock7.png")
+        let image2 = resources.get("Images/rock11.png")
+        let image3 = resources.get("Images/rock8.png")
+        let image4 = resources.get("Images/rock9.png")
+        let image5 = resources.get("Images/rock10.png")
 
         let totalWidth = image1.width + image2.width + image3.width + image4.width + image5.width;
         let maxHeight = Math.max(image1.height, image2.height, image3.height, image4.height, image5.height)

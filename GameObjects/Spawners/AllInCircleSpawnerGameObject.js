@@ -17,7 +17,6 @@ class AllInCircleSpawnerGameObject extends BaseSpawner {
             let newShip = this.gameObjectPrototype.getClone();
             newShip.position.x = this.position.x + this.size.x / 2;
             newShip.position.y = this.position.y + this.size.y / 2;
-            newShip.fire();
             
             // On lui donne une direction qui s'éloigne du point d'apparition
             newShip.moveStrategy = new UniformMoveStrategy(newShip, new Vec2(Math.cos(angle + deltaAngle * index), Math.sin(angle + deltaAngle * index)));

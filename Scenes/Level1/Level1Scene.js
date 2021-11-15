@@ -18,6 +18,7 @@ class Level1Scene extends BaseScene {
         // Gestion du joueur
         let playerShip = new Player1ShipGameObject(new Vec2((screen.width - PlayerShipGameObject.size.x) / 2, (screen.height - PlayerShipGameObject.size.y) / 2));
         this.addPlayerShip(playerShip);
+        this.addGameObject(playerShip.flashLayer);
 
         // On ajoute le HUD
         let hud = new HUDPanelUIElement(playerShip, new Vec2(), false);
@@ -67,12 +68,12 @@ class Level1Scene extends BaseScene {
         this.addGameObject(new BlackStaticBackgroundGameObject());
 
         // La background principal
-        this.addGameObject(new RollingLayer(0.2, baseSpeed, Services.get(Services.ASSET).getImage("Images/background1.png"), new Vec2(-1, 0)));
+        this.addGameObject(new RollingLayer(0.2, baseSpeed, Services.get(Services.ASSET).get("Images/background1.png"), new Vec2(-1, 0)));
 
         // Eléments de décor qui ne vont passer qu'une fois
-        this.addSynchronizedGameObject(new OnceLayer(0.3, baseSpeed, resources.getImage("Images/station.png"), 2000, new Vec2(-1, 0)));
-        this.addSynchronizedGameObject(new OnceLayer(0.3, baseSpeed, resources.getImage("Images/background2.png"), 8000, new Vec2(-1, 0)));
-        this.addSynchronizedGameObject(new OnceLayer(0.5, baseSpeed, resources.getImage("Images/background3.png"), 10000, new Vec2(-1, 0)));
+        this.addSynchronizedGameObject(new OnceLayer(0.3, baseSpeed, resources.get("Images/station.png"), 2000, new Vec2(-1, 0)));
+        this.addSynchronizedGameObject(new OnceLayer(0.3, baseSpeed, resources.get("Images/background2.png"), 8000, new Vec2(-1, 0)));
+        this.addSynchronizedGameObject(new OnceLayer(0.5, baseSpeed, resources.get("Images/background3.png"), 10000, new Vec2(-1, 0)));
 
         // Ajout d'obstacles        
         let rockyDecorImage = new RockyDecorImage();
@@ -126,30 +127,33 @@ class Level1Scene extends BaseScene {
         // Narration
         let panel = new PanelUIElement(new Vec2(), true);
         panel.addElement(new SpriteUIElement(Level1TitleImage.getInstance()));
-        let startableElement = new StartableUIElementDecorator(panel, 1280, 1400);
+        let startableElement = new StartableUIElementDecorator(panel, 1280, 1460);
         this.addSynchronizedGameObject(startableElement); 
 
         // Narration
         panel = new SmallPanelUIElement(new Vec2(0, screen.height - SmallPanelUIElement.size.y), false);
         panel.addElement(new SpriteUIElement(Level1RareoyArdeas1Image.getInstance()));
         panel = new MiniaturePanelUIElementDecorator(panel, new UIElementDecorator(new Player1ShipMiniatureGameObject()));
-        panel = new StartableUIElementDecorator(panel, 1430, 1800);
+        panel = new StartableUIElementDecorator(panel, 1500, 1800);
         this.addSynchronizedGameObject(panel); 
 
         // Narration
         let bigSaucerMiniature = new UIElementDecorator(new BigSaucerMiniatureGameObject(), true);
-        panel = new VerySmallPanelUIElement(new Vec2(screen.width - VerySmallPanelUIElement.size.x, 0), false);
+        panel = new RedVerySmallPanelUIElement(new Vec2(screen.width - VerySmallPanelUIElement.size.x, 0), false);
         panel.addElement(new SpriteUIElement(Level1BigSaucer1Image.getInstance()));
-        panel = new MiniaturePanelUIElementDecorator(panel, bigSaucerMiniature);
+        panel = new RedMiniaturePanelUIElementDecorator(panel, bigSaucerMiniature);
         panel = new StartableUIElementDecorator(panel, 1700, 2000);
         this.addSynchronizedGameObject(panel); 
         
         // Narration
-        panel = new VerySmallPanelUIElement(new Vec2(screen.width - VerySmallPanelUIElement.size.x, 0), false);
+        panel = new RedVerySmallPanelUIElement(new Vec2(screen.width - VerySmallPanelUIElement.size.x, 0), false);
         panel.addElement(new SpriteUIElement(Level1BigSaucer2Image.getInstance()));
-        panel = new MiniaturePanelUIElementDecorator(panel, bigSaucerMiniature);
+        panel = new RedMiniaturePanelUIElementDecorator(panel, bigSaucerMiniature);
         panel = new StartableUIElementDecorator(panel, 6400, 6600);
         this.addSynchronizedGameObject(panel); 
+
+        // Démarrage de la musique
+        this.music = Services.get(Services.ASSET).get("Musics/bensound-scifi.mp3");
 
         this.show();
     }

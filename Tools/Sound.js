@@ -1,13 +1,15 @@
-class Sound {
-    constructor(audioBuffer) {
-        this.audioBuffer = audioBuffer;
+class SoundPool {
+    constructor(sound, number) {
+        this.sounds = [];
+        this.index = 0;
+        this.number = number;
+        for (let index = 0; index < this.number; index++) {
+            this.sounds.push(sound.cloneNode());
+        }
     }
 
     play() {
-        let source = Services.get(Services.AUDIO).createBufferSource();
-        source.buffer = this.audioBuffer;
-        source.connect(Services.get(Services.AUDIO).destination);
-        source.start();
-        return source;
+        this.sounds[this.index++].play();
+        this.index %= this.number; 
     }    
 }

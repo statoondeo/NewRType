@@ -2,15 +2,15 @@ class Soil1DecorImage {
     constructor() {
         let resources = Services.get(Services.ASSET);
 
-        let soil1 = resources.getImage("Images/soil1.png")
-        let soil2 = resources.getImage("Images/soil2.png")
-        let soil3 = resources.getImage("Images/soil3.png")
-        let soil4 = resources.getImage("Images/soil4.png")
+        let soil1 = resources.get("Images/soil1.png")
+        let soil2 = resources.get("Images/soil2.png")
+        let soil3 = resources.get("Images/soil3.png")
+        let soil4 = resources.get("Images/soil4.png")
 
-        let tech_bottom_end_left = resources.getImage("Images/tech_bottom_end_left.png")
-        let tech_bottom_end_right = resources.getImage("Images/tech_bottom_end_right.png")
-        let tech_bottom_tile = resources.getImage("Images/tech_bottom_tile.png")
-        let tech_bottom_tile2 = resources.getImage("Images/tech_bottom_tile2.png")
+        let tech_bottom_end_left = resources.get("Images/tech_bottom_end_left.png")
+        let tech_bottom_end_right = resources.get("Images/tech_bottom_end_right.png")
+        let tech_bottom_tile = resources.get("Images/tech_bottom_tile.png")
+        let tech_bottom_tile2 = resources.get("Images/tech_bottom_tile2.png")
         
         let totalSize = new Vec2(tech_bottom_end_left.width + soil1.width + soil3.width + soil4.width + tech_bottom_end_right.width, 
             soil2.height + soil3.width + tech_bottom_tile.height);

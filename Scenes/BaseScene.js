@@ -61,12 +61,16 @@ class BaseScene {
     // Gestion des début et fin de la scène
     show(command) {
         this.fadingLayer.hide(command);
+        this.music.currentTime = 0;
+        this.music.volume = 0.25;
         // this.music.play();
     }
 
     hide(command) {
         this.fadingLayer.show(command);
-        // this.music.stop();
+        // setTimeout(() => {
+        //     this.music.pause();
+        // }, 1000);
     }
 
     // Le tableau étant trié, on peut rechercher par dichotomie pour être plus performant
@@ -131,6 +135,9 @@ class BaseScene {
     update(dt) {
         // On avance dans la scene
         this.scheduler.update(dt);
+
+        // On synchronise les fondu de l'écran et de la musique
+        this.music.volume = 1 - this.fadingLayer.getRatio();
 
         // On ne traite que les gameObjects en activité
         // et on supprime les gameObjects qui sont obsolètes

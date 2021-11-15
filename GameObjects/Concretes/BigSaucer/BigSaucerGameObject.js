@@ -5,7 +5,7 @@ class BigSaucerGameObject extends EnemyShipGameObject {
 
     constructor(playerShip, cubePrototype = new CubeGameObject(playerShip)) {
         // Paramétrage du vaisseau ennemi
-        super(Services.get(Services.ASSET).getImage("Images/bigsaucer.png"), BigSaucerGameObject.size, 100000, 0)
+        super(Services.get(Services.ASSET).get("Images/bigsaucer.png"), BigSaucerGameObject.size, 100000, 0, Services.get(Services.ASSET).get("Images/bigsaucer2.png"))
         this.layer = 0.999;
 
         this.playerShip = playerShip;
@@ -17,7 +17,15 @@ class BigSaucerGameObject extends EnemyShipGameObject {
         this.collideBox = new BigSaucerCollideBox(this.position, this.size);
 
         // Armement
-        this.fireCommand = new AsapFireCommand(new BigSaucerBulletWave(this));
+        let firstStateWeapon = new WeaponState("Bullet Wave", new AsapFireCommand(new BigSaucerBulletWave(this)), 1);
+        let secondStateWeapon = new WeaponState("Bullet Wave", new AsapFireCommand(new BigSaucerGunWave(this)), 2);
+
+        firstStateWeapon.nextWeaponState = secondStateWeapon;
+        secondStateWeapon.previousWeaponState = firstStateWeapon;
+
+        let weapon = new Weapon(this, firstStateWeapon);
+        this.fireCommand = new WeaponFireCommand(this, weapon);
+        this.fireCommandUp = false;
 
         // Animation
         this.addAnimation(new Animation("IDLE", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23], 20 / 1000, true));
@@ -30,17 +38,25 @@ class BigSaucerGameObject extends EnemyShipGameObject {
         this.TimeSequenceSpawnerGameObject = new TimeSequenceSpawnerGameObject(cubePrototype, 0, this, 3, 15);
         this.TimeSequenceSpawnerGameObject.status = GameObjectState.ACTIVE;
 
-        //   On ajoute le HUD
+        // On ajoute le HUD
         let screen = Services.get(Services.SCREEN);
-        this.bossHud = new MiniaturePanelUIElementDecorator(new HUDPanelUIElement(this, new Vec2(screen.width - HUDPanelUIElement.size.x - 10, 0), false), new UIElementDecorator(new BigSaucerMiniatureGameObject()));
+        this.bossHud = new RedMiniaturePanelUIElementDecorator(new RedHUDPanelUIElement(this, new Vec2(screen.width - BaseHUDPanelUIElement.size.x - 10, 0), false), new UIElementDecorator(new BigSaucerMiniatureGameObject()));
         this.bossHud.show();
     }
 
     static getAnimatedSprite() {
-        let sprite = new AnimatedSprite(Services.get(Services.ASSET).getImage("Images/bigsaucer.png"), BigSaucerGameObject.size);
+        let sprite = new AnimatedSprite(Services.get(Services.ASSET).get("Images/bigsaucer.png"), BigSaucerGameObject.size);
         sprite.addAnimation(new Animation("IDLE", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23], 20 / 1000, true));
         sprite.startAnimation("IDLE", 0);
         return sprite;
+    }
+
+    damage(amount) {
+        super.damage(amount);
+        if (!this.fireCommandUp && this.life < this.maxLife * 0.3) {
+            this.fireCommandUp = true;
+            this.fireCommand.weapon.levelUp();
+        }
     }
 
     getName() {
@@ -73,7 +89,7 @@ class BigSaucerMiniatureGameObject extends AnimatedSprite {
     static size = new Vec2(128, 48);
 
     constructor() {        
-        let miniature = ImageHandler.zoomImage(Services.get(Services.ASSET).getImage("Images/bigsaucer.png"), new Vec2(0.5));
+        let miniature = ImageHandler.zoomImage(Services.get(Services.ASSET).get("Images/bigsaucer.png"), new Vec2(0.5));
         super(miniature, BigSaucerMiniatureGameObject.size)
 
         // Animation

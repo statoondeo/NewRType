@@ -24,7 +24,6 @@ class FireRatedFireCommand extends BaseCommand {
             let clone = this.prototype.getClone();
             clone.position.x = this.gameObject.position.x + (this.gameObject.size.x - clone.size.x) / 2 + this.startingPoint.x;
             clone.position.y = this.gameObject.position.y + (this.gameObject.size.y - clone.size.y) / 2 + this.startingPoint.y;
-            clone.fire();
             Services.get(Services.SCENE).currentScene.addGameObject(clone);
         }
     }   
