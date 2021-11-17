@@ -106,6 +106,8 @@ function load(canvas) {
     assetLoader.add(AssetLoader.IMAGE, "Images/cube2.png");
     assetLoader.add(AssetLoader.IMAGE, "Images/gas2.png");
     assetLoader.add(AssetLoader.IMAGE, "Images/klaw.png");
+    assetLoader.add(AssetLoader.IMAGE, "Images/atom.png");
+    assetLoader.add(AssetLoader.IMAGE, "Images/atom2.png");
     assetLoader.add(AssetLoader.IMAGE, "Images/Gui/bigPanel.png");
     assetLoader.add(AssetLoader.IMAGE, "Images/Gui/bigPanel1.png");
     assetLoader.add(AssetLoader.IMAGE, "Images/Gui/bigPanel2.png");
@@ -119,14 +121,29 @@ function load(canvas) {
     assetLoader.add(AssetLoader.IMAGE, "Images/Gui/lifeBar2.png");
     assetLoader.add(AssetLoader.IMAGE, "Images/Gui/playerHud2.png");
 
-    assetLoader.add(AssetLoader.SOUND, "sounds/laser1.mp3");
-    assetLoader.add(AssetLoader.SOUND, "sounds/laser2.mp3");
-    assetLoader.add(AssetLoader.SOUND, "sounds/laser3.mp3");
-    assetLoader.add(AssetLoader.SOUND, "sounds/laser4.mp3");
-    assetLoader.add(AssetLoader.SOUND, "sounds/laser5.mp3");
+    assetLoader.add(AssetLoader.SOUND, "Sounds/laser1.mp3");
+    assetLoader.add(AssetLoader.SOUND, "Sounds/laser2.mp3");
+    assetLoader.add(AssetLoader.SOUND, "Sounds/laser3.mp3");
+    assetLoader.add(AssetLoader.SOUND, "Sounds/laser4.mp3");
+    assetLoader.add(AssetLoader.SOUND, "Sounds/laser5.mp3");
+    assetLoader.add(AssetLoader.SOUND, "Sounds/laser6.mp3");
+    assetLoader.add(AssetLoader.SOUND, "Sounds/Correct_08_wav.wav");
+    assetLoader.add(AssetLoader.SOUND, "Sounds/Correct_06_wav.wav");
+    assetLoader.add(AssetLoader.SOUND, "Sounds/Tense_01_wav.wav");
+    assetLoader.add(AssetLoader.SOUND, "Sounds/Explosion_Sci_Fi_03_wav.wav");
+    assetLoader.add(AssetLoader.SOUND, "Sounds/Explosion_Sci_Fi_03_variation_01_wav.wav");
+    assetLoader.add(AssetLoader.SOUND, "Sounds/Explosion_Sci_Fi_03_variation_02_wav.wav");
+    assetLoader.add(AssetLoader.SOUND, "Sounds/Digital_panel_v1_wav.wav");
+    assetLoader.add(AssetLoader.SOUND, "Sounds/Digital_panel_v1_variation_02_wav.wav");
+    assetLoader.add(AssetLoader.SOUND, "Sounds/Digital_panel_v1_variation_01_wav.wav");
+    assetLoader.add(AssetLoader.SOUND, "Sounds/Rifle_v1_variation_02_wav.wav");
+    assetLoader.add(AssetLoader.SOUND, "Sounds/Click_Digital_06_wav.wav");
+    assetLoader.add(AssetLoader.SOUND, "Sounds/Hover_Digital_06_wav.wav");
 
     assetLoader.add(AssetLoader.SOUND, "Musics/bensound-highoctane.mp3");
     assetLoader.add(AssetLoader.SOUND, "Musics/bensound-scifi.mp3");
+    assetLoader.add(AssetLoader.SOUND, "Musics/alexander-nakarada-loss.mp3");
+    assetLoader.add(AssetLoader.SOUND, "Musics/alexander-nakarada-we-are-victorious-finale.mp3");
 
     assetLoader.start(startGame);
 }
@@ -135,7 +152,7 @@ function startGame() {
     sceneManager = new SceneManager();
     sceneManager.addScene("MENU", new MenuScene());
     sceneManager.addScene("LEVEL1", new Level1Scene());
-    sceneManager.setCurrent("LEVEL1");
+    sceneManager.setCurrent("MENU");
     Services.register(Services.SCENE, sceneManager);
 
     // On fait disparaitre les élément de chargement

@@ -61,16 +61,16 @@ class BaseScene {
     // Gestion des début et fin de la scène
     show(command) {
         this.fadingLayer.hide(command);
+        this.music.loop = true;
         this.music.currentTime = 0;
-        this.music.volume = 0.25;
-        // this.music.play();
+        this.music.play();
     }
 
     hide(command) {
         this.fadingLayer.show(command);
-        // setTimeout(() => {
-        //     this.music.pause();
-        // }, 1000);
+        setTimeout(() => {
+            this.music.pause();
+        }, 900);
     }
 
     // Le tableau étant trié, on peut rechercher par dichotomie pour être plus performant
@@ -136,7 +136,7 @@ class BaseScene {
         this.scheduler.update(dt);
 
         // On synchronise les fondu de l'écran et de la musique
-        this.music.volume = 1 - this.fadingLayer.getRatio();
+        this.music.volume = (1 - this.fadingLayer.getRatio()) * 0.25;
 
         // On ne traite que les gameObjects en activité
         // et on supprime les gameObjects qui sont obsolètes
@@ -187,7 +187,7 @@ class BaseScene {
             context.fillStyle = "White";
             context.font = "normal 10pt neuropol";
             context.fillText("Game objects : " + this.gameObjectsCollection.length, 5, 775);
-            context.fillText("Fps : " + Math.floor(fpsList.reduce((a, b) => a + b) / fpsList.length), 5, 795);
+            context.fillText("Fps : " + Math.round(fpsList.reduce((a, b) => a + b) / fpsList.length), 5, 795);
 
             // Affichage du quadTree
             if (null != this.quadTree) {

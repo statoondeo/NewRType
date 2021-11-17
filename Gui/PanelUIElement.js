@@ -1,12 +1,13 @@
 class PanelUIElement  extends UIElement {
-    constructor(position, size, visibility) {
+    constructor(position, size, visibility, soundWhenShowned = null) {
         super(visibility);
         this.position = position;
         this.size = size;
         this.internalUIElement = [];
         this.pendingVisibility = false;
         this.alphaDirection = 0;
-        this.visibilityMaxTtl = 0.5;
+        this.visibilityMaxTtl = 0.25;
+        this.soundWhenShowned = soundWhenShowned;
         this.visibilityTtl = this.visibilityMaxTtl;
     }
 
@@ -58,6 +59,9 @@ class PanelUIElement  extends UIElement {
             if (this.visibilityTtl <= 0) {
                 this.pendingVisibility = false;
                 this.setVisibility(this.alphaDirection < 0 ? false : this.alphaDirection);
+                if (this.getAlpha() && this.soundWhenShowned != null) {
+                    this.soundWhenShowned.play();
+                }
             }
             else {
                 this.setAlpha(this.alphaDirection > 0 ? (this.visibilityMaxTtl - this.visibilityTtl) / this.visibilityMaxTtl : this.visibilityTtl / this.visibilityMaxTtl);

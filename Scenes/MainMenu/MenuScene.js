@@ -51,7 +51,7 @@ class MenuScene extends BaseScene {
         let panel2 = new SmallPanelUIElement(new Vec2(0, screen.height - SmallPanelUIElement.size.x), false);
         panel2.addElement(new SpriteUIElement(MainMenuRareoyArdeasImage.getInstance()));
         panel2 = new MiniaturePanelUIElementDecorator(panel2, new UIElementDecorator(new Player1ShipMiniatureGameObject()));
-        panel2 = new DelayablePanelUIElementDecorator(panel2, 4);
+        panel2 = new DelayablePanelUIElementDecorator(panel2, 2.5);
         this.addGameObject(panel2);
 
         // Pour commencer à jouer
@@ -61,7 +61,7 @@ class MenuScene extends BaseScene {
         mainPanel.addElement(button);
 
         // Début réél du jeu
-        button = new ButtonUIElement("Allons-y ...", new SwitchSceneCommand(this, "LEVEL1", 0));
+        button = new ButtonUIElement("Allons-y ...", new SwitchSceneCommand(this, "LEVEL1", 1280));
         button.position.x = (SmallPanelUIElement.size.x - ButtonUIElement.size.x) / 2
         button.position.y = SmallPanelUIElement.size.y * 0.6;
         panel2.addElement(button);

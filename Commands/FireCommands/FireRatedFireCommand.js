@@ -1,10 +1,11 @@
 class FireRatedFireCommand extends BaseCommand {
-    constructor(gameObject, prototype, startingPoint, fireRate, randomized = true) {
+    constructor(gameObject, prototype, startingPoint, fireRate, sound = null) {
         super(gameObject);
         this.prototype = prototype;
         this.startingPoint = startingPoint;
         this.fireRate = fireRate;
-        this.fireRateTtl = randomized ? Math.random() * this.fireRate : 0;
+        this.fireRateTtl = Math.random() * this.fireRate;
+        this.sound = sound;
     }
 
     update(dt) {
@@ -20,7 +21,9 @@ class FireRatedFireCommand extends BaseCommand {
     execute() {
         if (this.canExecute) {
             this.fireRateTtl = this.fireRate;
-
+            if (this.sound != null) {
+                this.sound.play();
+            }
             let clone = this.prototype.getClone();
             clone.position.x = this.gameObject.position.x + (this.gameObject.size.x - clone.size.x) / 2 + this.startingPoint.x;
             clone.position.y = this.gameObject.position.y + (this.gameObject.size.y - clone.size.y) / 2 + this.startingPoint.y;

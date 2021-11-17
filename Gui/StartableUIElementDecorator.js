@@ -7,6 +7,9 @@ class StartableUIElementDecorator  extends BasePanelUIElementDecorator {
     }
     
     subjectChanged(scheduler) {
+        if (this.endPoint != 0 && scheduler.currentStep >= this.endPoint && !this.started) {
+            this.started = this.ended = true;
+        }
         if (!this.started && scheduler.currentStep >= this.startingPoint) {
             this.started = true;
             this.show();

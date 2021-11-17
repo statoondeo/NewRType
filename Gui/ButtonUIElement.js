@@ -8,6 +8,9 @@ class ButtonUIElement extends UIElement {
         this.size = this.sprite.size;
         this.collideBox = new RectCollideBox(this.position, this.size);
         this.textUIElement = new TextUIElement(label, "black", "bold 24pt neuropol");
+        this.hoverSound = new SoundPool(Services.get(Services.ASSET).get("Sounds/Hover_Digital_06_wav.wav"), 10);
+        this.clickSound = Services.get(Services.ASSET).get("Sounds/Click_Digital_06_wav.wav");
+        this.previouslyHover = this.hover = false;
     }
 
     setPosition(position) {
@@ -31,8 +34,15 @@ class ButtonUIElement extends UIElement {
         this.textUIElement.position.y = this.position.y + this.size.y * 0.3;
 
         let inputHandler = Services.get(Services.INPUT);
-        if (inputHandler.isClicked() && this.visibility && Collider.isPointInRectangle(inputHandler.mouse, this.collideBox)) {
-            this.command.execute();
+        this.previouslyHover = this.hover;
+        this.hover = this.visibility && Collider.isPointInRectangle(inputHandler.mouse, this.collideBox);
+        if (this.hover) {
+            if (!this.previouslyHover) {
+                this.hoverSound.play();
+            }
+            if (inputHandler.isClicked()) {
+                this.command.execute();
+            }
         }
     }
 

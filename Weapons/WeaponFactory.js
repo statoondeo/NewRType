@@ -5,16 +5,16 @@ class WeaponFactory {
 
         // Instanciation des etats
         // let level1State = new WeaponState(weaponName, new Level1LaserFireCommand(playerShip, new BlueBulletGameObject(playerShip.partition, new Vec2(1, 0)), fireRate, false), 1);
-        // let level1State = new WeaponState(weaponName, new Level1BulletFireCommand(playerShip, new BlueBulletGameObject(playerShip.partition, new Vec2(1, 0)), fireRate, false, new SoundPool(Services.get(Services.ASSET).get("sounds/laser1.mp3"), 15)), 1);
-        // let level2State = new WeaponState(weaponName, new Level2BulletFireCommand(playerShip, new BlueBulletGameObject(playerShip.partition, new Vec2(1, 0)), fireRate, false, new SoundPool(Services.get(Services.ASSET).get("sounds/laser2.mp3"), 15)), 2);
-        // let level3State = new WeaponState(weaponName, new Level3BulletFireCommand(playerShip, new BlueBulletGameObject(playerShip.partition, new Vec2(1, 0)), fireRate, false, new SoundPool(Services.get(Services.ASSET).get("sounds/laser3.mp3"), 15)), 3);
-        // let level4State = new WeaponState(weaponName, new Level4BulletFireCommand(playerShip, new BlueBulletGameObject(playerShip.partition, new Vec2(1, 0)), fireRate, false, new SoundPool(Services.get(Services.ASSET).get("sounds/laser4.mp3"), 15)), 4);
-        // let level5State = new WeaponState(weaponName, new Level5BulletFireCommand(playerShip, new BlueBulletGameObject(playerShip.partition, new Vec2(1, 0)), fireRate, false, new SoundPool(Services.get(Services.ASSET).get("sounds/laser5.mp3"), 15)), 5);
-        let level1State = new WeaponState(weaponName, new Level1BulletFireCommand(playerShip, fireRate, new SoundPool(Services.get(Services.ASSET).get("sounds/laser1.mp3"), 15)), 1);
-        let level2State = new WeaponState(weaponName, new Level2BulletFireCommand(playerShip, fireRate, new SoundPool(Services.get(Services.ASSET).get("sounds/laser1.mp3"), 15)), 2);
-        let level3State = new WeaponState(weaponName, new Level3BulletFireCommand(playerShip, fireRate, new SoundPool(Services.get(Services.ASSET).get("sounds/laser1.mp3"), 15)), 3);
-        let level4State = new WeaponState(weaponName, new Level4BulletFireCommand(playerShip, fireRate, new SoundPool(Services.get(Services.ASSET).get("sounds/laser1.mp3"), 15)), 4);
-        let level5State = new WeaponState(weaponName, new Level5BulletFireCommand(playerShip, fireRate, new SoundPool(Services.get(Services.ASSET).get("sounds/laser1.mp3"), 15)), 5);
+        // let level1State = new WeaponState(weaponName, new Level1BulletFireCommand(playerShip, new BlueBulletGameObject(playerShip.partition, new Vec2(1, 0)), fireRate, false, new SoundPool(Services.get(Services.ASSET).get("Sounds/laser1.mp3"), 15)), 1);
+        // let level2State = new WeaponState(weaponName, new Level2BulletFireCommand(playerShip, new BlueBulletGameObject(playerShip.partition, new Vec2(1, 0)), fireRate, false, new SoundPool(Services.get(Services.ASSET).get("Sounds/laser2.mp3"), 15)), 2);
+        // let level3State = new WeaponState(weaponName, new Level3BulletFireCommand(playerShip, new BlueBulletGameObject(playerShip.partition, new Vec2(1, 0)), fireRate, false, new SoundPool(Services.get(Services.ASSET).get("Sounds/laser3.mp3"), 15)), 3);
+        // let level4State = new WeaponState(weaponName, new Level4BulletFireCommand(playerShip, new BlueBulletGameObject(playerShip.partition, new Vec2(1, 0)), fireRate, false, new SoundPool(Services.get(Services.ASSET).get("Sounds/laser4.mp3"), 15)), 4);
+        // let level5State = new WeaponState(weaponName, new Level5BulletFireCommand(playerShip, new BlueBulletGameObject(playerShip.partition, new Vec2(1, 0)), fireRate, false, new SoundPool(Services.get(Services.ASSET).get("Sounds/laser5.mp3"), 15)), 5);
+        let level1State = new WeaponState(weaponName, new Level1BulletFireCommand(playerShip, fireRate, new SoundPool(Services.get(Services.ASSET).get("Sounds/laser1.mp3"), 15)), 1);
+        let level2State = new WeaponState(weaponName, new Level2BulletFireCommand(playerShip, fireRate * 0.95, new SoundPool(Services.get(Services.ASSET).get("Sounds/laser1.mp3"), 15)), 2);
+        let level3State = new WeaponState(weaponName, new Level3BulletFireCommand(playerShip, fireRate * 0.9, new SoundPool(Services.get(Services.ASSET).get("Sounds/laser1.mp3"), 15)), 3);
+        let level4State = new WeaponState(weaponName, new Level4BulletFireCommand(playerShip, fireRate * 0.85, new SoundPool(Services.get(Services.ASSET).get("Sounds/laser1.mp3"), 15)), 4);
+        let level5State = new WeaponState(weaponName, new Level5BulletFireCommand(playerShip, fireRate * 0.8, new SoundPool(Services.get(Services.ASSET).get("Sounds/laser1.mp3"), 15)), 5);
 
         // Liaisons entre les états
         level1State.previousWeaponState = level1State;

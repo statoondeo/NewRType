@@ -4,7 +4,7 @@ class RedBulletGameObject extends BulletGameObject {
         super(Services.get(Services.ASSET).get("Images/redbullet.png"), new Vec2(32), partition, direction, 350, 100);
         this.dieCommand.addCommand(new PopCommand(this, new RedExplosionGameObject()));
         this.layer = 0.99;
-        this.sound = Services.get(Services.ASSET).get("sounds/laser1.mp3");
+        this.sound = Services.get(Services.ASSET).get("Sounds/laser1.mp3");
     }
 
     getClone() {
