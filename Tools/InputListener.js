@@ -16,7 +16,7 @@ class InputListener {
         // Coordonnées de la souris
         this.mouse = new Vec2();
 
-        // Coordonnées du click
+        // Gestion du click
         this.click = false;
     }
 
@@ -80,6 +80,7 @@ class InputListener {
 
     // Fonctions à utiliser pour connaitre l'état du clavier
     // pour se rapprocher  de ce que propose love2D
+    
     // Est-ce que la touche est enfoncée?
     isDown(key) {
         return this.keyStates[key] == null ? false : this.keyStates[key];

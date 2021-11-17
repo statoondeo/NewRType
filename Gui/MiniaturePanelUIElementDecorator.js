@@ -1,5 +1,4 @@
 class BaseMiniaturePanelUIElementDecorator extends BasePanelUIElementDecorator {
-    static miniatureOffset = new Vec2(92, 96)
     constructor(panel, miniature, offset) {
         super(panel);
         this.offset = offset;

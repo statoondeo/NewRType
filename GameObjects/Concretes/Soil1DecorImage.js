@@ -1,5 +1,5 @@
 class Soil1DecorImage {
-    constructor() {
+    static createInstance() {
         let resources = Services.get(Services.ASSET);
 
         let soil1 = resources.get("Images/soil1.png")
@@ -13,7 +13,7 @@ class Soil1DecorImage {
         let tech_bottom_tile2 = resources.get("Images/tech_bottom_tile2.png")
         
         let totalSize = new Vec2(tech_bottom_end_left.width + soil1.width + soil3.width + soil4.width + tech_bottom_end_right.width, 
-            soil2.height + soil3.width + tech_bottom_tile.height);
+            soil2.height + soil3.height + tech_bottom_tile.height);
         // Constitution d'une image intermédiaire pour une manipulation unique de l'ensemble
         let imageAssembler = new ImageHandler(totalSize, new Vec2(1, 1));
 
@@ -39,6 +39,16 @@ class Soil1DecorImage {
 
         // On récupère le résultat
         imageAssembler.assemble();
-        this.image = imageAssembler.getAssembledImage();
+
+        return imageAssembler.getAssembledImage();
+    }
+
+    static instance = null;
+
+    static getInstance() {
+        if (Soil1DecorImage.instance == null) {
+            Soil1DecorImage.instance = Soil1DecorImage.createInstance();
+        }
+        return Soil1DecorImage.instance;
     }
 }

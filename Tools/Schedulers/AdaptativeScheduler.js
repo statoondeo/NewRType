@@ -13,7 +13,7 @@ class AdaptativeScheduler extends LinearScheduler {
         if (ServiceLocator.getService(ServiceLocator.KEYBOARD).isPressed("KeyA")) {
             this.baseSpeed *= 0.9;
         }
-        console.log("Scene speed", this.baseSpeed);
+
         // Avancement linéaire du currentStep
         super.update(dt);
     }

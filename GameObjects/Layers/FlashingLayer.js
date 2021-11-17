@@ -10,7 +10,6 @@ class FlashingLayer extends GameObject {
     }
 
     show() {
-        console.log("Show");
         this.status = GameObjectState.ACTIVE;
         this.visibilityTtl = this.visibilityMaxTtl;
         this.sprite.globalAlpha = 1;

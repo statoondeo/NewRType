@@ -17,7 +17,7 @@ class PlayerShipGameObject extends AnimatedSprite {
         this.speed = 200;
 
         this.dealDamageCommand = new DealDamageCommand(this, this.maxLife);
-        this.thrust = new ParticlesThrustGameObject(this, new BlueExplosionGameObject(75));
+        this.thrust = new ParticlesThrustGameObject(this, new BlueExplosionGameObject(60));
     }
 
     update(dt) {

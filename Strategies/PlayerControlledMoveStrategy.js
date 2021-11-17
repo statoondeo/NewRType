@@ -8,25 +8,18 @@ class PlayerControlledMoveStrategy extends BaseMoveStrategy {
         this.vector.x = this.vector.y = 0;
 
         // On exécute toutes les commandes demandées par le joueur
-        Services.get(Services.INPUT).handleInput().forEach(command => {
+        let commands = Services.get(Services.INPUT).handleInput();
+        for (let index = 0, len = commands.length; index < len; index++) {
+            const command = commands[index];
             command.execute();
-        });
+        }
 
         // Application des mouvements demandés
         super.update(dt);
 
         // On contrôle qu'il ne soit pas hors de l'écran
         let screen = Services.get(Services.SCREEN);
-        if (this.gameObject.position.x < 0) {
-            this.gameObject.position.x = 0;
-        } else if (this.gameObject.position.x + this.gameObject.size.x > screen.width) {
-            this.gameObject.position.x = screen.width - this.gameObject.size.x; 
-        }
-        
-        if (this.gameObject.position.y < 0) {
-            this.gameObject.position.y = 0;
-        } else if (this.gameObject.position.y + this.gameObject.size.y > screen.height) {
-            this.gameObject.position.y = screen.height - this.gameObject.size.y; 
-        }
+        this.gameObject.position.x = Tools.clamp(this.gameObject.position.x, 0, screen.width - this.gameObject.size.x);
+        this.gameObject.position.y = Tools.clamp(this.gameObject.position.y, 0, screen.height - this.gameObject.size.y);
     }
 }

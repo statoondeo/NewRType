@@ -3,7 +3,8 @@ class AnimatedSprite extends GameObject {
         super();
 
         // Pour la gestion des spriteSheet
-        this.image = image;
+        this.image = this.notDamagedImage = image;
+        this.damagedImage = damagedImage;
         this.currentFrame = 0;
         this.size = tileSheet;
         this.tile = new Vec2();
@@ -13,10 +14,16 @@ class AnimatedSprite extends GameObject {
         this.animations = [];
         this.currentAnimation = null;
 
-        this.damagedMaxTtl = 0.15;
-        this.notdamagedImage = this.image;
-        this.damagedImage = damagedImage;
         this.damageTtl = 0;
+        this.damagedMaxTtl = 0.15;
+    }
+
+    damage(amount) {
+        super.damage(amount);
+        if (this.damagedImage != null) {
+            this.damageTtl = this.damagedMaxTtl;
+            this.image = this.damagedImage;
+        }
     }
 
     getNewFrame() {
@@ -53,6 +60,14 @@ class AnimatedSprite extends GameObject {
             // On récupère la nouvelle frame de l'animation
             this.getNewFrame();
         }
+
+        if (this.damageTtl > 0) {
+            this.damageTtl -= dt;
+            if (this.damageTtl < 0) {
+                this.damageTtl = 0;
+                this.image = this.notDamagedImage;
+            }
+        }
     }
 
     draw(context) {
@@ -68,6 +83,7 @@ class AnimatedSprite extends GameObject {
             Math.floor(this.position.y), 
             Math.floor(this.size.x), 
             Math.floor(this.size.y));
+
         context.restore();
         if (Services.get(Services.PARAMETER).colliderDisplay) {
             this.collideBox.draw(context);

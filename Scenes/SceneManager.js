@@ -10,9 +10,9 @@ class SceneManager extends Manager {
         this.scenes[sceneName] = scene;
     }
 
-    setCurrent(sceneName) {
+    setCurrent(sceneName, start) {
         this.currentScene = this.scenes[sceneName];
-        this.currentScene.load();
+        this.currentScene.load(start);
     }
 
     update(dt) {

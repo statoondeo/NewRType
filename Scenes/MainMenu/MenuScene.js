@@ -3,7 +3,7 @@ class MenuScene extends BaseScene {
         super();
     }
 
-    load() {
+    load(start) {
         super.load();
 
         let resources = Services.get(Services.ASSET);
@@ -61,7 +61,7 @@ class MenuScene extends BaseScene {
         mainPanel.addElement(button);
 
         // Début réél du jeu
-        button = new ButtonUIElement("Allons-y ...", new SwitchSceneCommand(this, "LEVEL1"));
+        button = new ButtonUIElement("Allons-y ...", new SwitchSceneCommand(this, "LEVEL1", 0));
         button.position.x = (SmallPanelUIElement.size.x - ButtonUIElement.size.x) / 2
         button.position.y = SmallPanelUIElement.size.y * 0.6;
         panel2.addElement(button);

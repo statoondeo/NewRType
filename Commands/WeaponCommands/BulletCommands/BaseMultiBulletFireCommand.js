@@ -1,11 +1,10 @@
 class BaseMultiBulletFireCommand extends CompositeCommand {
-    constructor(gameObject, bulletPrototype, fireRate, sound) {
+    constructor(gameObject, fireRate, sound) {
         super();
         this.gameObject = gameObject;
-        this.bulletPrototype = bulletPrototype;
         this.fireRateTtl = this.fireRate = fireRate;
-        this.frontAngle = Math.PI / 6;        
-        this.rearAngle = Math.PI / 12;       
+        this.frontAngle = Math.PI / 12;        
+        this.rearAngle = Math.PI / 6;       
         this.sound = sound; 
     }
 

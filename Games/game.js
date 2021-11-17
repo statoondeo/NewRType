@@ -59,11 +59,11 @@ function load(canvas) {
     let assetLoader = new AssetLoader();
 
     // Services utilisés dans toute l'application
-    Services.registerService(Services.SCREEN, { width : canvas.width, height : canvas.height });
-    Services.registerService(Services.INPUT, inputListener);
-    Services.registerService(Services.ASSET, assetLoader);
-    Services.registerService(Services.PARAMETER, new Parameter());
-    Services.registerService(Services.AUDIO, new AudioContext());
+    Services.register(Services.SCREEN, { width : canvas.width, height : canvas.height });
+    Services.register(Services.INPUT, inputListener);
+    Services.register(Services.ASSET, assetLoader);
+    Services.register(Services.PARAMETER, new Parameter());
+    Services.register(Services.AUDIO, new AudioContext());
     
     // Ressources à charger
     assetLoader.add(AssetLoader.IMAGE, "Images/player1.png");
@@ -107,6 +107,8 @@ function load(canvas) {
     assetLoader.add(AssetLoader.IMAGE, "Images/gas2.png");
     assetLoader.add(AssetLoader.IMAGE, "Images/klaw.png");
     assetLoader.add(AssetLoader.IMAGE, "Images/Gui/bigPanel.png");
+    assetLoader.add(AssetLoader.IMAGE, "Images/Gui/bigPanel1.png");
+    assetLoader.add(AssetLoader.IMAGE, "Images/Gui/bigPanel2.png");
     assetLoader.add(AssetLoader.IMAGE, "Images/Gui/button.png");
     assetLoader.add(AssetLoader.IMAGE, "Images/Gui/smallPanel.png");
     assetLoader.add(AssetLoader.IMAGE, "Images/Gui/verySmallPanel.png");
@@ -134,7 +136,7 @@ function startGame() {
     sceneManager.addScene("MENU", new MenuScene());
     sceneManager.addScene("LEVEL1", new Level1Scene());
     sceneManager.setCurrent("LEVEL1");
-    Services.registerService(Services.SCENE, sceneManager);
+    Services.register(Services.SCENE, sceneManager);
 
     // On fait disparaitre les élément de chargement
     loaderImage.style.visibility = "hidden";
@@ -163,6 +165,10 @@ function update(dt) {
     if (inputListener.isPressed("KeyC")) {
         let parameters = Services.get(Services.PARAMETER);
         parameters.setColliderDisplay(!parameters.colliderDisplay);
+    }
+
+    if (inputListener.isPressed("KeyV")) {
+        Services.get(Services.SCENE).currentScene.playerShip.fireCommand.weapon.levelUp();
     }
 }
 

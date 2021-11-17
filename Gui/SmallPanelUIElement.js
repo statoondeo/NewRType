@@ -6,13 +6,11 @@ class BasePanelUIElement extends PanelUIElement {
     }
 }
 class SmallPanelUIElement extends BasePanelUIElement {
-    static size = new Vec2(619, 614);
     constructor(position, visibility) {
         super(position, visibility, Services.get(Services.ASSET).get("Images/Gui/smallPanel.png"));
     }
 }
 class RedSmallPanelUIElement extends BasePanelUIElement {
-    static size = new Vec2(619, 614);
     constructor(position, visibility) {
         super(position, visibility, Services.get(Services.ASSET).get("Images/Gui/smallPanel2.png"));
     }

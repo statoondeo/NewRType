@@ -1,19 +1,11 @@
-class Level2BulletFireCommand extends Level1BulletFireCommand {
-    constructor(gameObject, bulletPrototype, fireRate, randomized, sound) {
-        super(gameObject, bulletPrototype, fireRate, randomized, sound);
-
-        let startingPoint = new Vec2();
-        let otherBulletPrototype = bulletPrototype.getClone();
-
-        otherBulletPrototype.moveStrategy = new UniformMoveStrategy(otherBulletPrototype, new Vec2(Math.cos(-this.frontAngle), Math.sin(-this.frontAngle)));
-        this.addCommand(new FireRatedFireCommand(gameObject, otherBulletPrototype, startingPoint, fireRate, randomized));
-
-        otherBulletPrototype = bulletPrototype.getClone();
-        otherBulletPrototype.moveStrategy = new UniformMoveStrategy(otherBulletPrototype, new Vec2(Math.cos(this.frontAngle), Math.sin(this.frontAngle)));
-        this.addCommand(new FireRatedFireCommand(gameObject, otherBulletPrototype, startingPoint, fireRate, randomized));
+class Level2BulletFireCommand extends BaseMultiBulletFireCommand {
+    constructor(gameObject, fireRate, sound) {
+        super(gameObject, fireRate, sound);
+        this.addCommand(new RandomizedFireRatedFireCommand(this.gameObject, new WeaponBlueBulletGameObject(gameObject, -Math.PI / 36, new Vec2(0, -10)), new Vec2(), this.fireRate));
+        this.addCommand(new RandomizedFireRatedFireCommand(this.gameObject, new WeaponBlueBulletGameObject(gameObject, Math.PI / 36, new Vec2(0, -10)), new Vec2(), this.fireRate));
     }
 
     getClone(gameObject) {
-        return new Level2BulletFireCommand(gameObject, this.bulletPrototype.getClone(), this.fireRate, this.randomized);
+        return new Level2BulletFireCommand(gameObject, this.fireRate, sound);
     }
 }

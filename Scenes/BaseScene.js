@@ -43,7 +43,7 @@ class BaseScene {
     }
 
     // Chargement de la scène
-    load() {
+    load(start) {
         // Initialisation de la scène
         this.gameObjectsCollection = [];
 
@@ -105,8 +105,7 @@ class BaseScene {
             }
         });
 
-        let collision = false;
-        this.gameObjectsCollection.forEach(gameObject => {
+         this.gameObjectsCollection.forEach(gameObject => {
             gameObject.collideBox.setCollided(false);
 
             // On ne traite que les objets qui ont une collideBox et qui sont actifs
@@ -121,7 +120,7 @@ class BaseScene {
                     if ((targetGameObject.partition != gameObject.partition) && 
                         (targetGameObject.status == GameObjectState.ACTIVE) && 
                         (targetGameObject.collideBox.type != CollideBoxType.NONE) &&
-                        (collision = gameObject.collideBox.collide(targetGameObject.collideBox))) {
+                        (gameObject.collideBox.collide(targetGameObject.collideBox))) {
 
                             // Si une collision est détectée, on exécute le comportement associé du gameObject
                             // matérialisé dans une commande

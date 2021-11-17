@@ -8,7 +8,7 @@ class Services {
 
     static services = [];
 
-    static registerService(serviceType, service) {
+    static register(serviceType, service) {
         this.services[serviceType] = service;
     }
     static get(serviceType) {

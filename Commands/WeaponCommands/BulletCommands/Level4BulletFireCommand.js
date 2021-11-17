@@ -1,11 +1,10 @@
 class Level4BulletFireCommand extends Level3BulletFireCommand {
-    constructor(gameObject, bulletPrototype, fireRate, randomized, sound) {
-        super(gameObject, bulletPrototype, fireRate, randomized, sound);
-        this.addCommand(new FireRatedFireCommand(gameObject, bulletPrototype, new Vec2(0, -this.bulletPrototype.size.y), fireRate, randomized));
-        this.addCommand(new FireRatedFireCommand(gameObject, bulletPrototype, new Vec2(0, this.bulletPrototype.size.y), fireRate, randomized));
+    constructor(gameObject, fireRate, sound) {
+        super(gameObject, fireRate, sound);
+        this.addCommand(new RandomizedFireRatedFireCommand(this.gameObject, new WeaponBlueBulletGameObject(gameObject, 0, new Vec2(0, -10)), new Vec2(), this.fireRate));
     }
 
     getClone(gameObject) {
-        return new Level4BulletFireCommand(gameObject, this.bulletPrototype.getClone(), this.fireRate, this.randomized);
+        return new Level4BulletFireCommand(gameObject, this.fireRate, this.sound);
     }
 }

@@ -19,6 +19,10 @@ class Tools {
         return vector;
     }  
 
+    static clamp(value, min, max) {
+        return Math.max(Math.min(value, max), min);
+    }
+
     static lerp(minBound, maxBound, ratio) {
         return minBound * (1 - ratio) + maxBound * ratio;
     }

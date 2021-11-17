@@ -1,9 +1,10 @@
 class SwitchSceneCommand extends BaseCommand {
-    constructor(currentScene, targetScene) {
+    constructor(currentScene, targetScene, start) {
         super();
         this.currentScene = currentScene;
         this.targetScene = targetScene;
-        this.gotoCommand = new GotoSceneCommand(this.targetScene);
+        this.start = start;
+        this.gotoCommand = new GotoSceneCommand(this.targetScene, this.start);
     }
 
     getClone() {

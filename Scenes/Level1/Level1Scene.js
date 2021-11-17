@@ -3,8 +3,8 @@ class Level1Scene extends BaseScene {
         super()
     }
 
-    load() {
-        super.load();
+    load(start) {
+        super.load(start);
 
         let resources = Services.get(Services.ASSET);
         let screen = Services.get(Services.SCREEN);
@@ -13,7 +13,7 @@ class Level1Scene extends BaseScene {
         let baseSpeed = 120;
 
         // Métronome
-        this.scheduler = new LinearScheduler(baseSpeed, screen.width);
+        this.scheduler = new LinearScheduler(baseSpeed, start == 0 ? screen.width : start);
         
         // Gestion du joueur
         let playerShip = new Player1ShipGameObject(new Vec2((screen.width - PlayerShipGameObject.size.x) / 2, (screen.height - PlayerShipGameObject.size.y) / 2));
@@ -27,9 +27,9 @@ class Level1Scene extends BaseScene {
         this.addSynchronizedGameObject(hud); 
 
         // Ecran de défaite
-        let defeatPanel = new BigPanelUIElement(new Vec2(), false);
+        let defeatPanel = new RedBigPanelUIElement(new Vec2(), false);
         defeatPanel.addElement(new SpriteUIElement(Level1DefeatedImage.getInstance()));
-        let button = new ButtonUIElement("Rejouer", new SwitchSceneCommand(this, "LEVEL1"));
+        let button = new ButtonUIElement("Rejouer", new SwitchSceneCommand(this, "LEVEL1", 1820));
         button.position.x = (screen.width - 2 * ButtonUIElement.size.x) / 3;
         button.position.y = screen.height * 0.75;
         defeatPanel.addElement(button);
@@ -83,6 +83,9 @@ class Level1Scene extends BaseScene {
         // On retourne le décor rocheux pour l'utiliser dans la scène
         this.addSynchronizedGameObject(new DecorsGameObject(ImageHandler.flipImage(rockyDecorImage.image, new Vec2(-1)), 0.9, baseSpeed, 6150, new Vec2(screen.width, 0), false));
 
+        // Obstacle de 1er plan
+        // this.addSynchronizedGameObject(new DecorsGameObject(Soil1DecorImage.getInstance(), 2, baseSpeed, 5000, new Vec2(screen.width, screen.height - Soil1DecorImage.getInstance().height), true));
+
         // Gestion des vagues
         this.addSynchronizedGameObject(new TimeSequenceSpawnerGameObject(new StarknifeGameObject(), 2000, new Vec2(screen.width, screen.height / 5),  1, 8));
         this.addSynchronizedGameObject(new TimeSequenceSpawnerGameObject(new StarknifeGameObject(), 2700, new Vec2(screen.width, 2 * screen.height / 5),  1, 10));
@@ -95,9 +98,9 @@ class Level1Scene extends BaseScene {
         this.addSynchronizedGameObject(new TimeSequenceSpawnerGameObject(new WobblerGameObject(playerShip), 4300, new Vec2(-WobblerGameObject.size.x, (screen.height - WobblerGameObject.size.y) / 3), 1, 14));
         this.addSynchronizedGameObject(new AllInCircleSpawnerGameObject(new StarknifeGameObject(), new Vec2(2 * (screen.width - StarknifeGameObject.size.x) / 3, (screen.height - StarknifeGameObject.size.y) / 2), 16, 5800));
 
-        // Boss
+        // // Boss
         // Ecran de victoire
-        let victoryPanel = new BigPanelUIElement(new Vec2(), false);
+        let victoryPanel = new BlueBigPanelUIElement(new Vec2(), false);
         victoryPanel.addElement(new SpriteUIElement(Level1VictoryImage.getInstance()));
         button = new ButtonUIElement("Menu", new SwitchSceneCommand(this, "MENU"));
         button.position.x = (screen.width - 2 * ButtonUIElement.size.x) / 3;
@@ -142,7 +145,7 @@ class Level1Scene extends BaseScene {
         panel = new RedVerySmallPanelUIElement(new Vec2(screen.width - VerySmallPanelUIElement.size.x, 0), false);
         panel.addElement(new SpriteUIElement(Level1BigSaucer1Image.getInstance()));
         panel = new RedMiniaturePanelUIElementDecorator(panel, bigSaucerMiniature);
-        panel = new StartableUIElementDecorator(panel, 1700, 2000);
+        panel = new StartableUIElementDecorator(panel, 1820, 2000);
         this.addSynchronizedGameObject(panel); 
         
         // Narration
