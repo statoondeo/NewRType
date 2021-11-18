@@ -24,7 +24,7 @@ class MainMenuBigSaucerImage {
         text.position.y = 280;
         text.draw(context);
 
-        text = new TextUIElement("Je serais bientôt en route avec mes", "silver", "14pt neuropol");
+        text = new TextUIElement("Je serai bientôt en route avec mes", "silver", "14pt neuropol");
         text.position.x = 70;
         text.position.y = 340;
         text.draw(context);

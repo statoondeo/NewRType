@@ -20,26 +20,16 @@ class BigSaucerFinalApex extends CompositeCurve {
         this.addCurve(new BezierCurve(8, [ pt1, pt2, pt3, pt4 ]));
 
         // Trajectoire en huit
-        this.addCurve(new BezierCurve(8, [ pt4, pt5, pt6, pt7 ]));
-        this.addCurve(new BezierCurve(8, [ pt7, pt8, pt3, pt4 ]));
-        this.addCurve(new BezierCurve(8, [ pt4, pt5, pt9, pt10 ]));  
-        this.addCurve(new BezierCurve(8, [ pt10, pt2, pt3, pt4 ]));          
+        let curve = new CompositeCurve(true);
+        curve.addCurve(new BezierCurve(8, [ pt4, pt5, pt6, pt7 ]));
+        curve.addCurve(new BezierCurve(8, [ pt7, pt8, pt3, pt4 ]));
+        curve.addCurve(new BezierCurve(8, [ pt4, pt5, pt9, pt10 ]));  
+        curve.addCurve(new BezierCurve(8, [ pt10, pt2, pt3, pt4 ]));          
+
+        this.addCurve(curve);
     }
 
     getClone() {
         return new BigSaucerFinalApex(this.size);
-    }
-
-    update(dt){
-        super.update(dt);
-        // Big saucer tourne boucle sur cette trajectoire (sans refaire l'approche)
-        if (this.isEnded()) {
-            this.currentCurveIndex = 1;
-            this.elapse = 0
-            for (let index = this.currentCurveIndex; index < this.curves.length; index++) {
-                const curve = this.curves[index];
-                curve.elapse = 0;                
-            }
-        }
     }
 }

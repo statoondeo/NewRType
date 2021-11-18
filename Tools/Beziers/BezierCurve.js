@@ -3,8 +3,11 @@ class BezierCurve {
         this.duration = duration;
         this.pointsList = pointsList;
         this.elapse = 0;
-
         this.currentPoint = new Vec2(this.pointsList[0].x, this.pointsList[0].y);
+    }
+
+    reset() {
+        this.elapse = 0;
     }
 
     isEnded() {
@@ -19,10 +22,36 @@ class BezierCurve {
         return new BezierCurve(this.duration, cloneArray);
     }
 
+    rotate(angle, origine = null) {
+        let first;
+        let previousPoint;
+        if (origine  == null) {
+            first = true;
+            previousPoint = new Vec2();
+        }
+        else {
+            first = false;
+            previousPoint = origine.getClone();
+        }
+        this.pointsList.forEach(point => {
+            if (first) {
+                first = false;
+                previousPoint.x = point.x;
+                previousPoint.y = point.y;
+                }
+            else {
+                let newAngle = Math.atan2(point.y - previousPoint.y, point.x - previousPoint.x) + angle;
+                let longueur = Tools.distance(point, previousPoint);
+                point.x = previousPoint.x + longueur * Math.cos(newAngle);
+                point.y = previousPoint.y + longueur * Math.sin(newAngle);
+            }
+        });
+    }
+
     update(dt) {
         // Ou en est-on dans l'avancement sur la trajectoire
         this.elapse += dt;
-        let ratio = this.elapse / this.duration;
+        let ratio = Tools.clamp(this.elapse / this.duration, 0, 1);
 
         // On démarre avec la liste complète
         let table = this.pointsList
@@ -51,5 +80,9 @@ class BezierCurve {
 
     getPoint() {
         return this.currentPoint;
+    }
+    
+    getPoints() {
+        return this.pointsList;
     }
 }

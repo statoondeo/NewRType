@@ -152,7 +152,7 @@ function startGame() {
     sceneManager = new SceneManager();
     sceneManager.addScene("MENU", new MenuScene());
     sceneManager.addScene("LEVEL1", new Level1Scene());
-    sceneManager.setCurrent("MENU");
+    sceneManager.setCurrent("LEVEL1");
     Services.register(Services.SCENE, sceneManager);
 
     // On fait disparaitre les élément de chargement
@@ -182,6 +182,11 @@ function update(dt) {
     if (inputListener.isPressed("KeyC")) {
         let parameters = Services.get(Services.PARAMETER);
         parameters.setColliderDisplay(!parameters.colliderDisplay);
+    }
+
+    // God mode?
+    if (inputListener.isPressed("KeyI")) {
+        Services.get(Services.SCENE).currentScene.playerShip.invincible = !Services.get(Services.SCENE).currentScene.playerShip.invincible;
     }
 
     if (inputListener.isPressed("KeyV")) {

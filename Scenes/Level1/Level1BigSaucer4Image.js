@@ -1,4 +1,4 @@
-class Level1BigSaucer2Image {
+class Level1BigSaucer4Image {
     static createInstance() {
         let screen = Services.get(Services.SCREEN);
         let canvas = ImageHandler.createCanvas(screen.width, screen.height);
@@ -9,21 +9,26 @@ class Level1BigSaucer2Image {
         text.position.y = 100;
         text.draw(context);
 
-        text = new TextUIElement("Immonde vermiceau!", "white", "bold 18pt neuropol");
+        text = new TextUIElement("Arrrrrrg!!", "white", "bold 18pt neuropol");
         text.position.x = 100;
-        text.position.y = 215;
+        text.position.y = 200;
         text.draw(context);
         
+        text = new TextUIElement("Faut-il donc tout faire soi-même?", "white", "14pt neuropol");
+        text.position.x = 100;
+        text.position.y = 230;
+        text.draw(context);
+
         return canvas;
     }
 
     static instance;
 
     static getInstance() {
-        if (Level1BigSaucer2Image.instance == null) {
-            Level1BigSaucer2Image.instance = Level1BigSaucer2Image.createInstance();
+        if (Level1BigSaucer4Image.instance == null) {
+            Level1BigSaucer4Image.instance = Level1BigSaucer4Image.createInstance();
         }
 
-        return Level1BigSaucer2Image.instance;
+        return Level1BigSaucer4Image.instance;
     }
 }

@@ -186,8 +186,9 @@ class BaseScene {
         if (Services.get(Services.PARAMETER).colliderDisplay) {
             context.fillStyle = "White";
             context.font = "normal 10pt neuropol";
+            context.fillText("Step         : " + Math.floor(this.scheduler.currentStep), 5, 755);
             context.fillText("Game objects : " + this.gameObjectsCollection.length, 5, 775);
-            context.fillText("Fps : " + Math.round(fpsList.reduce((a, b) => a + b) / fpsList.length), 5, 795);
+            context.fillText("Fps          : " + Math.round(fpsList.reduce((a, b) => a + b) / fpsList.length), 5, 795);
 
             // Affichage du quadTree
             if (null != this.quadTree) {

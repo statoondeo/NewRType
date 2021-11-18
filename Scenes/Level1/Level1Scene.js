@@ -16,7 +16,8 @@ class Level1Scene extends BaseScene {
         this.scheduler = new LinearScheduler(baseSpeed, start == null || start == 0 ? screen.width : start);
 
         // Gestion du joueur
-        let playerShip = new Player1ShipGameObject(new Vec2((screen.width - PlayerShipGameObject.size.x) / 2, (screen.height - PlayerShipGameObject.size.y) / 2));
+        let playerShip = new Player1ShipGameObject(new Vec2((screen.width - PlayerShipGameObject.size.x) / 4, (screen.height - PlayerShipGameObject.size.y) / 2));
+        playerShip.invincible = true;
         this.addPlayerShip(playerShip);
         this.addGameObject(playerShip.flashLayer);
 
@@ -90,17 +91,93 @@ class Level1Scene extends BaseScene {
         // Obstacle de 1er plan
         // this.addSynchronizedGameObject(new DecorsGameObject(Soil1DecorImage.getInstance(), 2, baseSpeed, 5000, new Vec2(screen.width, screen.height - Soil1DecorImage.getInstance().height), true));
 
-        // Gestion des vagues
-        this.addSynchronizedGameObject(new TimeSequenceSpawnerGameObject(new StarknifeGameObject(), 2400, new Vec2(screen.width, screen.height / 5),  1, 8));
-        this.addSynchronizedGameObject(new TimeSequenceSpawnerGameObject(new StarknifeGameObject(), 3200, new Vec2(screen.width, 2 * screen.height / 5),  1, 10));
-        this.addSynchronizedGameObject(new TimeSequenceSpawnerGameObject(new StarknifeGameObject(), 3800, new Vec2(screen.width, 3 * screen.height / 5),  1, 12));
+        // Déroulement de la scène
 
-        // Gestion des bonus
-        this.addSynchronizedGameObject(new TimeSequenceSpawnerGameObject(new SpeedPowerUpGameObject(this.playerShip), 4600, new Vec2(screen.width, (screen.height - SpeedPowerUpGameObject.size.y) / 2), 1, 1));
+        // Narration : Titre du niveau
+        let panel = new PanelUIElement(new Vec2(), true);
+        panel.addElement(new SpriteUIElement(Level1TitleImage.getInstance()));
+        let startableElement = new DelayablePanelUIElementDecorator(panel, 1, 3);
+        startableElement.show();
+        this.addGameObject(startableElement); 
+
+        // Narration : Commandes de jeu
+        panel = new SmallPanelUIElement(new Vec2(0, screen.height - SmallPanelUIElement.size.y), false);
+        panel.addElement(new SpriteUIElement(Level1RareoyArdeas1Image.getInstance()));
+        panel = new MiniaturePanelUIElementDecorator(panel, new UIElementDecorator(new Player1ShipMiniatureGameObject()));
+        panel = new StartableUIElementDecorator(panel, 1780, 2100);
+        this.addSynchronizedGameObject(panel); 
+
+        // Narration : Big Saucer
+        let bigSaucerMiniature = new UIElementDecorator(new BigSaucerMiniatureGameObject(), true);
+        panel = new RedVerySmallPanelUIElement(new Vec2(screen.width - VerySmallPanelUIElement.size.x, 0), false);
+        panel.addElement(new SpriteUIElement(Level1BigSaucer1Image.getInstance()));
+        panel = new RedMiniaturePanelUIElementDecorator(panel, bigSaucerMiniature);
+        panel = new StartableUIElementDecorator(panel, 2120, 2360);
+        this.addSynchronizedGameObject(panel); 
+
+        // Gestion des vagues
+        this.addSynchronizedGameObject(new TimeSequenceSpawnerGameObject(new StarknifeGameObject(), 2400, new Vec2(screen.width, screen.height / 7), 0.3, 6));
+        this.addSynchronizedGameObject(new TimeSequenceSpawnerGameObject(new StarknifeGameObject(), 2700, new Vec2(screen.width, 2 * screen.height / 7),  0.4, 7));
+        this.addSynchronizedGameObject(new TimeSequenceSpawnerGameObject(new StarknifeGameObject(), 2900, new Vec2(screen.width, 3 * screen.height / 7),  0.5, 8));
+
+        // // Gestion des bonus
+        this.addSynchronizedGameObject(new TimeSequenceSpawnerGameObject(new SpeedPowerUpGameObject(this.playerShip), 3400, new Vec2(screen.width, (screen.height - SpeedPowerUpGameObject.size.y) / 2), 1, 1));
 
         // Vagues suivantes
-        this.addSynchronizedGameObject(new TimeSequenceSpawnerGameObject(new WobblerGameObject(playerShip), 5000, new Vec2(-WobblerGameObject.size.x, (screen.height - WobblerGameObject.size.y) / 3), 1, 14));
-        this.addSynchronizedGameObject(new AllInCircleSpawnerGameObject(new AtomGameObject(), new Vec2(2 * (screen.width - StarknifeGameObject.size.x) / 3, (screen.height - StarknifeGameObject.size.y) / 2), 16, 7000));
+        this.addSynchronizedGameObject(new TimeSequenceSpawnerGameObject(new WobblerGameObject(playerShip), 4000, new Vec2(-WobblerGameObject.size.x), 0.4, 10));
+
+        this.addSynchronizedGameObject(new TimeSequenceSpawnerGameObject(new StarknifeGameObject(), 4900, new Vec2(screen.width, 3 * screen.height / 7), 0.4, 8));
+        this.addSynchronizedGameObject(new TimeSequenceSpawnerGameObject(new StarknifeGameObject(), 5200, new Vec2(screen.width, 2 * screen.height / 7),  0.35, 10));
+        this.addSynchronizedGameObject(new TimeSequenceSpawnerGameObject(new StarknifeGameObject(), 5400, new Vec2(screen.width, screen.height / 7),  0.3, 12));
+
+        // Narration : Big Saucer
+        panel = new RedVerySmallPanelUIElement(new Vec2(screen.width - VerySmallPanelUIElement.size.x, 0), false);
+        panel.addElement(new SpriteUIElement(Level1BigSaucer2Image.getInstance()));
+        panel = new RedMiniaturePanelUIElementDecorator(panel, bigSaucerMiniature);
+        panel = new StartableUIElementDecorator(panel, 6100, 6500);
+        this.addSynchronizedGameObject(panel); 
+        
+        // Passage de Big Saucer
+        let bigSaucer = new BigSaucerGameObject(playerShip);
+        this.addSynchronizedGameObject(new OnceSpawnerGameObject(bigSaucer, 6600, new Vec2(), Services.get(Services.ASSET).get("Sounds/Tense_01_wav.wav")));
+        this.addGameObject(bigSaucer.flashLayer);
+
+        // Narration : Big Saucer
+        panel = new RedVerySmallPanelUIElement(new Vec2(screen.width - VerySmallPanelUIElement.size.x, 0), false);
+        panel.addElement(new SpriteUIElement(Level1BigSaucer3Image.getInstance()));
+        panel = new RedMiniaturePanelUIElementDecorator(panel, bigSaucerMiniature);
+        panel = new StartableUIElementDecorator(panel, 10000, 10400);
+        this.addSynchronizedGameObject(panel); 
+
+        // Gestion des vagues
+        this.addSynchronizedGameObject(new TimeSequenceSpawnerGameObject(new StarknifeGameObject(), 10500, new Vec2(screen.width, screen.height / 7), 0.3, 10));
+        this.addSynchronizedGameObject(new TimeSequenceSpawnerGameObject(new StarknifeGameObject(), 10700, new Vec2(screen.width, 2 * screen.height / 7),  0.4, 12));
+        this.addSynchronizedGameObject(new TimeSequenceSpawnerGameObject(new StarknifeGameObject(), 11000, new Vec2(screen.width, 3 * screen.height / 7),  0.3, 14));
+
+        // // Gestion des bonus
+        this.addSynchronizedGameObject(new TimeSequenceSpawnerGameObject(new SpeedPowerUpGameObject(this.playerShip), 11500, new Vec2(screen.width, (screen.height - SpeedPowerUpGameObject.size.y) / 2), 1, 1));
+
+        let mainCurve = new CompositeCurve();
+        let curve = new CompositeCurve(true, 2);
+        curve.addCurve(new BezierCurve(5, [ new Vec2(640, 400), new Vec2(640, 736), new Vec2(304, 736), new Vec2(304, 400) ]));
+        curve.addCurve(new BezierCurve(5, [ new Vec2(304, 400), new Vec2(304, 64), new Vec2(640, 64), new Vec2(640, 400) ]));
+        mainCurve.addCurve(curve);
+        mainCurve.addCurve(new BezierCurve(5, [ new Vec2(640, 400), new Vec2(640, 736), new Vec2(-128, 736) ]));
+        let ship = new AtomGameObject();
+        let moveStrategy = new BezierApexMoveStrategy(ship, mainCurve);
+        ship.moveStrategy = moveStrategy;
+        this.addSynchronizedGameObject(new AllInCircleSpawnerGameObject(ship, new Vec2(2 * (screen.width - AtomGameObject.size.x) / 3, (screen.height - AtomGameObject.size.y) / 2), 12, 12000));
+
+        this.addSynchronizedGameObject(new TimeSequenceSpawnerGameObject(new StarknifeGameObject(), 15500, new Vec2(screen.width, 3 * screen.height / 7), 0.25, 14));
+        this.addSynchronizedGameObject(new TimeSequenceSpawnerGameObject(new StarknifeGameObject(), 15650, new Vec2(screen.width, 2 * screen.height / 7),  0.5, 16));
+        this.addSynchronizedGameObject(new TimeSequenceSpawnerGameObject(new StarknifeGameObject(), 15800, new Vec2(screen.width, screen.height / 7), 0.25, 18));
+       
+        // Narration
+        panel = new RedVerySmallPanelUIElement(new Vec2(screen.width - VerySmallPanelUIElement.size.x, 0), false);
+        panel.addElement(new SpriteUIElement(Level1BigSaucer4Image.getInstance()));
+        panel = new RedMiniaturePanelUIElementDecorator(panel, bigSaucerMiniature);
+        panel = new StartableUIElementDecorator(panel, 17000, 17600);
+        this.addSynchronizedGameObject(panel); 
 
         // // Boss
         // Ecran de victoire
@@ -121,7 +198,7 @@ class Level1Scene extends BaseScene {
         victoryPanel = new DelayablePanelUIElementDecorator(victoryPanel, 0.5);
         this.addGameObject(victoryPanel);
 
-        let bigSaucer = new BigSaucerGameObject(playerShip);
+        bigSaucer = new BigSaucerGameObject(playerShip);
         bigSaucer.moveStrategy = new BezierApexMoveStrategy(bigSaucer, new BigSaucerFinalApex(bigSaucer.size)); 
         bigSaucer.dieCommand.addCommand(new HidePanelCommand(hud));
         bigSaucer.dieCommand.addCommand(new HidePanelCommand(bigSaucer.bossHud));
@@ -130,38 +207,10 @@ class Level1Scene extends BaseScene {
         bigSaucer.dieCommand.addCommand(new StopSchedulerCommand(playerShip, this.scheduler));
         bigSaucer.dieCommand.addCommand(new SwitchMusicCommand(this, resources.get("Musics/alexander-nakarada-we-are-victorious-finale.mp3")));
 
-        this.addSynchronizedGameObject(new OnceSpawnerGameObject(bigSaucer, 8000, new Vec2(), Services.get(Services.ASSET).get("Sounds/Tense_01_wav.wav")));
-
-        // Narration
-        let panel = new PanelUIElement(new Vec2(), true);
-        panel.addElement(new SpriteUIElement(Level1TitleImage.getInstance()));
-        let startableElement = new DelayablePanelUIElementDecorator(panel, 1, 3);
-        startableElement.show();
-        this.addGameObject(startableElement); 
-
-        // Narration
-        panel = new SmallPanelUIElement(new Vec2(0, screen.height - SmallPanelUIElement.size.y), false);
-        panel.addElement(new SpriteUIElement(Level1RareoyArdeas1Image.getInstance()));
-        panel = new MiniaturePanelUIElementDecorator(panel, new UIElementDecorator(new Player1ShipMiniatureGameObject()));
-        panel = new StartableUIElementDecorator(panel, 1780, 2100);
-        this.addSynchronizedGameObject(panel); 
-
-        // Narration
-        let bigSaucerMiniature = new UIElementDecorator(new BigSaucerMiniatureGameObject(), true);
-        panel = new RedVerySmallPanelUIElement(new Vec2(screen.width - VerySmallPanelUIElement.size.x, 0), false);
-        panel.addElement(new SpriteUIElement(Level1BigSaucer1Image.getInstance()));
-        panel = new RedMiniaturePanelUIElementDecorator(panel, bigSaucerMiniature);
-        panel = new StartableUIElementDecorator(panel, 2120, 2360);
-        this.addSynchronizedGameObject(panel); 
-        
-        // Narration
-        panel = new RedVerySmallPanelUIElement(new Vec2(screen.width - VerySmallPanelUIElement.size.x, 0), false);
-        panel.addElement(new SpriteUIElement(Level1BigSaucer2Image.getInstance()));
-        panel = new RedMiniaturePanelUIElementDecorator(panel, bigSaucerMiniature);
-        panel = new StartableUIElementDecorator(panel, 7700, 7900);
-        this.addSynchronizedGameObject(panel); 
-
-        // Démarrage de la musique
+        this.addSynchronizedGameObject(new OnceSpawnerGameObject(bigSaucer, 17700, new Vec2(), Services.get(Services.ASSET).get("Sounds/Tense_01_wav.wav")));
+        this.addGameObject(bigSaucer.flashLayer);
+ 
+        // // Démarrage de la musique
         this.music = Services.get(Services.ASSET).get("Musics/bensound-scifi.mp3");
 
         this.show();

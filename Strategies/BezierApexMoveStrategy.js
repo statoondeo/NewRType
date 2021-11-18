@@ -1,11 +1,15 @@
 class BezierApexMoveStrategy extends BaseMoveStrategy {
     constructor(gameObject, curve) {
-        super(gameObject, new Vec2());   
+        super(gameObject, new Vec2(1));   
         this.curve = curve;
     }
 
     getClone(gameObject) {
         return new BezierApexMoveStrategy(gameObject, this.curve.getClone());
+    }
+
+    rotate(angle) {
+        this.curve.rotate(angle);
     }
 
     update(dt) {

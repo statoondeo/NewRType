@@ -14,7 +14,7 @@ class MainMenuRareoyArdeasImage {
         text.position.y = 230;
         text.draw(context);
 
-        text = new TextUIElement("moi qui vient!", "silver", "14pt neuropol");
+        text = new TextUIElement("moi qui viens!", "silver", "14pt neuropol");
         text.position.x = 100;
         text.position.y = 260;
         text.draw(context);

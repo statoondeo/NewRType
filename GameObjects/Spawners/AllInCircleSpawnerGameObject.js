@@ -7,7 +7,6 @@ class AllInCircleSpawnerGameObject extends BaseSpawner {
         this.status = GameObjectState.IDLE;
 
         this.spawns = [];
-        let angle = 0;
         let deltaAngle = 2 * Math.PI / this.spawnNumber;
 
         // On spawne tous les exemplaires demandés
@@ -18,21 +17,31 @@ class AllInCircleSpawnerGameObject extends BaseSpawner {
             newShip.position.x = this.position.x + this.size.x / 2;
             newShip.position.y = this.position.y + this.size.y / 2;
             
-            // On lui donne une direction qui s'éloigne du point d'apparition
-            newShip.moveStrategy = new UniformMoveStrategy(newShip, new Vec2(Math.cos(angle + deltaAngle * index), Math.sin(angle + deltaAngle * index)));
-            newShip.speed = 75;
+            newShip.moveStrategy = this.gameObjectPrototype.moveStrategy.getClone(newShip);
+            newShip.moveStrategy.rotate(deltaAngle * index);
 
             // On l'ajoute à la liste des gameObjects de la scene
             this.spawns.push(newShip);            
         }
     }
-     
+
+    getClone() {
+        return new AllInCircleSpawnerGameObject(this.gameObjectPrototype, this.appearPoint.getClone(), this.spawnNumber, this.startAt);
+    }
+
     // Est-ce que le spawner rentre en action?
     subjectChanged(scheduler) {
         if (scheduler.currentStep >= this.startAt) {
             scheduler.unregister(this);
-            this.status = GameObjectState.ACTIVE;
+            this.status = GameObjectState.OUTDATED;
             this.spawn();
+        }
+    }
+
+    update(dt) {
+        if (this.startAt == 0) {
+            this.spawn();
+            this.status = GameObjectState.OUTDATED;
         }
     }
 

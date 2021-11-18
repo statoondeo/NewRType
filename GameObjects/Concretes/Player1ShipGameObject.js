@@ -13,6 +13,7 @@ class Player1ShipGameObject extends PlayerShipGameObject {
         context.fillRect(0, 0, screen.width, screen.height);
         this.flashLayer = new FlashingLayer(canvas);
         this.damageSound = new SoundPool(Services.get(Services.ASSET).get("Sounds/Explosion_Sci_Fi_03_wav.wav"), 5);
+        this.invincible = false;
     }
                     
     getClone() {
@@ -24,7 +25,9 @@ class Player1ShipGameObject extends PlayerShipGameObject {
     }
 
     damage(amount) {
-        super.damage(amount);
+        if (!this.invincible) {
+            super.damage(amount);
+        }
         this.damageSound.play();
         this.flashLayer.show();
     }

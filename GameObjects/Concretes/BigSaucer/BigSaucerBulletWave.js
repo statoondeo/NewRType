@@ -41,7 +41,7 @@ class BigSaucerBulletWave extends BaseCommand {
     execute() {
         if (this.canExecute) {
             this.canExecute = false;
-            this.AllInCircleSpawnerGameObject = new AllInCircleSpawnerGameObject(new RedBulletGameObject(this.bigSaucer.partition), this.bigSaucer, 12, 0);
+            this.AllInCircleSpawnerGameObject = new AllInCircleSpawnerGameObject(new RedBulletGameObject(this.bigSaucer.partition, new Vec2(), 75), this.bigSaucer, 12, 0);
             this.AllInCircleSpawnerGameObject.spawn();
         }
     }

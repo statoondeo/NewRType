@@ -5,7 +5,8 @@ class BaseSpawner extends GameObject {
         super();
         this.gameObjectPrototype = gameObjectPrototype;
         this.spawnNumber = spawnNumber;
-        if (null != appearPoint.position) {
+        this.appearPoint = appearPoint;
+        if (null != appearPoint && null != appearPoint.position) {
             this.position = appearPoint.position;
             this.size = appearPoint.size;
         }

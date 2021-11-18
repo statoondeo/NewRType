@@ -44,6 +44,13 @@ class BigSaucerGameObject extends EnemyShipGameObject {
         let screen = Services.get(Services.SCREEN);
         this.bossHud = new RedMiniaturePanelUIElementDecorator(new RedHUDPanelUIElement(this, new Vec2(screen.width - BaseHUDPanelUIElement.size.x - 10, 0), false), new UIElementDecorator(new BigSaucerMiniatureGameObject()));
         this.bossHud.show();
+
+        // Flash rouge lorsqu'on passe en phase 2
+        let canvas = ImageHandler.createCanvas(screen.width, screen.height);
+        let context = canvas.getContext("2d");
+        context.fillStyle = "red";
+        context.fillRect(0, 0, screen.width, screen.height);
+        this.flashLayer = new FlashingLayer(canvas);
     }
 
     static getAnimatedSprite() {
@@ -58,6 +65,7 @@ class BigSaucerGameObject extends EnemyShipGameObject {
         if (!this.fireCommandUp && this.life < this.maxLife * 0.3) {
             this.fireCommandUp = true;
             this.fireCommand.weapon.levelUp();
+            this.flashLayer.show();
         }
         this.sound.play();
     }
