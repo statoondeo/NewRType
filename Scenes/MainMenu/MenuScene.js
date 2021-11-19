@@ -29,6 +29,8 @@ class MenuScene extends BaseScene {
         playerShip.partition = GameObjectPartition.PLAYER_PARTITION;
         this.addPlayerShip(playerShip);
 
+        this.camShake = new CamShake(playerShip);
+
         // Big Saucer met l'ambiance dans la scène
         let bigSaucer = new BigSaucerGameObject(playerShip, new TimedCubeGameObject(playerShip));
         bigSaucer.moveStrategy = new BezierApexMoveStrategy(bigSaucer, new BigSaucerFinalApex(bigSaucer.size)); 

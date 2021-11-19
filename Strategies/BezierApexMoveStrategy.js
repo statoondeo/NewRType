@@ -15,7 +15,8 @@ class BezierApexMoveStrategy extends BaseMoveStrategy {
     update(dt) {
         this.curve.update(dt);
         if (this.gameObject.status == GameObjectState.ACTIVE && this.curve.isEnded()) {
-            this.gameObject.status = GameObjectState.OUTDATED;
+            this.gameObject.dieCommand.execute();
+            // this.gameObject.status = GameObjectState.OUTDATED;
         }
         else {
             let nextPoint = this.curve.getPoint();

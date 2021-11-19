@@ -6,7 +6,7 @@ class SinWaveMoveStrategy extends BaseMoveStrategy {
     }
 
     getClone(gameObject) {
-        return new SinWaveMoveStrategy(gameObject, this.initialVector.getClone(), this.amplitude, this.frequency);
+        return new SinWaveMoveStrategy(gameObject, this.initialVector.getClone(), this.amplitude);
     }
 
     update(dt) {

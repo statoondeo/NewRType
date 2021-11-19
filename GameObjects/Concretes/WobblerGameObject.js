@@ -5,7 +5,7 @@ class WobblerGameObject extends EnemyShipGameObject {
         this.moveStrategy = new BezierApexMoveStrategy(this, new WobblerCurve());
         let bullet = new GreenBulletGameObject(this);
         bullet.moveStrategy = new PlayerAimedUniformMoveStrategy(bullet, this, this.playerShip);
-        this.fireCommand = new AsapFireCommand(new FireRatedFireCommand(this, bullet, new Vec2(), 3, new SoundPool(Services.get(Services.ASSET).get("Sounds/laser4.mp3"), 10)));
+        this.fireCommand = new AsapFireCommand(new FireRatedFireCommand(this, bullet, new Vec2(), Math.random() * 2 + 2, new SoundPool(Services.get(Services.ASSET).get("Sounds/laser4.mp3"), 10)));
         this.addAnimation(new Animation("IDLE", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], 60 / 1000, true));
         this.startAnimation("IDLE", 0);
         this.sound = new SoundPool(Services.get(Services.ASSET).get("Sounds/Rifle_v1_variation_02_wav.wav"), 2);

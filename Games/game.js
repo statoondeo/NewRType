@@ -120,6 +120,8 @@ function load(canvas) {
     assetLoader.add(AssetLoader.IMAGE, "Images/Gui/verySmallPanel2.png");
     assetLoader.add(AssetLoader.IMAGE, "Images/Gui/lifeBar2.png");
     assetLoader.add(AssetLoader.IMAGE, "Images/Gui/playerHud2.png");
+    assetLoader.add(AssetLoader.IMAGE, "Images/shield.png");
+    assetLoader.add(AssetLoader.IMAGE, "Images/life.png");
 
     assetLoader.add(AssetLoader.SOUND, "Sounds/laser1.mp3");
     assetLoader.add(AssetLoader.SOUND, "Sounds/laser2.mp3");
@@ -139,6 +141,7 @@ function load(canvas) {
     assetLoader.add(AssetLoader.SOUND, "Sounds/Rifle_v1_variation_02_wav.wav");
     assetLoader.add(AssetLoader.SOUND, "Sounds/Click_Digital_06_wav.wav");
     assetLoader.add(AssetLoader.SOUND, "Sounds/Hover_Digital_06_wav.wav");
+    assetLoader.add(AssetLoader.SOUND, "Sounds/Click_Digital_10_wav.wav");
 
     assetLoader.add(AssetLoader.SOUND, "Musics/bensound-highoctane.mp3");
     assetLoader.add(AssetLoader.SOUND, "Musics/bensound-scifi.mp3");
@@ -152,7 +155,7 @@ function startGame() {
     sceneManager = new SceneManager();
     sceneManager.addScene("MENU", new MenuScene());
     sceneManager.addScene("LEVEL1", new Level1Scene());
-    sceneManager.setCurrent("LEVEL1");
+    sceneManager.setCurrent("MENU");
     Services.register(Services.SCENE, sceneManager);
 
     // On fait disparaitre les élément de chargement

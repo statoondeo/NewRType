@@ -7,7 +7,7 @@ class CubeGameObject extends EnemyShipGameObject {
         this.moveStrategy = new DummyMoveStrategy();
         this.bulletPrototype = new BlueBulletGameObject(this.partition, new Vec2());
         this.bulletPrototype.moveStrategy = new PlayerAimedUniformMoveStrategy(this.bulletPrototype, this, this.playerShip);
-        this.fireCommand = new AsapFireCommand(new FireRatedFireCommand(this, this.bulletPrototype, new Vec2(), 5, new SoundPool(Services.get(Services.ASSET).get("Sounds/laser6.mp3"), 5)));
+        this.fireCommand = new AsapFireCommand(new FireRatedFireCommand(this, this.bulletPrototype, new Vec2(), Math.random() * 3 + 2, new SoundPool(Services.get(Services.ASSET).get("Sounds/laser6.mp3"), 5)));
         this.addAnimation(new Animation("IDLE", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23], 100 / 1000, true));
         this.startAnimation("IDLE", 0);
         this.sound = new SoundPool(Services.get(Services.ASSET).get("Sounds/Rifle_v1_variation_02_wav.wav"), 1);

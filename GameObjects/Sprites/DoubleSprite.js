@@ -3,6 +3,8 @@ class DoubleSprite extends GameObject {
         super();
         this.firstSprite = firstSprite;
         this.secondSprite = secondSprite;
+        this.size.x = Math.max(this.firstSprite.size.x, this.secondSprite.size.x);
+        this.size.y = Math.max(this.firstSprite.size.y, this.secondSprite.size.y);
         this.secondeSpriteOffset = new Vec2((this.firstSprite.size.x - this.secondSprite.size.x) / 2, (this.firstSprite.size.y - this.secondSprite.size.y) / 2);
         this.collideBox = new CircleCollideBox(this.position, Math.max(this.firstSprite.size.x, this.secondSprite.size.x) / 2)
         this.firstSprite.collideBox.type = this.secondSprite.collideBox.type = CollideBoxType.NONE;

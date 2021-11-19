@@ -24,7 +24,7 @@ class AtomGameObject extends EnemyShipGameObject {
 class AtomBulletWave extends BaseCommand {
     constructor(gameObject) {
         super(gameObject);
-        this.AllInCircleSpawnerTtl = 4;
+        this.AllInCircleSpawnerTtl = Math.random() * 2 + 2;
         this.sound = new SoundPool(Services.get(Services.ASSET).get("Sounds/laser1.mp3"), 5);
     }
 
@@ -39,7 +39,7 @@ class AtomBulletWave extends BaseCommand {
             this.canExecute = false;
             this.AllInCircleSpawnerTtl = 4;
             this.sound.play();
-            this.AllInCircleSpawnerGameObject = new AllInCircleSpawnerGameObject(new RedBulletGameObject(this.gameObject.partition, new Vec2(), 75), this.gameObject, 8, 0);
+            this.AllInCircleSpawnerGameObject = new AllInCircleSpawnerGameObject(new RedBulletGameObject(this.gameObject.partition, new Vec2(), Math.random() * 75 + 50), this.gameObject, 8, 0);
             this.AllInCircleSpawnerGameObject.spawn();
         }
     }

@@ -17,12 +17,14 @@ class Level1Scene extends BaseScene {
 
         // Gestion du joueur
         let playerShip = new Player1ShipGameObject(new Vec2((screen.width - PlayerShipGameObject.size.x) / 4, (screen.height - PlayerShipGameObject.size.y) / 2));
-        playerShip.invincible = true;
+        // playerShip.invincible = true;
         this.addPlayerShip(playerShip);
         this.addGameObject(playerShip.flashLayer);
+        this.camShake = new CamShake(playerShip);
 
         // On ajoute le HUD
         let hud = new HUDPanelUIElement(playerShip, new Vec2(), false);
+        playerShip.hud = hud;
         hud = new MiniaturePanelUIElementDecorator(hud, new UIElementDecorator(new Player1ShipMiniatureGameObject()));
         hud = new StartableUIElementDecorator(hud, 2400);
         this.addSynchronizedGameObject(hud); 
@@ -121,7 +123,7 @@ class Level1Scene extends BaseScene {
         this.addSynchronizedGameObject(new TimeSequenceSpawnerGameObject(new StarknifeGameObject(), 2900, new Vec2(screen.width, 3 * screen.height / 7),  0.5, 8));
 
         // // Gestion des bonus
-        this.addSynchronizedGameObject(new TimeSequenceSpawnerGameObject(new SpeedPowerUpGameObject(this.playerShip), 3400, new Vec2(screen.width, (screen.height - SpeedPowerUpGameObject.size.y) / 2), 1, 1));
+        this.addSynchronizedGameObject(new OnceSpawnerGameObject(new SpeedPowerUpGameObject(this.playerShip), 3400, new Vec2(screen.width, (screen.height - SpeedPowerUpGameObject.size.y) / 2)));
 
         // Vagues suivantes
         this.addSynchronizedGameObject(new TimeSequenceSpawnerGameObject(new WobblerGameObject(playerShip), 4000, new Vec2(-WobblerGameObject.size.x), 0.4, 10));
@@ -155,7 +157,7 @@ class Level1Scene extends BaseScene {
         this.addSynchronizedGameObject(new TimeSequenceSpawnerGameObject(new StarknifeGameObject(), 11000, new Vec2(screen.width, 3 * screen.height / 7),  0.3, 14));
 
         // // Gestion des bonus
-        this.addSynchronizedGameObject(new TimeSequenceSpawnerGameObject(new SpeedPowerUpGameObject(this.playerShip), 11500, new Vec2(screen.width, (screen.height - SpeedPowerUpGameObject.size.y) / 2), 1, 1));
+        this.addSynchronizedGameObject(new OnceSpawnerGameObject(new SpeedPowerUpGameObject(this.playerShip), 11500, new Vec2(screen.width, (screen.height - SpeedPowerUpGameObject.size.y) / 2)));
 
         let mainCurve = new CompositeCurve();
         let curve = new CompositeCurve(true, 2);

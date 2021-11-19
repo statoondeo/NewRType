@@ -21,9 +21,9 @@ class GameObject {
     }
 
     damage(amount) {
-        this.life -=  amount;
+        this.life -= amount;
         if (this.life <= 0) {
-            this.life = 0;
+            this.life = Tools.clamp(this.life, 0, this.maxLife);
             this.dieCommand.execute();
         }
     }    

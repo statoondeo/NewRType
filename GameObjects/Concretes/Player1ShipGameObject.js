@@ -13,7 +13,12 @@ class Player1ShipGameObject extends PlayerShipGameObject {
         context.fillRect(0, 0, screen.width, screen.height);
         this.flashLayer = new FlashingLayer(canvas);
         this.damageSound = new SoundPool(Services.get(Services.ASSET).get("Sounds/Explosion_Sci_Fi_03_wav.wav"), 5);
+
+        this.shieldSprite = new Sprite(Services.get(Services.ASSET).get("Images/shield.png"));
         this.invincible = false;
+        this.invincibleMaxTtl = 2;
+        this.invincibleTtl = 0;
+        this.visible = true;
     }
                     
     getClone() {
@@ -27,9 +32,24 @@ class Player1ShipGameObject extends PlayerShipGameObject {
     damage(amount) {
         if (!this.invincible) {
             super.damage(amount);
+            this.damageSound.play();
+            this.flashLayer.show();
+            this.invincible = true;
+            this.invincibleTtl = this.invincibleMaxTtl;
         }
-        this.damageSound.play();
-        this.flashLayer.show();
+    }
+
+    update(dt) {
+        super.update(dt);
+        if (this.invincibleTtl > 0) {
+            this.invincibleTtl -= dt;
+            if (this.invincibleTtl < 0) {
+                this.invincibleTtl = 0;
+                this.invincible = false;
+            }
+        }
+        this.shieldSprite.position.x = this.position.x - 30;
+        this.shieldSprite.position.y = this.position.y - 30;
     }
 
     draw(context) {
@@ -58,6 +78,12 @@ class Player1ShipGameObject extends PlayerShipGameObject {
             }            
         });        
         context.restore();
+        if (this.invincible) {
+            context.save();
+            context.globalAlpha = this.invincibleTtl / this.invincibleMaxTtl;
+            this.shieldSprite.draw(context);
+            context.restore();
+        }
         super.draw(context);
     }
 }

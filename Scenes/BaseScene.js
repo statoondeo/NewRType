@@ -22,6 +22,8 @@ class BaseScene {
         this.fadingLayer = null;
 
         this.music = null;
+
+        this.camShake = null;
     }
 
     addPlayerShip(playerShip) {
@@ -135,6 +137,8 @@ class BaseScene {
         // On avance dans la scene
         this.scheduler.update(dt);
 
+        this.camShake.update(dt);
+
         // On synchronise les fondu de l'écran et de la musique
         this.music.volume = (1 - this.fadingLayer.getRatio()) * 0.25;
 
@@ -176,12 +180,16 @@ class BaseScene {
     }
 
     draw(context) {        
+        let shake = this.camShake.getShake();
+        context.save();
+        context.translate(shake.x, shake.y);
         // On ne dessine que les gameObjects en activité
         this.gameObjectsCollection.forEach(gameObject => {
             if (gameObject.status == GameObjectState.ACTIVE) {
                 gameObject.draw(context);
             }
         });
+        context.restore();
 
         if (Services.get(Services.PARAMETER).colliderDisplay) {
             context.fillStyle = "White";

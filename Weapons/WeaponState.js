@@ -7,7 +7,7 @@ class WeaponState {
     }
 
     getName() {
-        return this.name + " - Level " + this.level;
+        return this.name;
     }
 
     currentLevel() {

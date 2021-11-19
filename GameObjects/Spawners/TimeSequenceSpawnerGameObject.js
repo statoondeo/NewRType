@@ -7,6 +7,8 @@ class TimeSequenceSpawnerGameObject extends BaseSpawner {
         this.spawnTime = this.spawnSpeed;
         this.status = GameObjectState.IDLE;
         this.initialSpawnNumber = this.spawnNumber;
+        this.getReward = false;
+        this.rewardChance = 1 / spawnNumber;
     }
       
     // Est-ce que le spawner rentre en action?
@@ -44,9 +46,25 @@ class TimeSequenceSpawnerGameObject extends BaseSpawner {
         this.spawnNumber--;
         this.spawnTime = this.spawnSpeed;
 
-        // On ajoute un bonus si c'était le dernier
-        if (this.spawnNumber == 0 && this.initialSpawnNumber > 1) {
-            newShip.dieCommand.addCommand(new PopCommand(newShip, new WeaponPowerUpGameObject(Services.get(Services.SCENE).currentScene.playerShip)));
+        // On ajoute un bonus
+        if (!this.getReward) {
+            if (Math.random() < this.rewardChance) {
+                this.getReward = true;
+                let bonus = null;
+                let currentStep = Services.get(Services.SCENE).currentScene.scheduler.currentStep;
+                let playerShip = Services.get(Services.SCENE).currentScene.playerShip;
+                let pivot = currentStep <= 4000 ? 0.15 : (currentStep <= 8000 ? 0.5 : 0.85) ;
+                if (Math.random() < pivot) {
+                    bonus = new WeaponPowerUpGameObject(playerShip);
+                }
+                else {
+                    bonus = new LifePowerUpGameObject(playerShip);
+                }
+                newShip.dieCommand.addCommand(new PopCommand(newShip, bonus));
+            }
+            else {
+                this.rewardChance = (this.initialSpawnNumber - this.spawnNumber) / this.initialSpawnNumber;
+            }
         }
     }
 }

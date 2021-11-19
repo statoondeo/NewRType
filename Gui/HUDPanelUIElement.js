@@ -42,6 +42,37 @@ class HUDPanelUIElement extends BaseHUDPanelUIElement {
         super(playerShip, position, visibility, 
             Services.get(Services.ASSET).get("Images/Gui/playerHud.png"), new LifeBarGameObject(), 
             new Vec2(140, 50), new Vec2(-10, 10), new Vec2(200, 30), new Vec2(200, 150));
+            this.speedBonus = 0;
+            this.weaponBonus = 0;
+            this.addWeaponBonus()
+        }
+
+    update(dt) {
+        super.update(dt);
+    }
+
+    addSpeedBonus() {
+        let miniature = new UIElementDecorator(new MiniSpeedUpGameObject());
+        miniature.position = this.getNextSpeedBonusPosition();
+        this.addElement(miniature);
+        this.speedBonus++;
+    }
+
+    getNextSpeedBonusPosition() {
+        return new Vec2(375 + (this.speedBonus + 1) * 30, 24)
+    }
+
+    addWeaponBonus() {
+        if (this.weaponBonus < 5) {
+            this.weaponBonus++;
+            let miniature = new UIElementDecorator(new MiniWeaponUpGameObject());
+            miniature.position = this.getNextWeaponBonusPosition();
+            this.addElement(miniature);
+        }
+    }
+
+    getNextWeaponBonusPosition() {
+        return new Vec2(275 + (this.weaponBonus + 1) * 30, 144)
     }
 }
 class RedHUDPanelUIElement extends BaseHUDPanelUIElement {

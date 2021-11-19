@@ -31,7 +31,7 @@ class BigSaucerBulletWave extends BaseCommand {
                     this.step++;
                     break;
                 case 4:
-                    this.AllInCircleSpawnerTtl = 5;
+                    this.AllInCircleSpawnerTtl = 2;
                     this.step = 0;
                     break;
             }
@@ -41,7 +41,7 @@ class BigSaucerBulletWave extends BaseCommand {
     execute() {
         if (this.canExecute) {
             this.canExecute = false;
-            this.AllInCircleSpawnerGameObject = new AllInCircleSpawnerGameObject(new RedBulletGameObject(this.bigSaucer.partition, new Vec2(), 75), this.bigSaucer, 12, 0);
+            this.AllInCircleSpawnerGameObject = new AllInCircleSpawnerGameObject(new RedBulletGameObject(this.bigSaucer.partition, new Vec2(), 150), this.bigSaucer, 12, 0);
             this.AllInCircleSpawnerGameObject.spawn();
         }
     }
@@ -54,7 +54,7 @@ class BigSaucerGunWave extends BaseCommand {
         this.deltaAngle = 2 * Math.PI / this.spawnNumber;
         this.angle = 0;
         this.angleSpeed = 200;
-        this.ttl = this.maxTtl = 0.1;
+        this.ttl = this.maxTtl = 0.075;
         this.sound = new SoundPool(Services.get(Services.ASSET).get("Sounds/laser1.mp3"), 50);
     }
 

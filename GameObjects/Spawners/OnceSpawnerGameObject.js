@@ -6,6 +6,8 @@ class OnceSpawnerGameObject extends BaseSpawner {
         this.status = GameObjectState.IDLE;
         this.sound = sound;
         this.initialSpawnNumber = this.spawnNumber;
+        gameObjectPrototype.position.x = appearPoint.x;
+        gameObjectPrototype.position.y = appearPoint.y;
     }
       
     // Est-ce que le spawner rentre en action?
