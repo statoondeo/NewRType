@@ -4,13 +4,13 @@ class Collider {
         let collision;
 
         switch (baseCollideBox1.type) {
-            case CollideBoxType.CIRCLE :
+            case "CIRCLE" :
                 collision = Collider.isCircleCollision(baseCollideBox1, baseCollideBox2) ;
                 break;
-            case CollideBoxType.RECT :
+            case "RECT" :
                 collision = Collider.isRectCollision(baseCollideBox1, baseCollideBox2);
                 break;
-            case CollideBoxType.COMPOSITE :
+            case "COMPOSITE" :
                 collision = Collider.isCompositeCollision(baseCollideBox1, baseCollideBox2);
                 break;                            
         }
@@ -37,13 +37,13 @@ class Collider {
     // Y a t'il collision entre notre rectangle et l'autre collideBox?
     static isRectCollision(rectCollideBox, baseCollideBox) {
         switch (baseCollideBox.type) {
-            case CollideBoxType.RECT :
+            case "RECT" :
                 return Collider.isRectangleInRectangle(rectCollideBox, baseCollideBox);
                 break;
-            case CollideBoxType.CIRCLE :
+            case "CIRCLE" :
                 return Collider.isCircleInRectangle(baseCollideBox, rectCollideBox);
                 break;
-            case CollideBoxType.COMPOSITE :
+            case "COMPOSITE" :
                 return Collider.isCompositeCollision(baseCollideBox, rectCollideBox);
                 break;
             }
@@ -53,13 +53,13 @@ class Collider {
     // Y a t'il collision entre notre cercle et l'autre collideBox?
     static isCircleCollision(circleCollideBox, baseCollideBox) {
         switch (baseCollideBox.type) {
-            case CollideBoxType.CIRCLE :
+            case "CIRCLE" :
                 return Collider.isCircleInCircle(circleCollideBox, baseCollideBox);
                 break;
-            case CollideBoxType.RECT :
+            case "RECT" :
                 return Collider.isCircleInRectangle(circleCollideBox, baseCollideBox);
                 break;           
-            case CollideBoxType.COMPOSITE :
+            case "COMPOSITE" :
                 return Collider.isCompositeCollision(baseCollideBox, circleCollideBox);
                 break;
         }

@@ -9,7 +9,10 @@ class SoundPool {
     }
 
     play() {
-        this.sounds[this.index++].play();
-        this.index %= this.number; 
+        this.index = (this.index + 1) % this.number; 
+        try {
+            this.sounds[this.index].play();
+        }
+        catch(error) {}
     }    
 }

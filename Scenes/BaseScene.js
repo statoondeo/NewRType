@@ -12,9 +12,9 @@ class BaseScene {
 
         // Partition entre les gameObjects du joueur et ceux du jeu pour faciliter les collisions
         this.gameObjectsPartitions = [];
-        this.gameObjectsPartitions[GameObjectPartition.PLAYER_PARTITION] = [];
-        this.gameObjectsPartitions[GameObjectPartition.GAME_PARTITION] = [];
-        this.gameObjectsPartitions[GameObjectPartition.NEUTRAL_PARTITION] = [];
+        this.gameObjectsPartitions["PLAYER_PARTITION"] = [];
+        this.gameObjectsPartitions["GAME_PARTITION"] = [];
+        this.gameObjectsPartitions["NEUTRAL_PARTITION"] = [];
 
         // Vaisseau du joueur
         this.playerShip = null;
@@ -51,7 +51,7 @@ class BaseScene {
 
         // On ajoute de suite la couche permettant les transitions de début et fin
         // Par défaut ce sera un ecran noir
-        let screen = Services.get(Services.SCREEN);
+        let screen = Services.get("SCREEN");
         let canvas = ImageHandler.createCanvas(screen.width, screen.height);
         let context = canvas.getContext("2d");
         context.fillStyle = "black";
@@ -99,10 +99,10 @@ class BaseScene {
     manageCollision() {
         // On remplit notre quadTree pour la partition spatiale des gameObjects
         // (Seuls les gameObjects intervenants dans les collisions sont retenus)
-        let screen = Services.get(Services.SCREEN);
+        let screen = Services.get("SCREEN");
         this.quadTree = new QuadTree(new Vec2(), new Vec2(screen.width, screen.height));
         this.gameObjectsCollection.forEach(gameObject => {
-            if (gameObject.status == GameObjectState.ACTIVE && gameObject.collideBox.type != CollideBoxType.NONE) {
+            if (gameObject.status == "ACTIVE" && gameObject.collideBox.type != "NONE") {
                 this.quadTree.addItem(gameObject);
             }
         });
@@ -111,7 +111,7 @@ class BaseScene {
             gameObject.collideBox.setCollided(false);
 
             // On ne traite que les objets qui ont une collideBox et qui sont actifs
-            if (gameObject.collideBox.type != CollideBoxType.NONE && gameObject.status == GameObjectState.ACTIVE) {
+            if (gameObject.collideBox.type != "NONE" && gameObject.status == "ACTIVE") {
 
                 // On cherche les candidats à la collision avec notre gameObject
                 this.quadTree.getCandidates(gameObject.collideBox).forEach(targetGameObject => {
@@ -120,8 +120,8 @@ class BaseScene {
                     // être active et avoir une collideBox
                     // pour vérifier une collision
                     if ((targetGameObject.partition != gameObject.partition) && 
-                        (targetGameObject.status == GameObjectState.ACTIVE) && 
-                        (targetGameObject.collideBox.type != CollideBoxType.NONE) &&
+                        (targetGameObject.status == "ACTIVE") && 
+                        (targetGameObject.collideBox.type != "NONE") &&
                         (gameObject.collideBox.collide(targetGameObject.collideBox))) {
 
                             // Si une collision est détectée, on exécute le comportement associé du gameObject
@@ -147,17 +147,17 @@ class BaseScene {
         let gameObjectsToKillCollection = [];
         this.gameObjectsCollection.forEach(gameObject => {
 
-            if (gameObject.status == GameObjectState.ACTIVE) {
+            if (gameObject.status == "ACTIVE") {
 
                 // Update du gameObject
                 gameObject.update(this.scheduler.getDeltaTime());
 
                 // Si il est devenu obsolète, on le marque comme étant à supprimer
-                if (gameObject.status == GameObjectState.OUTDATED) {
+                if (gameObject.status == "OUTDATED") {
                     gameObjectsToKillCollection.push(gameObject);
                 }
             }
-            else if (gameObject.status == GameObjectState.OUTDATED) {
+            else if (gameObject.status == "OUTDATED") {
                 gameObjectsToKillCollection.push(gameObject);
             }
         });
@@ -185,13 +185,13 @@ class BaseScene {
         context.translate(shake.x, shake.y);
         // On ne dessine que les gameObjects en activité
         this.gameObjectsCollection.forEach(gameObject => {
-            if (gameObject.status == GameObjectState.ACTIVE) {
+            if (gameObject.status == "ACTIVE") {
                 gameObject.draw(context);
             }
         });
         context.restore();
 
-        if (Services.get(Services.PARAMETER).colliderDisplay) {
+        if (Services.get("PARAMETER").colliderDisplay) {
             context.fillStyle = "White";
             context.font = "normal 10pt neuropol";
             context.fillText("Step         : " + Math.floor(this.scheduler.currentStep), 5, 755);

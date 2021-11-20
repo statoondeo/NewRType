@@ -14,7 +14,7 @@ class BezierApexMoveStrategy extends BaseMoveStrategy {
 
     update(dt) {
         this.curve.update(dt);
-        if (this.gameObject.status == GameObjectState.ACTIVE && this.curve.isEnded()) {
+        if (this.gameObject.status == "ACTIVE" && this.curve.isEnded()) {
             this.gameObject.dieCommand.execute();
             // this.gameObject.status = GameObjectState.OUTDATED;
         }
@@ -28,7 +28,7 @@ class BezierApexMoveStrategy extends BaseMoveStrategy {
 
 class RocketApexMoveStrategy extends BezierApexMoveStrategy {
     constructor(gameObject) {
-        let screen = Services.get(Services.SCREEN);
+        let screen = Services.get("SCREEN");
 
         // Le point de départ est le museau du vaisseau
         let departurePoint = new Vec2(gameObject.position.x + gameObject.size.x, gameObject.position.y + gameObject.size.y / 2);

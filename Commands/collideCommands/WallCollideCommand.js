@@ -17,7 +17,7 @@ class WallCollideCommand extends BaseCommand {
     }
 
     execute(otherGameObject) {
-        if (this.canExecute && otherGameObject.type == GameObjectType.SHIP) {
+        if (this.canExecute && otherGameObject.type == "SHIP") {
             this.gameObject.dealDamage.execute(otherGameObject);
         }
     }

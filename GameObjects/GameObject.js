@@ -1,14 +1,14 @@
 class GameObject {
     constructor() {
-        this.type = GameObjectType.NONE;
+        this.type = "NONE";
         this.position = new Vec2();
         this.size = new Vec2();
         this.vector = new Vec2();
         this.speed = 0;
         this.collideBox = new BaseCollideBox();
-        this.status = GameObjectState.ACTIVE;
+        this.status = "ACTIVE";
         this.layer = 1;
-        this.partition = GameObjectPartition.GAME_PARTITION;
+        this.partition = "GAME_PARTITION";
         this.maxLife = 0;
         this.life = 0;
         this.moveStrategy = new DummyMoveStrategy();
@@ -46,7 +46,7 @@ class GameObject {
 
     // Affichage du gameObject
     draw(context) {
-        if (Services.get(Services.PARAMETER).colliderDisplay) {
+        if (Services.get("PARAMETER").colliderDisplay) {
             this.collideBox.draw(context);
         }
     }

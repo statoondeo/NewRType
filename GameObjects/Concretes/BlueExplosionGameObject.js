@@ -1,6 +1,6 @@
 class BlueExplosionGameObject extends ExplosionGameObject {
     constructor(speed = 15) {
-        super(Services.get(Services.ASSET).get("Images/bluespark.png"), new Vec2(100), speed);
+        super(Services.get("ASSET").get("Images/bluespark.png"), new Vec2(100), speed);
     }
 
     getClone() {
@@ -9,7 +9,7 @@ class BlueExplosionGameObject extends ExplosionGameObject {
 }
 class MediumBlueExplosionGameObject extends ExplosionGameObject {
     constructor(speed = 30) {
-        super(ImageHandler.zoomImage(Services.get(Services.ASSET).get("Images/bluespark.png"), new Vec2(2)), new Vec2(200), speed);
+        super(ImageHandler.zoomImage(Services.get("ASSET").get("Images/bluespark.png"), new Vec2(2)), new Vec2(200), speed);
     }
     
     getClone() {

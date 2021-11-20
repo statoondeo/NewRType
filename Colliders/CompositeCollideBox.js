@@ -1,7 +1,7 @@
 class CompositeCollideBox extends BaseCollideBox {
     constructor(position, size, offset) {
         super(position, size, offset);
-        this.type = CollideBoxType.COMPOSITE;
+        this.type = "COMPOSITE";
         this.position = position;
         this.collideBoxesCollection = [];
     }

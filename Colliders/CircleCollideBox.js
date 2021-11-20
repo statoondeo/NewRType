@@ -1,7 +1,7 @@
 class CircleCollideBox extends BaseCollideBox {
     constructor(position, radius, offset) {
         super(position, new Vec2(2 * radius, 2 * radius), offset);
-        this.type = CollideBoxType.CIRCLE;
+        this.type = "CIRCLE";
         this.radius = radius;
     }
     

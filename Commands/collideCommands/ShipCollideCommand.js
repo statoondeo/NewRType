@@ -17,7 +17,7 @@ class ShipCollideCommand extends BaseCommand {
     }
 
     execute(otherGameObject) {
-        if (this.canExecute && otherGameObject.type == GameObjectType.SHIP) {
+        if (this.canExecute && otherGameObject.type == "SHIP") {
             this.collideTtl = this.maxCollideTtl;
             this.gameObject.dealDamageCommand.execute(otherGameObject);
         }

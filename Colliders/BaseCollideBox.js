@@ -1,17 +1,17 @@
 class BaseCollideBox {
     constructor(position = new Vec2(), size = new Vec2(), offset = new Vec2()) {
-        this.type = CollideBoxType.NONE;
+        this.type = "NONE";
         this.isCollided = false;
-        this.color = BaseCollideBox.NEUTRAL_COLOR;
+        this.color = "gray";
         this.position = position;
         this.size = size;
         this.offset = offset;
         this.box = null;
     }
 
-    static NEUTRAL_COLOR = "gray";
-    static COLLIDED_COLOR = "red";
-    static NOT_COLLIDED_COLOR = "green";
+    // static NEUTRAL_COLOR = "gray";
+    // static COLLIDED_COLOR = "red";
+    // static NOT_COLLIDED_COLOR = "green";
 
     getOffsetPosition() {
         return new Vec2(this.position.x + this.offset.x, this.position.y + this.offset.y);
@@ -37,8 +37,8 @@ class BaseCollideBox {
     }
 
     update(dt) {
-        if (this.type != CollideBoxType.NONE) {
-            this.color = this.getCollided() ? BaseCollideBox.COLLIDED_COLOR : BaseCollideBox.NOT_COLLIDED_COLOR;
+        if (this.type != "NONE") {
+            this.color = this.getCollided() ? "red" : "green";
         }
     }
 

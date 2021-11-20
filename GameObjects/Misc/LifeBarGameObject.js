@@ -1,7 +1,6 @@
 class BaseLifeBarGameObject extends AnimatedSprite {
-    static size = new Vec2(472, 99);
     constructor(background) {
-        super(background, BaseLifeBarGameObject.size);
+        super(background, new Vec2(472, 99));
 
         this.addAnimation(new Animation("0Life", [0], 0, false));
         this.addAnimation(new Animation("1Life", [1], 0, false));
@@ -28,12 +27,12 @@ class BaseLifeBarGameObject extends AnimatedSprite {
 }
 class LifeBarGameObject extends BaseLifeBarGameObject {
     constructor() {
-        super(Services.get(Services.ASSET).get("Images/Gui/lifeBar.png"));
+        super(Services.get("ASSET").get("Images/Gui/lifeBar.png"));
     }
 }
 class RedLifeBarGameObject extends BaseLifeBarGameObject {
     constructor() {
-        super(Services.get(Services.ASSET).get("Images/Gui/lifeBar2.png"));
+        super(Services.get("ASSET").get("Images/Gui/lifeBar2.png"));
 
         this.animations = [];
         this.addAnimation(new Animation("0Life", [14], 0, false));

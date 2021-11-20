@@ -3,7 +3,7 @@ class UIElement extends GameObject {
         super();
         this.visibility = visibility;
         this.globalAlpha = this.visibility ? 1 : 0;
-        this.partition = GameObjectPartition.NEUTRAL_PARTITION;
+        this.partition = "NEUTRAL_PARTITION";
     }
 
     setPosition(position) {

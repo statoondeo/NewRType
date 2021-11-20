@@ -1,6 +1,6 @@
 class AssetLoader {
-    static IMAGE = "IMAGE";
-    static SOUND = "SOUND";
+    // static IMAGE = "IMAGE";
+    // static SOUND = "SOUND";
 
     constructor() {
         this.assetPathes = [];
@@ -45,9 +45,13 @@ class AssetLoader {
             this.assetLoaded();
         });
     }
-     
+    
+    loadSoundFailure() {
+
+    }
+
     loadSound(path) {
-        return new Promise((success, error) => {
+        return new Promise((success, loadSoundFailure) => {
             // Chargement de l'image
             let audio = new Audio();
             audio.oncanplaythrough = () => {
@@ -72,10 +76,10 @@ class AssetLoader {
 
         // Démarrage de la récupération des assets
         this.assetPathes.forEach(asset => {
-            if (asset.type == AssetLoader.IMAGE) {
+            if (asset.type == "IMAGE") {
                 assetPromises.push(this.loadImage(asset.path));
             }
-            else if (asset.type == AssetLoader.SOUND) {
+            else if (asset.type == "SOUND") {
                 assetPromises.push(this.loadSound(asset.path));
             }
         });

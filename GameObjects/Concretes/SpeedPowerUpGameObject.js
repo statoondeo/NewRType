@@ -10,8 +10,6 @@ class SpeedPowerUpGameObject extends BonusGameObject {
     getClone() {
         return new SpeedPowerUpGameObject(this.gameObject);
     }
-
-    static size = new Vec2(200);
 }
 class UpdatePlayerHudSpeedCommand extends BaseCommand {
     constructor(gameObject) {

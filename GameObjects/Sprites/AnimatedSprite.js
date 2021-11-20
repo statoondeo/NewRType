@@ -85,7 +85,7 @@ class AnimatedSprite extends GameObject {
             Math.floor(this.size.y));
 
         context.restore();
-        if (Services.get(Services.PARAMETER).colliderDisplay) {
+        if (Services.get("PARAMETER").colliderDisplay) {
             this.collideBox.draw(context);
         }    
     }

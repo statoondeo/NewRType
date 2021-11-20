@@ -1,9 +1,9 @@
 class RocketGameObject extends AnimatedSprite {
     constructor(image, size, partition, direction, speed, damageAmount) {
         super(image, size)
-        this.type = GameObjectType.MISSILE;
+        this.type = "MISSILE";
         this.partition = partition;
-        this.status = GameObjectState.ACTIVE;
+        this.status = "ACTIVE";
         this.speed = speed;
         this.damageAmount = damageAmount;
         this.direction = direction;

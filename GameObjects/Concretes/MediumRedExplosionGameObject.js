@@ -1,6 +1,6 @@
 class MediumRedExplosionGameObject extends ExplosionGameObject {
     constructor(speed = 30) {
-        super(ImageHandler.zoomImage(Services.get(Services.ASSET).get("Images/redspark.png"), new Vec2(2)), new Vec2(200), speed);
+        super(ImageHandler.zoomImage(Services.get("ASSET").get("Images/redspark.png"), new Vec2(2)), new Vec2(200), speed);
     }
     
     getClone() {
@@ -9,7 +9,7 @@ class MediumRedExplosionGameObject extends ExplosionGameObject {
 }
 class GiantRedExplosionGameObject extends ExplosionGameObject {
     constructor(speed = 75) {
-        super(ImageHandler.zoomImage(Services.get(Services.ASSET).get("Images/redspark.png"), new Vec2(5)), new Vec2(500), speed);
+        super(ImageHandler.zoomImage(Services.get("ASSET").get("Images/redspark.png"), new Vec2(5)), new Vec2(500), speed);
     }
     
     getClone() {
@@ -25,7 +25,7 @@ class ParticlesMediumExplosionGameObject extends GameObject {
         this.explosions = [];
         let number = 5;
         this.prototypesList.forEach(prototype => {
-            prototype.partition = GameObjectPartition.NEUTRAL_PARTITION;
+            prototype.partition = "NEUTRAL_PARTITION";
             this.createExplosions(number, prototype);
             number = number * 2 + 1;
         });
@@ -47,13 +47,13 @@ class ParticlesMediumExplosionGameObject extends GameObject {
     }
 
     update(dt) {
-        this.status = GameObjectState.OUTDATED;
+        this.status = "OUTDATED";
 
         this.explosions.forEach(explosion => {
-            explosion.status = GameObjectState.ACTIVE;
+            explosion.status = "ACTIVE";
             explosion.position.x = this.gameObject.position.x + (this.gameObject.size.x - explosion.size.x) / 2;
             explosion.position.y = this.gameObject.position.y + (this.gameObject.size.y - explosion.size.y) / 2;
-            Services.get(Services.SCENE).currentScene.addGameObject(explosion);
+            Services.get("SCENE").currentScene.addGameObject(explosion);
         });
     }
 }
@@ -86,8 +86,8 @@ class ParticlesThrustGameObject extends GameObject {
             explosion.position.x = this.gameObject.position.x + this.direction * explosion.size.x / 2;
             explosion.position.y = this.gameObject.position.y + (this.gameObject.size.y - explosion.size.y) / 2;
             explosion.moveStrategy = new UniformMoveStrategy(explosion, new Vec2(Math.cos(angle), Math.sin(angle)));
-            explosion.status = GameObjectState.ACTIVE;
-            Services.get(Services.SCENE).currentScene.addGameObject(explosion);
+            explosion.status = "ACTIVE";
+            Services.get("SCENE").currentScene.addGameObject(explosion);
             this.lastPosition.x = this.gameObject.position.x;
             this.lastPosition.y = this.gameObject.position.y;
         }

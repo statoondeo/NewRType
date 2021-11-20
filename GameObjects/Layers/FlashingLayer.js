@@ -2,25 +2,25 @@
 class FlashingLayer extends GameObject {
     constructor(image) {
         super();
-        this.partition = GameObjectPartition.NEUTRAL_PARTITION;
+        this.partition = "NEUTRAL_PARTITION";
         this.sprite = new Sprite(image);
         this.sprite.globalAlpha = 0.5;
         this.visibilityTtl = this.visibilityMaxTtl = 1;
-        this.status = GameObjectState.IDLE;
+        this.status = "IDLE";
     }
 
     show() {
-        this.status = GameObjectState.ACTIVE;
+        this.status = "ACTIVE";
         this.visibilityTtl = this.visibilityMaxTtl;
         this.sprite.globalAlpha = 1;
     }
 
     update(dt) {
         super.update(dt);
-        if (this.status == GameObjectState.ACTIVE) {
+        if (this.status == "ACTIVE") {
             this.visibilityTtl -= dt;
             if (this.visibilityTtl < 0) {
-                this.status = GameObjectState.IDLE;               
+                this.status = "IDLE";               
             }
             this.sprite.globalAlpha = this.visibilityTtl / this.visibilityMaxTtl;
         }

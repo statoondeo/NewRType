@@ -7,7 +7,7 @@ class DoubleSprite extends GameObject {
         this.size.y = Math.max(this.firstSprite.size.y, this.secondSprite.size.y);
         this.secondeSpriteOffset = new Vec2((this.firstSprite.size.x - this.secondSprite.size.x) / 2, (this.firstSprite.size.y - this.secondSprite.size.y) / 2);
         this.collideBox = new CircleCollideBox(this.position, Math.max(this.firstSprite.size.x, this.secondSprite.size.x) / 2)
-        this.firstSprite.collideBox.type = this.secondSprite.collideBox.type = CollideBoxType.NONE;
+        this.firstSprite.collideBox.type = this.secondSprite.collideBox.type = "NONE";
         this.alpha = 1;
         this.speed = speed;
         this.firstSprite.speed = this.secondSprite.speed = 0;
@@ -28,7 +28,7 @@ class DoubleSprite extends GameObject {
     draw(context) {
         this.firstSprite.draw(context);
         this.secondSprite.draw(context);
-        if (Services.get(Services.PARAMETER).colliderDisplay) {
+        if (Services.get("PARAMETER").colliderDisplay) {
             this.collideBox.draw(context);
         }
     }

@@ -4,7 +4,7 @@ class BigSaucerBulletWave extends BaseCommand {
         this.bigSaucer = bigSaucer;
         this.AllInCircleSpawnerTtl = 5;
         this.step = 0;
-        this.sound = new SoundPool(Services.get(Services.ASSET).get("Sounds/laser1.mp3"), 5);
+        this.sound = new SoundPool(Services.get("ASSET").get("Sounds/laser1.mp3"), 5);
     }
 
     update(dt) {
@@ -55,7 +55,7 @@ class BigSaucerGunWave extends BaseCommand {
         this.angle = 0;
         this.angleSpeed = 200;
         this.ttl = this.maxTtl = 0.075;
-        this.sound = new SoundPool(Services.get(Services.ASSET).get("Sounds/laser1.mp3"), 50);
+        this.sound = new SoundPool(Services.get("ASSET").get("Sounds/laser1.mp3"), 50);
     }
 
     update(dt) {
@@ -85,7 +85,7 @@ class BigSaucerGunWave extends BaseCommand {
                 newShip.speed = 250;
 
                 // On l'ajoute à la liste des gameObjects de la scene
-                Services.get(Services.SCENE).currentScene.addGameObject(newShip);
+                Services.get("SCENE").currentScene.addGameObject(newShip);
             }
         }
     }

@@ -1,12 +1,12 @@
 class SinWaveMoveStrategy extends BaseMoveStrategy {
-    constructor(gameObject, initialVector, amplitude) {
+    constructor(gameObject, initialVector, amplitude, initialDt = 0) {
         super(gameObject, initialVector);        
         this.amplitude = amplitude;
-        this.totalDt = 0;
+        this.totalDt = initialDt;
     }
 
     getClone(gameObject) {
-        return new SinWaveMoveStrategy(gameObject, this.initialVector.getClone(), this.amplitude);
+        return new SinWaveMoveStrategy(gameObject, this.initialVector.getClone(), this.totalDt);
     }
 
     update(dt) {
@@ -22,8 +22,8 @@ class SinWaveMoveStrategy extends BaseMoveStrategy {
         // Application du mouvement
         super.update(dt);
 
-        if (this.gameObject.status == GameObjectState.ACTIVE && Tools.isOutOfScreen(this.gameObject.position, this.gameObject.size)) {
-            this.gameObject.status = GameObjectState.OUTDATED;
+        if (this.gameObject.status == "ACTIVE" && Tools.isOutOfScreen(this.gameObject.position, this.gameObject.size)) {
+            this.gameObject.status = "OUTDATED";
         }
     }
 }

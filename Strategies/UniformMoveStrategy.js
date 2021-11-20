@@ -19,8 +19,8 @@ class UniformMoveStrategy extends BaseMoveStrategy {
 
         super.update(dt);
 
-        if (this.gameObject.status == GameObjectState.ACTIVE && Tools.isOutOfScreen(this.gameObject.position, this.gameObject.size)) {
-            this.gameObject.status = GameObjectState.OUTDATED;
+        if (this.gameObject.status == "ACTIVE" && Tools.isOutOfScreen(this.gameObject.position, this.gameObject.size)) {
+            this.gameObject.status = "OUTDATED";
         }
     }
 }

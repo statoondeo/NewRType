@@ -4,7 +4,7 @@ class AllInCircleSpawnerGameObject extends BaseSpawner {
         super(gameObjectPrototype, spawnNumber, appearPoint);
         this.startAt = startAt;
         this.spawns = [];
-        this.status = GameObjectState.IDLE;
+        this.status = "IDLE";
 
         this.spawns = [];
         let deltaAngle = 2 * Math.PI / this.spawnNumber;
@@ -33,7 +33,7 @@ class AllInCircleSpawnerGameObject extends BaseSpawner {
     subjectChanged(scheduler) {
         if (scheduler.currentStep >= this.startAt) {
             scheduler.unregister(this);
-            this.status = GameObjectState.OUTDATED;
+            this.status = "OUTDATED";
             this.spawn();
         }
     }
@@ -41,7 +41,7 @@ class AllInCircleSpawnerGameObject extends BaseSpawner {
     update(dt) {
         if (this.startAt == 0) {
             this.spawn();
-            this.status = GameObjectState.OUTDATED;
+            this.status = "OUTDATED";
         }
     }
 
@@ -50,7 +50,7 @@ class AllInCircleSpawnerGameObject extends BaseSpawner {
         this.spawns.forEach(spawnShip => {
             
             // On l'ajoute à la liste des gameObjects de la scene
-            Services.get(Services.SCENE).currentScene.addGameObject(spawnShip);            
+            Services.get("SCENE").currentScene.addGameObject(spawnShip);            
         });
     }
 }

@@ -1,6 +1,6 @@
 class Level1DefeatedImage {
     static createInstance() {
-        let screen = Services.get(Services.SCREEN);
+        let screen = Services.get("SCREEN");
         let canvas = ImageHandler.createCanvas(screen.width, screen.height);
         let context = canvas.getContext("2d");
 
@@ -39,15 +39,5 @@ class Level1DefeatedImage {
         text.draw(context);
 
         return canvas;
-    }
-
-    static instance;
-
-    static getInstance() {
-        if (Level1DefeatedImage.instance == null) {
-            Level1DefeatedImage.instance = Level1DefeatedImage.createInstance();
-        }
-
-        return Level1DefeatedImage.instance;
     }
 }

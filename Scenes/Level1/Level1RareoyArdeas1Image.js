@@ -1,6 +1,6 @@
 class Level1RareoyArdeas1Image {
     static createInstance() {
-        let screen = Services.get(Services.SCREEN);
+        let screen = Services.get("SCREEN");
         let canvas = ImageHandler.createCanvas(screen.width, screen.height);
         let context = canvas.getContext("2d");
 
@@ -35,15 +35,5 @@ class Level1RareoyArdeas1Image {
         text.draw(context);
 
         return canvas;
-    }
-
-    static instance;
-
-    static getInstance() {
-        if (Level1RareoyArdeas1Image.instance == null) {
-            Level1RareoyArdeas1Image.instance = Level1RareoyArdeas1Image.createInstance();
-        }
-
-        return Level1RareoyArdeas1Image.instance;
     }
 }

@@ -4,7 +4,7 @@ class RollingLayer extends GameObject {
         super();
         this.layer = layer;
 
-        this.partition = GameObjectPartition.NEUTRAL_PARTITION;
+        this.partition = "NEUTRAL_PARTITION";
 
         this.firstSprite = new Sprite(visual);
         this.firstSprite.speed = layer * sceneSpeed;

@@ -4,7 +4,7 @@
 class StaticLayer extends GameObject {
     constructor(layer, visual) {
         super();
-        this.partition = GameObjectPartition.NEUTRAL_PARTITION;
+        this.partition = "NEUTRAL_PARTITION";
         this.layer = layer;
         this.visual = visual;
     }

@@ -1,6 +1,6 @@
 class MainMenuBigSaucerImage {
     static createInstance() {
-        let screen = Services.get(Services.SCREEN);
+        let screen = Services.get("SCREEN");
         let canvas = ImageHandler.createCanvas(screen.width, screen.height);
         let context = canvas.getContext("2d");
 
@@ -50,15 +50,5 @@ class MainMenuBigSaucerImage {
         text.draw(context);
 
         return canvas;
-    }
-
-    static instance;
-
-    static getInstance() {
-        if (MainMenuBigSaucerImage.instance == null) {
-            MainMenuBigSaucerImage.instance = MainMenuBigSaucerImage.createInstance();
-        }
-
-        return MainMenuBigSaucerImage.instance;
     }
 }

@@ -1,7 +1,7 @@
 
 class Tools {
     static isOutOfScreen(position, size) {
-        let screen = Services.get(Services.SCREEN);
+        let screen = Services.get("SCREEN");
         return position.x + size.x < 0 || position.x > screen.width || position.y + size.y < 0 || position.y > screen.height
     }
 

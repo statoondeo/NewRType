@@ -1,6 +1,6 @@
 class Level1TitleImage {
     static createInstance() {
-        let screen = Services.get(Services.SCREEN);
+        let screen = Services.get("SCREEN");
         let canvas = ImageHandler.createCanvas(screen.width, screen.height);
         let context = canvas.getContext("2d");
 
@@ -28,15 +28,5 @@ class Level1TitleImage {
         context.stroke();
 
         return canvas;
-    }
-
-    static instance;
-
-    static getInstance() {
-        if (Level1TitleImage.instance == null) {
-            Level1TitleImage.instance = Level1TitleImage.createInstance();
-        }
-
-        return Level1TitleImage.instance;
     }
 }

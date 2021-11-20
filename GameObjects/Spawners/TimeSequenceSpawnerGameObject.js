@@ -5,7 +5,7 @@ class TimeSequenceSpawnerGameObject extends BaseSpawner {
         this.startAt = startAt;
         this.spawnSpeed = spawnSpeed;
         this.spawnTime = this.spawnSpeed;
-        this.status = GameObjectState.IDLE;
+        this.status = "IDLE";
         this.initialSpawnNumber = this.spawnNumber;
         this.getReward = false;
         this.rewardChance = 1 / spawnNumber;
@@ -15,7 +15,7 @@ class TimeSequenceSpawnerGameObject extends BaseSpawner {
     subjectChanged(scheduler) {
         if (scheduler.currentStep >= this.startAt) {
             scheduler.unregister(this);
-            this.status = GameObjectState.ACTIVE;
+            this.status = "ACTIVE";
             this.spawn();
         }
     }
@@ -30,7 +30,7 @@ class TimeSequenceSpawnerGameObject extends BaseSpawner {
 
         // Si il n'y a plus rien à spanwer, il devient obsolète
         if (this.spawnNumber == 0) {
-            this.status = GameObjectState.OUTDATED;
+            this.status = "OUTDATED";
         }
     }     
 
@@ -40,7 +40,7 @@ class TimeSequenceSpawnerGameObject extends BaseSpawner {
         let newShip = this.gameObjectPrototype.getClone();
         newShip.position.x = this.position.x + this.size.x / 2;
         newShip.position.y = this.position.y + this.size.y / 2;
-        Services.get(Services.SCENE).currentScene.addGameObject(newShip);
+        Services.get("SCENE").currentScene.addGameObject(newShip);
 
         // On passe au suivant
         this.spawnNumber--;
@@ -51,14 +51,14 @@ class TimeSequenceSpawnerGameObject extends BaseSpawner {
             if (Math.random() < this.rewardChance) {
                 this.getReward = true;
                 let bonus = null;
-                let currentStep = Services.get(Services.SCENE).currentScene.scheduler.currentStep;
-                let playerShip = Services.get(Services.SCENE).currentScene.playerShip;
+                let currentStep = Services.get("SCENE").currentScene.scheduler.currentStep;
+                let playerShip = Services.get("SCENE").currentScene.playerShip;
                 let pivot = currentStep <= 4000 ? 0.15 : (currentStep <= 8000 ? 0.5 : 0.85) ;
                 if (Math.random() < pivot) {
-                    bonus = new WeaponPowerUpGameObject(playerShip);
+                    bonus = new LifePowerUpGameObject(playerShip);
                 }
                 else {
-                    bonus = new LifePowerUpGameObject(playerShip);
+                    bonus = new WeaponPowerUpGameObject(playerShip);
                 }
                 newShip.dieCommand.addCommand(new PopCommand(newShip, bonus));
             }

@@ -9,14 +9,12 @@ class BaseMiniaturePanelUIElementDecorator extends BasePanelUIElementDecorator {
     }
 }
 class MiniaturePanelUIElementDecorator extends BaseMiniaturePanelUIElementDecorator {
-    static miniatureOffset = new Vec2(92, 96)
     constructor(panel, miniature) {
-        super(panel, miniature, MiniaturePanelUIElementDecorator.miniatureOffset);
+        super(panel, miniature, new Vec2(92, 96));
     }
 }
 class RedMiniaturePanelUIElementDecorator extends BaseMiniaturePanelUIElementDecorator {
-    static miniatureOffset = new Vec2(527, 96)
     constructor(panel, miniature) {
-        super(panel, miniature, RedMiniaturePanelUIElementDecorator.miniatureOffset);
+        super(panel, miniature, new Vec2(527, 96));
     }
 }

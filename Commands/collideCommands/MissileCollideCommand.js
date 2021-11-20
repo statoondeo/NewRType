@@ -8,13 +8,13 @@ class MissileCollideCommand extends BaseCommand {
     }
 
     execute(otherGameObject) {
-        if (this.canExecute && (otherGameObject.type == GameObjectType.SHIP || otherGameObject.type == GameObjectType.WALL)) {
+        if (this.canExecute && (otherGameObject.type == "SHIP" || otherGameObject.type == "WALL")) {
             switch(otherGameObject.type) {
-                case GameObjectType.SHIP:
+                case "SHIP":
                     this.gameObject.dealDamageCommand.execute(otherGameObject);
                     this.gameObject.dieCommand.execute();
                     break;
-                case GameObjectType.WALL:
+                case "WALL":
                     this.gameObject.dieCommand.execute();
                     break;
             }

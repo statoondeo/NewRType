@@ -1,6 +1,6 @@
 class GreenBulletGameObject extends BulletGameObject {
     constructor(gameObject, moveStrategy = null) {
-        super(Services.get(Services.ASSET).get("Images/greenbullet.png"), new Vec2(32), gameObject.partition, new Vec2(), 400, 150);
+        super(Services.get("ASSET").get("Images/greenbullet.png"), new Vec2(32), gameObject.partition, new Vec2(), 400, 150);
         this.gameObject = gameObject;
         this.moveStrategy = moveStrategy;
         this.dieCommand.addCommand(new PopCommand(this, new GreenExplosionGameObject()));

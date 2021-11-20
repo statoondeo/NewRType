@@ -1,7 +1,7 @@
 class RectCollideBox extends BaseCollideBox {
     constructor(position, size, offset) {
         super(position, size, offset);
-        this.type = CollideBoxType.RECT;
+        this.type = "RECT";
     }
         
     getClone() {

@@ -3,7 +3,7 @@ class OnceSpawnerGameObject extends BaseSpawner {
     constructor(gameObjectPrototype, startAt, appearPoint, sound = null) {
         super(gameObjectPrototype, 1, appearPoint);
         this.startAt = startAt;
-        this.status = GameObjectState.IDLE;
+        this.status = "IDLE";
         this.sound = sound;
         this.initialSpawnNumber = this.spawnNumber;
         gameObjectPrototype.position.x = appearPoint.x;
@@ -14,7 +14,7 @@ class OnceSpawnerGameObject extends BaseSpawner {
     subjectChanged(scheduler) {
         if (scheduler.currentStep >= this.startAt) {
             scheduler.unregister(this);
-            this.status = GameObjectState.OUTDATED;
+            this.status = "OUTDATED";
             this.spawn();
         }
     }
@@ -25,6 +25,6 @@ class OnceSpawnerGameObject extends BaseSpawner {
         if (this.sound != null) {
             this.sound.play();
         }
-        Services.get(Services.SCENE).currentScene.addGameObject(this.gameObjectPrototype);
+        Services.get("SCENE").currentScene.addGameObject(this.gameObjectPrototype);
     }
 }

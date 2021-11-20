@@ -1,7 +1,7 @@
 class BlueBulletGameObject extends BulletGameObject {
     constructor(partition, direction) {
         // Paramétrage des bullets 
-        super(Services.get(Services.ASSET).get("Images/bluebullet.png"), new Vec2(32), partition, direction, 450, 200);
+        super(Services.get("ASSET").get("Images/bluebullet.png"), new Vec2(32), partition, direction, 450, 200);
         this.dieCommand.addCommand(new PopCommand(this, new BlueExplosionGameObject()));
     }
 
@@ -21,7 +21,7 @@ class WeaponBlueBulletGameObject extends BlueBulletGameObject {
         let pt1Abscisse = this.angle > Math.PI / 2 || this.angle < 3 * Math.PI / 2 ? -100 : 100;
         let pt0 = new Vec2(this.playerShip.position.x + this.playerShip.size.x / 2 + this.offset.x, this.playerShip.position.y + this.playerShip.size.y / 2 + this.offset.y);
         let pt1 = new Vec2(pt0.x + 50 * (Math.random() - 0.5), pt0.y + pt1Abscisse * (Math.random() - 0.5));
-        let pt2 = new Vec2(pt0.x + Services.get(Services.SCREEN).width * Math.cos(this.angle), pt0.y +  Services.get(Services.SCREEN).width * Math.sin(this.angle));
+        let pt2 = new Vec2(pt0.x + Services.get("SCREEN").width * Math.cos(this.angle), pt0.y +  Services.get("SCREEN").width * Math.sin(this.angle));
         this.moveStrategy = new BezierApexMoveStrategy(this, new BezierCurve(1.2, [ pt0, pt1, pt2 ]))
     }
 

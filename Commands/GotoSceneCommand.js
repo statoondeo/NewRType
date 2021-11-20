@@ -11,7 +11,7 @@ class GotoSceneCommand extends BaseCommand {
 
     execute() {
         if (this.canExecute) {
-            Services.get(Services.SCENE).setCurrent(this.targetScene, this.start);
+            Services.get("SCENE").setCurrent(this.targetScene, this.start);
         }
     }
 }

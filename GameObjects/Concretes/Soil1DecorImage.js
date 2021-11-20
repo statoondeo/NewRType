@@ -1,6 +1,6 @@
 class Soil1DecorImage {
     static createInstance() {
-        let resources = Services.get(Services.ASSET);
+        let resources = Services.get("ASSET");
 
         let soil1 = resources.get("Images/soil1.png")
         let soil2 = resources.get("Images/soil2.png")
@@ -41,14 +41,5 @@ class Soil1DecorImage {
         imageAssembler.assemble();
 
         return imageAssembler.getAssembledImage();
-    }
-
-    static instance = null;
-
-    static getInstance() {
-        if (Soil1DecorImage.instance == null) {
-            Soil1DecorImage.instance = Soil1DecorImage.createInstance();
-        }
-        return Soil1DecorImage.instance;
     }
 }

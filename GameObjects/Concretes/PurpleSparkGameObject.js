@@ -1,6 +1,6 @@
 class PurpleSparkGameObject extends SparkGameObject {
     constructor() {
-        super(Services.get(Services.ASSET).get("Images/purplespark.png"));
+        super(Services.get("ASSET").get("Images/purplespark.png"));
     }
                             
     getClone() {

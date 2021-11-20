@@ -6,7 +6,7 @@ class DecorsGameObject extends GameObject {
         this.startAt = startAt;
         this.initialPosition = initialPosition;
         this.layer = layer;
-        this.status = GameObjectState.IDLE;
+        this.status = "IDLE";
         this.sprite = new Sprite(image);
         this.sprite.speed = layer * sceneSpeed;
         this.sprite.moveStrategy = new UniformMoveStrategy(this.sprite, new Vec2(-1, 0));
@@ -17,7 +17,7 @@ class DecorsGameObject extends GameObject {
     
     subjectChanged(scheduler) {
         if (scheduler.currentStep >= this.startAt) {
-            this.status = GameObjectState.ACTIVE;
+            this.status = "ACTIVE";
             this.sprite.position.x = this.initialPosition.x;
             this.sprite.position.y = this.initialPosition.y;
             scheduler.unregister(this);
@@ -28,7 +28,7 @@ class DecorsGameObject extends GameObject {
         super.update(dt);
         this.sprite.update(dt);
         if (Tools.isOutOfScreen(this.sprite.position, this.sprite.size)) {
-            this.status = GameObjectState.OUTDATED;
+            this.status = "OUTDATED";
         }
     }
 

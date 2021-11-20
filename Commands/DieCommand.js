@@ -9,7 +9,7 @@ class DieCommand extends BaseCommand {
 
     execute() {
         if (this.canExecute) {
-            this.gameObject.status = GameObjectState.OUTDATED;
+            this.gameObject.status = "OUTDATED";
         }
     }
 }

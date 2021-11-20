@@ -10,7 +10,7 @@ class SpeedBonusCommand extends BaseCommand {
 
     execute() {
         if (this.canExecute) {
-            Services.get(Services.ASSET).get("Sounds/Correct_06_wav.wav").play();
+            Services.get("ASSET").get("Sounds/Correct_06_wav.wav").play();
             this.gameObject.speed += this.speedBonus;
         }
     }

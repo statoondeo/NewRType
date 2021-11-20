@@ -1,9 +1,9 @@
 class ExplosionGameObject extends AnimatedSprite {
     constructor(image, size, speed = 15) {
         super(image, size)
-        this.type = GameObjectType.NONE;
-        this.partition = GameObjectPartition.NEUTRAL_PARTITION;
-        this.status = GameObjectState.IDLE;
+        this.type = "NONE";
+        this.partition = "NEUTRAL_PARTITION";
+        this.status = "IDLE";
         this.layer = 0.99;
         this.speed = speed;
         let animationTable = [0, 4, 7, 6, 5, 4, 3, 2, 1, 0];
@@ -16,7 +16,7 @@ class ExplosionGameObject extends AnimatedSprite {
         super.update(dt);
         this.totalTtl -= dt;
         if (this.totalTtl <= 0) {
-            this.status = GameObjectState.OUTDATED;
+            this.status = "OUTDATED";
         }
     }
 }

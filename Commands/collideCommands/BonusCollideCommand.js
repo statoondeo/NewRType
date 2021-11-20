@@ -1,7 +1,7 @@
 class SpeedBonusCollideCommand extends BaseCommand {
     constructor(gameObject) {
         super(gameObject);
-        this.sound = Services.get(Services.ASSET).get("Sounds/Click_Digital_10_wav.wav");
+        this.sound = Services.get("ASSET").get("Sounds/Click_Digital_10_wav.wav");
     }
 
     getClone(gameObject) {
@@ -9,13 +9,13 @@ class SpeedBonusCollideCommand extends BaseCommand {
     }
 
     execute(otherGameObject) {
-        if (this.canExecute && otherGameObject.type == GameObjectType.SHIP) {
+        if (this.canExecute && otherGameObject.type == "SHIP") {
             this.canExecute = false;
             this.sound.play();
             // On donne une moveStrategy au bonus
 
             let pt0 = this.gameObject.position;
-            let pt3 = Services.get(Services.SCENE).currentScene.playerShip.hud.getNextSpeedBonusPosition();
+            let pt3 = Services.get("SCENE").currentScene.playerShip.hud.getNextSpeedBonusPosition();
             pt3.x -= this.gameObject.size.x / 2 - 16;
             pt3.y -= this.gameObject.size.y / 2 - 16 ;
 
@@ -27,7 +27,7 @@ class SpeedBonusCollideCommand extends BaseCommand {
 class WeaponBonusCollideCommand extends BaseCommand {
     constructor(gameObject) {
         super(gameObject);
-        this.sound = new SoundPool(Services.get(Services.ASSET).get("Sounds/Click_Digital_10_wav.wav"), 5);
+        this.sound = new SoundPool(Services.get("ASSET").get("Sounds/Click_Digital_10_wav.wav"), 5);
     }
 
     getClone(gameObject) {
@@ -35,13 +35,13 @@ class WeaponBonusCollideCommand extends BaseCommand {
     }
 
     execute(otherGameObject) {
-        if (this.canExecute && otherGameObject.type == GameObjectType.SHIP) {
+        if (this.canExecute && otherGameObject.type == "SHIP") {
             this.canExecute = false;
             this.sound.play();
             // On donne une moveStrategy au bonus
 
             let pt0 = this.gameObject.position;
-            let pt3 = Services.get(Services.SCENE).currentScene.playerShip.hud.getNextWeaponBonusPosition();
+            let pt3 = Services.get("SCENE").currentScene.playerShip.hud.getNextWeaponBonusPosition();
             pt3.x -= this.gameObject.size.x / 2 - 16;
             pt3.y -= this.gameObject.size.y / 2 - 16;
 
@@ -53,7 +53,7 @@ class WeaponBonusCollideCommand extends BaseCommand {
 class LifeBonusCollideCommand extends BaseCommand {
     constructor(gameObject) {
         super(gameObject);
-        this.sound = new SoundPool(Services.get(Services.ASSET).get("Sounds/Click_Digital_10_wav.wav"), 5);
+        this.sound = new SoundPool(Services.get("ASSET").get("Sounds/Click_Digital_10_wav.wav"), 5);
     }
 
     getClone(gameObject) {
@@ -61,7 +61,7 @@ class LifeBonusCollideCommand extends BaseCommand {
     }
 
     execute(otherGameObject) {
-        if (this.canExecute && otherGameObject.type == GameObjectType.SHIP) {
+        if (this.canExecute && otherGameObject.type == "SHIP") {
             this.canExecute = false;
             this.sound.play();
 

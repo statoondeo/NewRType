@@ -12,7 +12,7 @@ class PurgePartitionCommand extends BaseCommand {
         if (this.canExecute) {
             this.canExecute = false;
             this.partition.forEach(gameObject => {
-                gameObject.status = GameObjectState.OUTDATED;
+                gameObject.status = "OUTDATED";
             });
         }
     }

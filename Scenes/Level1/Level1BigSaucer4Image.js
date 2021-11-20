@@ -1,6 +1,6 @@
 class Level1BigSaucer4Image {
     static createInstance() {
-        let screen = Services.get(Services.SCREEN);
+        let screen = Services.get("SCREEN");
         let canvas = ImageHandler.createCanvas(screen.width, screen.height);
         let context = canvas.getContext("2d");
 
@@ -20,15 +20,5 @@ class Level1BigSaucer4Image {
         text.draw(context);
 
         return canvas;
-    }
-
-    static instance;
-
-    static getInstance() {
-        if (Level1BigSaucer4Image.instance == null) {
-            Level1BigSaucer4Image.instance = Level1BigSaucer4Image.createInstance();
-        }
-
-        return Level1BigSaucer4Image.instance;
     }
 }

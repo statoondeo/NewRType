@@ -10,8 +10,6 @@ class WeaponPowerUpGameObject extends BonusGameObject {
     getClone() {
         return new WeaponPowerUpGameObject(this.gameObject);
     }
-
-    static size = new Vec2(200);
 }
 class UpdatePlayerHudWeaponCommand extends BaseCommand {
     constructor(gameObject) {

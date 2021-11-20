@@ -1,17 +1,20 @@
-class Services {
-    static SCREEN = 0;
-    static ASSET = 1;
-    static INPUT = 2;
-    static SCENE = 3;
-    static PARAMETER = 4;
-    static AUDIO = 5;
+class ServicesLocator {
+    // static SCREEN = 0;
+    // static ASSET = 1;
+    // static INPUT = 2;
+    // static SCENE = 3;
+    // static PARAMETER = 4;
+    // static AUDIO = 5;
 
-    static services = [];
+    constructor() {
+        this.services = [];
+    }
 
-    static register(serviceType, service) {
+    register(serviceType, service) {
         this.services[serviceType] = service;
     }
-    static get(serviceType) {
+
+    get(serviceType) {
         return this.services[serviceType];
     }   
 }

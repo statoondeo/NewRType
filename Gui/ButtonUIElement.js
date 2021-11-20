@@ -1,15 +1,14 @@
 class ButtonUIElement extends UIElement {
-    static size = new Vec2(321, 109);
     constructor(label, command) {
         super();
         this.command = command;
-        this.sprite = new Sprite(Services.get(Services.ASSET).get("Images/Gui/button.png"));
+        this.sprite = new Sprite(Services.get("ASSET").get("Images/Gui/button.png"));
         this.position = this.sprite.position;
         this.size = this.sprite.size;
         this.collideBox = new RectCollideBox(this.position, this.size);
         this.textUIElement = new TextUIElement(label, "black", "bold 24pt neuropol");
-        this.hoverSound = new SoundPool(Services.get(Services.ASSET).get("Sounds/Hover_Digital_06_wav.wav"), 10);
-        this.clickSound = Services.get(Services.ASSET).get("Sounds/Click_Digital_06_wav.wav");
+        this.hoverSound = new SoundPool(Services.get("ASSET").get("Sounds/Hover_Digital_06_wav.wav"), 10);
+        this.clickSound = Services.get("ASSET").get("Sounds/Click_Digital_06_wav.wav");
         this.previouslyHover = this.hover = false;
     }
 
@@ -33,7 +32,7 @@ class ButtonUIElement extends UIElement {
         this.textUIElement.position.x = this.position.x + (this.size.x - this.textUIElement.size.x) / 2;
         this.textUIElement.position.y = this.position.y + this.size.y * 0.3;
 
-        let inputHandler = Services.get(Services.INPUT);
+        let inputHandler = Services.get("INPUT");
         this.previouslyHover = this.hover;
         this.hover = this.visibility && Collider.isPointInRectangle(inputHandler.mouse, this.collideBox);
         if (this.hover) {

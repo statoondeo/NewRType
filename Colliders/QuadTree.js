@@ -4,8 +4,8 @@
 class QuadTree extends RectCollideBox {
     constructor(position, size, level = 0) {
         super(position, size);
-        this.type = CollideBoxType.QUADRANT;
-        this.color = BaseCollideBox.NEUTRAL_COLOR;
+        this.type = "QUADRANT";
+        this.color = "gray";
 
         // Liste des items gérés dans le cas d'une leaf
         // Par défaut on démarre dans cet état
@@ -16,13 +16,14 @@ class QuadTree extends RectCollideBox {
 
         // Niveau de profondeur atteint
         this.level = level;
-    }
     
-    // Limite d'objets dans un quadrant (limite avant de découper)
-    static LengthLimit = 12;
+        // Limite d'objets dans un quadrant (limite avant de découper)
+        const LengthLimit = 12;
 
-    // Limite de profondeur du QuadTree
-    static MaxLevel = 5;
+        // Limite de profondeur du QuadTree
+        const MaxLevel = 5;
+    }
+
 
     getCandidates(collideBox) {
         let candidates = [];
@@ -63,7 +64,7 @@ class QuadTree extends RectCollideBox {
 
             // Est-ce qu'il faut partitionner le quadrant? et est-ce que c'est encore faisable?
             // Sinon cette se remplira sans se diviser
-            if (this.items.length > QuadTree.LengthLimit && this.level < QuadTree.MaxLevel) {
+            if (this.items.length > this.LengthLimit && this.level < this.MaxLevel) {
 
                 // Découpage en sous-quadrants
                 this.setPartition();

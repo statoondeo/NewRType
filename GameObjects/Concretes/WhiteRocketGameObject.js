@@ -1,7 +1,7 @@
 class WhiteRocketGameObject extends RocketGameObject {
     constructor(partition, direction) {
         // Paramétrage des bullets 
-        super(Services.get(Services.ASSET).get("Images/rocket.png"), new Vec2(32), partition, direction, 500, 200);
+        super(Services.get("ASSET").get("Images/rocket.png"), new Vec2(32), partition, direction, 500, 200);
         this.dieCommand.addCommand(new PopCommand(this, new RedExplosionGameObject()));
     }
                 

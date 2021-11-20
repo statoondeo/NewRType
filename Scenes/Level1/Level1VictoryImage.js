@@ -1,6 +1,6 @@
 class Level1VictoryImage {
     static createInstance() {
-        let screen = Services.get(Services.SCREEN);
+        let screen = Services.get("SCREEN");
         let canvas = ImageHandler.createCanvas(screen.width, screen.height);
         let context = canvas.getContext("2d");
 
@@ -39,15 +39,5 @@ class Level1VictoryImage {
         text.draw(context);
 
         return canvas;
-    }
-
-    static instance;
-
-    static getInstance() {
-        if (Level1VictoryImage.instance == null) {
-            Level1VictoryImage.instance = Level1VictoryImage.createInstance();
-        }
-
-        return Level1VictoryImage.instance;
     }
 }

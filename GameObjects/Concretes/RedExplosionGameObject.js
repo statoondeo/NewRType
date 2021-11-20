@@ -1,6 +1,6 @@
 class RedExplosionGameObject extends ExplosionGameObject {
     constructor(speed = 15) {
-        super(Services.get(Services.ASSET).get("Images/redspark.png"), new Vec2(100), speed);
+        super(Services.get("ASSET").get("Images/redspark.png"), new Vec2(100), speed);
     }
     
     getClone() {
@@ -9,7 +9,7 @@ class RedExplosionGameObject extends ExplosionGameObject {
 }
 class PurpleExplosionGameObject extends ExplosionGameObject {
     constructor(speed = 15) {
-        super(Services.get(Services.ASSET).get("Images/purplespark.png"), new Vec2(100), speed);
+        super(Services.get("ASSET").get("Images/purplespark.png"), new Vec2(100), speed);
     }
     
     getClone() {
@@ -18,7 +18,7 @@ class PurpleExplosionGameObject extends ExplosionGameObject {
 }
 class MediumPurpleExplosionGameObject extends ExplosionGameObject {
     constructor(speed = 30) {
-        super(ImageHandler.zoomImage(Services.get(Services.ASSET).get("Images/purplespark.png"), new Vec2(2)), new Vec2(200), speed);
+        super(ImageHandler.zoomImage(Services.get("ASSET").get("Images/purplespark.png"), new Vec2(2)), new Vec2(200), speed);
     }
     
     getClone() {

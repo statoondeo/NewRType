@@ -5,10 +5,10 @@ class OnceLayer extends GameObject {
     constructor(layer, sceneSpeed, image, startAt, direction) {
         super();
 
-        this.partition = GameObjectPartition.NEUTRAL_PARTITION;
+        this.partition = "NEUTRAL_PARTITION";
         this.layer = layer;
         this.startAt = startAt;
-        this.status = GameObjectState.IDLE;
+        this.status = "IDLE";
 
         this.sprite = new Sprite(image);
         this.sprite.speed = layer * sceneSpeed;
@@ -17,8 +17,8 @@ class OnceLayer extends GameObject {
     
     subjectChanged(scheduler) {
         if (scheduler.currentStep >= this.startAt) {
-            this.status = GameObjectState.ACTIVE;
-            this.sprite.position.x = Services.get(Services.SCREEN).width;
+            this.status = "ACTIVE";
+            this.sprite.position.x = Services.get("SCREEN").width;
             this.sprite.position.y = 0;
             scheduler.unregister(this);
         }
@@ -28,7 +28,7 @@ class OnceLayer extends GameObject {
         super.update(dt);
         this.sprite.update(dt);
         if (Tools.isOutOfScreen(this.sprite.position, this.sprite.size)) {
-            this.status = GameObjectState.OUTDATED;
+            this.status = "OUTDATED";
         }
     }
 
