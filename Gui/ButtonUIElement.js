@@ -7,8 +7,8 @@ class ButtonUIElement extends UIElement {
         this.size = this.sprite.size;
         this.collideBox = new RectCollideBox(this.position, this.size);
         this.textUIElement = new TextUIElement(label, "black", "bold 24pt neuropol");
-        this.hoverSound = new SoundPool(Services.get("ASSET").get("Sounds/Hover_Digital_06_wav.wav"), 10);
-        this.clickSound = Services.get("ASSET").get("Sounds/Click_Digital_06_wav.wav");
+        this.hoverSound = Services.get("AUDIO")["Sounds/Hover_Digital_06_wav.wav"];
+        this.clickSound = Services.get("AUDIO")["Sounds/Click_Digital_06_wav.wav"];
         this.previouslyHover = this.hover = false;
     }
 
@@ -40,6 +40,7 @@ class ButtonUIElement extends UIElement {
                 this.hoverSound.play();
             }
             if (inputHandler.isClicked()) {
+                this.clickSound.play();
                 this.command.execute();
             }
         }

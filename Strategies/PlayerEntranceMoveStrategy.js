@@ -27,7 +27,7 @@ class PlayerEntranceMoveStrategy extends BezierApexMoveStrategy {
 
         if (!this.started && this.curve.curves[0].isEnded()) {
             this.started = true;
-            Services.get("ASSET").get("Sounds/Stinger_v2_wav.wav").play();
+            Services.get("AUDIO")["Sounds/Stinger_v2_wav.wav"].play();
         }
 
         if (this.curve.isEnded()) {

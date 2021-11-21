@@ -10,7 +10,7 @@ class LifeBonusCommand extends BaseCommand {
 
     execute() {
         if (this.canExecute) {
-            Services.get("ASSET").get("Sounds/Correct_06_wav.wav").play();
+            Services.get("AUDIO")["Sounds/Correct_06_wav.wav"].play();
             this.gameObject.life += this.lifeBonus;
             this.gameObject.life = Tools.clamp(this.gameObject.life, 0, this.gameObject.maxLife);
         }

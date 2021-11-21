@@ -141,7 +141,7 @@ class Level1Scene extends BaseScene {
         
         // Passage de Big Saucer
         let bigSaucer = new BigSaucerGameObject(playerShip);
-        this.addSynchronizedGameObject(new OnceSpawnerGameObject(bigSaucer, 6600, new Vec2(), resources.get("Sounds/Tense_01_wav.wav")));
+        this.addSynchronizedGameObject(new OnceSpawnerGameObject(bigSaucer, 6600, new Vec2(), Services.get("AUDIO")["Sounds/Tense_01_wav.wav"]));
         this.addGameObject(bigSaucer.flashLayer);
 
         // Narration : Big Saucer
@@ -209,7 +209,7 @@ class Level1Scene extends BaseScene {
         bigSaucer.dieCommand.addCommand(new StopSchedulerCommand(playerShip, this.scheduler));
         bigSaucer.dieCommand.addCommand(new SwitchMusicCommand(this, resources.get("Musics/alexander-nakarada-we-are-victorious-finale.mp3")));
 
-        this.addSynchronizedGameObject(new OnceSpawnerGameObject(bigSaucer, 17700, new Vec2(), resources.get("Sounds/Tense_01_wav.wav")));
+        this.addSynchronizedGameObject(new OnceSpawnerGameObject(bigSaucer, 17700, new Vec2(), Services.get("AUDIO")["Sounds/Tense_01_wav.wav"]));
         this.addGameObject(bigSaucer.flashLayer);
  
         // // Démarrage de la musique

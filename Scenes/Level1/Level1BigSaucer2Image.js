@@ -9,7 +9,7 @@ class Level1BigSaucer2Image {
         text.position.y = 100;
         text.draw(context);
 
-        text = new TextUIElement("Immonde vermiceau!", "white", "bold 18pt neuropol");
+        text = new TextUIElement("Immonde vermisseau!", "white", "bold 18pt neuropol");
         text.position.x = 100;
         text.position.y = 215;
         text.draw(context);

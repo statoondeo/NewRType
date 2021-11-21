@@ -144,6 +144,7 @@ function load(canvas) {
     assetLoader.add("SOUND", "Sounds/Hover_Digital_06_wav.wav");
     assetLoader.add("SOUND", "Sounds/Click_Digital_10_wav.wav");
     assetLoader.add("SOUND", "Sounds/Stinger_v2_wav.wav");
+    assetLoader.add("SOUND", "Sounds/Suspicious_01_wav.wav");
 
     assetLoader.add("SOUND", "Musics/bensound-highoctane.mp3");
     assetLoader.add("SOUND", "Musics/bensound-scifi.mp3");

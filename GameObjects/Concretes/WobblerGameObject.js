@@ -5,11 +5,11 @@ class WobblerGameObject extends EnemyShipGameObject {
         this.moveStrategy = new BezierApexMoveStrategy(this, new WobblerCurve());
         let bullet = new GreenBulletGameObject(this);
         bullet.moveStrategy = new PlayerAimedUniformMoveStrategy(bullet, this, this.playerShip);
-        this.fireCommand = new AsapFireCommand(new FireRatedFireCommand(this, bullet, new Vec2(), Math.random() * 2 + 2, new SoundPool(Services.get("ASSET").get("Sounds/laser4.mp3"), 10)));
+        this.fireCommand = new AsapFireCommand(new FireRatedFireCommand(this, bullet, new Vec2(), Math.random() * 2 + 2, Services.get("AUDIO")["Sounds/laser4.mp3"]));
         this.addAnimation(new Animation("IDLE", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], 60 / 1000, true));
         this.startAnimation("IDLE", 0);
-        this.sound = new SoundPool(Services.get("ASSET").get("Sounds/Rifle_v1_variation_02_wav.wav"), 2);
-        this.dieCommand.addCommand(new PlaySoundCommand(Services.get("ASSET").get("Sounds/Explosion_Sci_Fi_03_variation_02_wav.wav").cloneNode()));
+        this.sound = Services.get("AUDIO")["Sounds/Rifle_v1_variation_02_wav.wav"];
+        this.dieCommand.addCommand(new PlaySoundCommand(Services.get("AUDIO")["Sounds/Explosion_Sci_Fi_03_variation_02_wav.wav"]));
     }
                 
     getClone() {

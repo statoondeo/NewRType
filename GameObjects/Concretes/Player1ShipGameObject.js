@@ -12,7 +12,7 @@ class Player1ShipGameObject extends PlayerShipGameObject {
         context.fillStyle = "white";
         context.fillRect(0, 0, screen.width, screen.height);
         this.flashLayer = new FlashingLayer(canvas);
-        this.damageSound = new SoundPool(Services.get("ASSET").get("Sounds/Explosion_Sci_Fi_03_wav.wav"), 5);
+        this.damageSound = Services.get("AUDIO")["Sounds/Explosion_Sci_Fi_03_wav.wav"];
 
         this.shieldSprite = new Sprite(Services.get("ASSET").get("Images/shield.png"));
         this.invincible = false;

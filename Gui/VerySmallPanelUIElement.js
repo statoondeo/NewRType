@@ -6,11 +6,11 @@ class BaseVerySmallPanelUIElement extends PanelUIElement {
 }
 class VerySmallPanelUIElement extends BaseVerySmallPanelUIElement {
     constructor(position, visibility) {
-        super(position, visibility, Services.get("ASSET").get("Images/Gui/verySmallPanel.png"), Services.get("ASSET").get("Sounds/Digital_panel_v1_variation_01_wav.wav"));
+        super(position, visibility, Services.get("ASSET").get("Images/Gui/verySmallPanel.png"), Services.get("AUDIO")["Sounds/Digital_panel_v1_variation_01_wav.wav"]);
     }
 }
 class RedVerySmallPanelUIElement extends BaseVerySmallPanelUIElement {
     constructor(position, visibility) {
-        super(position, visibility, Services.get("ASSET").get("Images/Gui/verySmallPanel2.png"), Services.get("ASSET").get("Sounds/Digital_panel_v1_variation_02_wav.wav"));
+        super(position, visibility, Services.get("ASSET").get("Images/Gui/verySmallPanel2.png"), Services.get("AUDIO")["Sounds/Digital_panel_v1_variation_02_wav.wav"]);
     }
 }

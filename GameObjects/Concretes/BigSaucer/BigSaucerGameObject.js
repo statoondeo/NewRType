@@ -32,8 +32,8 @@ class BigSaucerGameObject extends EnemyShipGameObject {
 
         // Animation de mort
         this.dieCommand.addCommand(new PopCommand(this, new ParticlesMediumExplosionGameObject(this, [ new GiantRedExplosionGameObject(100), new MediumRedExplosionGameObject(90), new RedExplosionGameObject(80) ])));
-        this.sound = new SoundPool(Services.get("ASSET").get("Sounds/Rifle_v1_variation_02_wav.wav"), 25);
-        this.dieCommand.addCommand(new PlaySoundCommand(Services.get("ASSET").get("Sounds/Explosion_Sci_Fi_03_variation_02_wav.wav").cloneNode()));
+        this.sound = Services.get("AUDIO")["Sounds/Rifle_v1_variation_02_wav.wav"];
+        this.dieCommand.addCommand(new PlaySoundCommand(Services.get("AUDIO")["Sounds/Explosion_Sci_Fi_03_variation_02_wav.wav"]));
 
         // Il spawn des cubes
         this.TimeSequenceSpawnerGameObject = new TimeSequenceSpawnerGameObject(cubePrototype, 0, this, 3, 15);
@@ -65,6 +65,7 @@ class BigSaucerGameObject extends EnemyShipGameObject {
             this.fireCommandUp = true;
             this.fireCommand.weapon.levelUp();
             this.flashLayer.show();
+            Services.get("AUDIO")["Sounds/Suspicious_01_wav.wav"].play();
         }
         this.sound.play();
     }

@@ -24,7 +24,189 @@
         <img id="loaderImage-13" src="Images/Gui/base13.png" style="display: none;" />
         <img id="loaderImage-14" src="Images/Gui/base14.png" style="display: none;" />
 
-        <script src="game.o.js"></script>
+        <script src="Tools/InputListener.js"></script>
+        <script src="Tools/CamShake.js"></script>
+        <script src="Tools/Sound.js"></script>
+        <script src="Tools/AssetLoader.js"></script>
+        <script src="Tools/Easing.js"></script>
+        <script src="Tools/Manager.js"></script>
+        <script src="Tools/Services.js"></script>
+        <script src="Tools/Tools.js"></script>
+        <script src="Tools/Vec2.js"></script>
+        <script src="Tools/ImageHandler.js"></script>
+        <script src="Tools/Parameter.js"></script>
+        <script src="Tools/Schedulers/BaseScheduler.js"></script>
+
+        <script src="Tools/Schedulers/DummyScheduler.js"></script>
+        <script src="Tools/Schedulers/LinearScheduler.js"></script>
+        <script src="Tools/Schedulers/AdaptativeScheduler.js"></script>
+
+        <script src="Weapons/Weapon.js"></script>
+        <script src="Weapons/WeaponFactory.js"></script>
+        <script src="Weapons/WeaponState.js"></script>
+
+        <script src="Colliders/BaseCollideBox.js"></script>
+        <script src="Colliders/CompositeCollideBox.js"></script>
+        <script src="Colliders/CollideBoxType.js"></script>
+        <script src="Colliders/CircleCollideBox.js"></script>
+        <script src="Colliders/RectCollideBox.js"></script>
+        <script src="Colliders/Collider.js"></script>
+        <script src="Colliders/QuadTree.js"></script>
+
+        <script src="GameObjects/GameObject.js"></script>
+        <script src="GameObjects/GameObjectPartition.js"></script>
+        <script src="GameObjects/GameObjectState.js"></script>
+        <script src="GameObjects/GameObjectType.js"></script>
+
+        <script src="GameObjects/Shapes/BaseShape.js"></script>
+        <script src="GameObjects/Shapes/CircleShape.js"></script>
+        <script src="GameObjects/Shapes/RectShape.js"></script>
+
+        <script src="GameObjects/Sprites/Sprite.js"></script>
+        <script src="GameObjects/Sprites/DoubleSprite.js"></script>
+        <script src="GameObjects/Sprites/TailedSprite.js"></script>
+        <script src="GameObjects/Sprites/AnimatedSprite.js"></script>
+        <script src="GameObjects/Sprites/Animation.js"></script>
+
+        <script src="GameObjects/Layers/FadingLayer.js"></script>
+        <script src="GameObjects/Layers/FlashingLayer.js"></script>
+        <script src="GameObjects/Layers/OnceLayer.js"></script>
+        <script src="GameObjects/Layers/RollingLayer.js"></script>
+        <script src="GameObjects/Layers/StaticLayer.js"></script>
+
+        <script src="GameObjects/Misc/DecorsGameObject.js"></script>
+        <script src="GameObjects/Misc/ExplosionGameObject.js"></script>
+        <script src="GameObjects/Misc/BonusGameObject.js"></script>
+        <script src="GameObjects/Misc/BulletGameObject.js"></script>
+        <script src="GameObjects/Misc/PlayerShipGameObject.js"></script>
+        <script src="GameObjects/Misc/EnemyShipGameObject.js"></script>
+        <script src="GameObjects/Misc/SparkGameObject.js"></script>
+        <script src="GameObjects/Misc/RocketGameObject.js"></script>
+        <script src="GameObjects/Misc/Particles.js"></script>
+        <script src="GameObjects/Misc/LifeBarGameObject.js"></script>
+
+        <script src="GameObjects/Spawners/BaseSpawner.js"></script>
+        <script src="GameObjects/Spawners/AllInCircleSpawnerGameObject.js"></script>
+        <script src="GameObjects/Spawners/TimeSequenceSpawnerGameObject.js"></script>
+        <script src="GameObjects/Spawners/OnceSpawnerGameObject.js"></script>
+
+        <script src="Tools/Beziers/BezierCurve.js"></script>
+        <script src="Tools/Beziers/TweenCurve.js"></script>
+        <script src="Tools/Beziers/CompositeCurve.js"></script>
+
+        <script src="Commands/BaseCommand.js"></script>
+        <script src="Commands/SwitchSceneCommand.js"></script>
+        <script src="Commands/GotoSceneCommand.js"></script>
+        <script src="Commands/CompositeCommand.js"></script>
+        <script src="Commands/DealDamageCommand.js"></script>
+        <script src="Commands/DieCommand.js"></script>
+        <script src="Commands/DummyCommand.js"></script>
+        <script src="Commands/FireActionCommand.js"></script>
+        <script src="Commands/MoveCommand.js"></script>
+        <script src="Commands/PopCommand.js"></script>
+        <script src="Commands/PlaySoundCommand.js"></script>
+        <script src="Commands/HidePlayerCommand.js"></script>
+        <script src="Commands/SpeedBonusCommand.js"></script>
+        <script src="Commands/ShowPanelCommand.js"></script>
+        <script src="Commands/StopSchedulerCommand.js"></script>
+        <script src="Commands/SwitchMusicCommand.js"></script>
+        <script src="Commands/WeaponBonusCommand.js"></script>
+        <script src="Commands/LifeBonusCommand.js"></script>
+        <script src="Commands/HidePanelCommand.js"></script>
+        <script src="Commands/PurgePartitionCommand.js"></script>
+        <script src="Commands/CollideCommands/BonusCollideCommand.js"></script>
+        <script src="Commands/CollideCommands/MissileCollideCommand.js"></script>
+        <script src="Commands/CollideCommands/ShipCollideCommand.js"></script>
+        <script src="Commands/CollideCommands/WallCollideCommand.js"></script>
+        <script src="Commands/FireCommands/AsapFireCommand.js"></script>
+        <script src="Commands/FireCommands/FireRatedFireCommand.js"></script>
+        <script src="Commands/WeaponCommands/WeaponFireCommand.js"></script>
+        <script src="Commands/WeaponCommands/BulletCommands/BaseMultiBulletFireCommand.js"></script>
+        <script src="Commands/WeaponCommands/BulletCommands/Level1BulletFireCommand.js"></script>
+        <script src="Commands/WeaponCommands/BulletCommands/Level2BulletFireCommand.js"></script>
+        <script src="Commands/WeaponCommands/BulletCommands/Level3BulletFireCommand.js"></script>
+        <script src="Commands/WeaponCommands/BulletCommands/Level4BulletFireCommand.js"></script>
+        <script src="Commands/WeaponCommands/BulletCommands/Level5BulletFireCommand.js"></script>
+
+        <script src="Strategies/BaseStrategy.js"></script>
+        <script src="Strategies/BaseMoveStrategy.js"></script>
+        <script src="Strategies/BezierApexMoveStrategy.js"></script>
+        <script src="Strategies/PlayerEntranceMoveStrategy.js"></script>
+        <script src="Strategies/DummyMoveStrategy.js"></script>
+        <script src="Strategies/MouseControlledMoveStrategy.js"></script>
+        <script src="Strategies/PlayerControlledMoveStrategy.js"></script>
+        <script src="Strategies/SinWaveMoveStrategy.js"></script>
+        <script src="Strategies/UniformMoveStrategy.js"></script>
+        <script src="Strategies/PlayerAimedUniformMoveStrategy.js"></script>
+
+        <script src="GameObjects/Concretes/AtomGameObject.js"></script>
+        <script src="GameObjects/Concretes/CubeGameObject.js"></script>
+        <script src="GameObjects/Concretes/KlawGameObject.js"></script>
+        <script src="GameObjects/Concretes/RockyDecorImage.js"></script>
+        <script src="GameObjects/Concretes/Soil1DecorImage.js"></script>
+        <script src="GameObjects/Concretes/GreenExplosionGameObject.js"></script>
+        <script src="GameObjects/Concretes/GreenSparkGameObject.js"></script>
+        <script src="GameObjects/Concretes/Background1GameObject.js"></script>
+        <script src="GameObjects/Concretes/BlackStaticBackgroundGameObject.js"></script>
+        <script src="GameObjects/Concretes/Player1ShipGameObject.js"></script>
+        <script src="GameObjects/Concretes/Player2ShipGameObject.js"></script>
+        <script src="GameObjects/Concretes/BlueBulletGameObject.js"></script>
+        <script src="GameObjects/Concretes/GreenBulletGameObject.js"></script>
+        <script src="GameObjects/Concretes/RedBulletGameObject.js"></script>
+        <script src="GameObjects/Concretes/StarknifeGameObject.js"></script>
+        <script src="GameObjects/Concretes/WobblerGameObject.js"></script>
+        <script src="GameObjects/Concretes/BlueSparkGameObject.js"></script>
+        <script src="GameObjects/Concretes/BlueExplosionGameObject.js"></script>
+        <script src="GameObjects/Concretes/SpeedPowerUpGameObject.js"></script>
+        <script src="GameObjects/Concretes/SpeedUpGameObject.js"></script>
+        <script src="GameObjects/Concretes/WeaponUpGameObject.js"></script>
+        <script src="GameObjects/Concretes/LifePowerUpGameObject.js"></script>
+        <script src="GameObjects/Concretes/LifeUpGameObject.js"></script>
+        <script src="GameObjects/Concretes/WeaponPowerUpGameObject.js"></script>
+        <script src="GameObjects/Concretes/RedExplosionGameObject.js"></script>
+        <script src="GameObjects/Concretes/MediumRedExplosionGameObject.js"></script>
+        <script src="GameObjects/Concretes/RedSparkGameObject.js"></script>
+        <script src="GameObjects/Concretes/PurpleSparkGameObject.js"></script>
+        <script src="GameObjects/Concretes/WhiteRocketGameObject.js"></script>
+        <script src="GameObjects/Concretes/BigSaucer/BigSaucerBulletWave.js"></script>
+        <script src="GameObjects/Concretes/BigSaucer/BigSaucerCollideBox.js"></script>
+        <script src="GameObjects/Concretes/BigSaucer/BigSaucerComingOutApex.js"></script>
+        <script src="GameObjects/Concretes/BigSaucer/BigSaucerFinalApex.js"></script>
+        <script src="GameObjects/Concretes/BigSaucer/BigSaucerGameObject.js"></script>
+
+        <script src="Scenes/BaseScene.js"></script>
+        <script src="Scenes/SceneManager.js"></script>
+        <script src="Scenes/MainMenu/MainMenuRareoyArdeasImage.js"></script>
+        <script src="Scenes/MainMenu/MainMenuBigSaucerImage.js"></script>
+        <script src="Scenes/MainMenu/MainMenuPanelImage.js"></script>
+        <script src="Scenes/MainMenu/MenuScene.js"></script>
+        <script src="Scenes/Level1/Level1BigSaucer1Image.js"></script>
+        <script src="Scenes/Level1/Level1BigSaucer2Image.js"></script>
+        <script src="Scenes/Level1/Level1BigSaucer3Image.js"></script>
+        <script src="Scenes/Level1/Level1BigSaucer4Image.js"></script>
+        <script src="Scenes/Level1/Level1RareoyArdeas1Image.js"></script>
+        <script src="Scenes/Level1/Level1DefeatedImage.js"></script>
+        <script src="Scenes/Level1/Level1VictoryImage.js"></script>
+        <script src="Scenes/Level1/Level1TitleImage.js"></script>
+        <script src="Scenes/Level1/Level1Scene.js"></script>
+
+        <script src="Gui/UIElement.js"></script>
+        <script src="Gui/UIElementDecorator.js"></script>
+        <script src="Gui/TextUIElement.js"></script>
+        <script src="Gui/SpriteUIElement.js"></script>
+        <script src="Gui/PanelUIElement.js"></script>
+        <script src="Gui/BasePanelUIElementDecorator.js"></script>
+        <script src="Gui/BigPanelUIElement.js"></script>
+        <script src="Gui/ButtonUIElement.js"></script>
+        <script src="Gui/DelayablePanelUIElementDecorator.js"></script>
+        <script src="Gui/MiniaturePanelUIElementDecorator.js"></script>
+        <script src="Gui/SmallPanelUIElement.js"></script>
+        <script src="Gui/StartableUIElementDecorator.js"></script>
+        <script src="Gui/VerySmallPanelUIElement.js"></script>
+        <script src="Gui/HUDPanelUIElement.js"></script>
+
+        <script src="Games/Game.js"></script>
+        <script src="Games/Main.js"></script>
         <script>
             window.onload = function () { window.focus(); } ;
             window.onclick = function () { window.focus(); };
