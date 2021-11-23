@@ -18,10 +18,10 @@ class QuadTree extends RectCollideBox {
         this.level = level;
     
         // Limite d'objets dans un quadrant (limite avant de découper)
-        const LengthLimit = 12;
+        this.LengthLimit = 12;
 
         // Limite de profondeur du QuadTree
-        const MaxLevel = 5;
+        this.MaxLevel = 5;
     }
 
 
