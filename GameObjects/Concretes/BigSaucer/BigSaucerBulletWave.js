@@ -53,8 +53,8 @@ class BigSaucerGunWave extends BaseCommand {
         this.spawnNumber = 2;
         this.deltaAngle = 2 * Math.PI / this.spawnNumber;
         this.angle = 0;
-        this.angleSpeed = 200;
-        this.ttl = this.maxTtl = 0.075;
+        this.angleSpeed = 150;
+        this.ttl = this.maxTtl = 0.05;
         this.sound = Services.get("AUDIO")["Sounds/laser1.mp3"];
     }
 
@@ -82,7 +82,7 @@ class BigSaucerGunWave extends BaseCommand {
                 
                 // On lui donne une direction qui s'éloigne du point d'apparition
                 newShip.moveStrategy = new UniformMoveStrategy(newShip, new Vec2(Math.cos(this.angle + this.deltaAngle * index), Math.sin(this.angle + this.deltaAngle * index)));
-                newShip.speed = 250;
+                newShip.speed = 200;
 
                 // On l'ajoute à la liste des gameObjects de la scene
                 Services.get("SCENE").currentScene.addGameObject(newShip);

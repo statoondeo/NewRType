@@ -181,7 +181,7 @@ class Level1Scene extends BaseScene {
         panel = new StartableUIElementDecorator(panel, 17000, 17600);
         this.addSynchronizedGameObject(panel); 
 
-        // // Boss
+        // Boss
         // Ecran de victoire
         let victoryPanel = new BlueBigPanelUIElement(new Vec2(), false);
         victoryPanel.addElement(new SpriteUIElement(Level1VictoryImage.createInstance()));

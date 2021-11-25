@@ -1,7 +1,5 @@
 
 class BigSaucerGameObject extends EnemyShipGameObject {
-
-
     constructor(playerShip, cubePrototype = new CubeGameObject(playerShip)) {
         // Paramétrage du vaisseau ennemi
         super(Services.get("ASSET").get("Images/bigsaucer.png"), new Vec2(256, 96), 120000, 0, Services.get("ASSET").get("Images/bigsaucer2.png"))
@@ -66,6 +64,15 @@ class BigSaucerGameObject extends EnemyShipGameObject {
             this.fireCommand.weapon.levelUp();
             this.flashLayer.show();
             Services.get("AUDIO")["Sounds/Suspicious_01_wav.wav"].play();
+            // Changement de la trajectoire finale
+            let screen = Services.get("SCREEN");
+            let curve = new TweenCurve(2, this.position, new Vec2((screen.width - this.size.x) / 2, (screen.height - this.size.y) / 2), Easing.easeInOutCubic);
+            let finalCurve = new CompositeCurve(false);
+            finalCurve.addCurve(curve);
+            let finalLoop = new CompositeCurve(true);
+            finalLoop.addCurve(new TweenCurve(3, new Vec2((screen.width - this.size.x) / 2 - 1, (screen.height - this.size.y) / 2 - 1), new Vec2((screen.width - this.size.x) / 2 + 1, (screen.height - this.size.y) / 2 + 1), Easing.easeInOutCubic));
+            finalCurve.addCurve(finalLoop);
+            this.moveStrategy = new BezierApexMoveStrategy(this, finalCurve);
         }
         this.sound.play();
     }

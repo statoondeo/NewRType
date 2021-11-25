@@ -26,19 +26,20 @@ function keyUpEventListener(key) {
 
 function mouseMoveEventListener(event) {
     event.preventDefault();
-    // event.stopPropagation();
+    mouseX = event.clientX;
+    mouseY = event.clientY;
     Services.get("INPUT").mouseMove(event.clientX, event.clientY);
 }
 
 function mouseDownEventListener(event) {
     event.preventDefault();
-    // event.stopPropagation();
+    click = true;
     Services.get("INPUT").mouseDown();
 }
 
 function mouseUpEventListener(event) {
     event.preventDefault();
-    // event.stopPropagation();
+    click = false;
     Services.get("INPUT").mouseUp();
 }
 
